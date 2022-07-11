@@ -77,6 +77,10 @@ class DemoApplicationTests {
 		println("${coffee.brand} {coffee.name} 가격은 ${coffee.price}")
 		coffee.quantity = 100
 		println(coffee.quantity)
+		coffee.iced = true
+		if (coffee.iced) {
+			println("iced coffee")
+		}
 	}
 
 }
@@ -97,6 +101,7 @@ class Coffee(
 	// trailing comma
 	var name: String = "",
 	var price: Int = 0,
+	var iced: Boolean = false
 	) {
 	val brand: String
 		//get() = "스타벅스"
