@@ -33,6 +33,25 @@ class DemoApplicationTests {
 			else -> "ETC"
 		}
 		println(result)
+
+		when(getColor()) {
+			Color.RED -> println("red")
+			Color.GREEN -> println("green")
+			else -> println("blue")
+		}
+
+		when (getNumber()) {
+			0, 1 -> println("0 or 1")
+			else -> println("not 0 and 1")
+		}
 	}
 
 }
+
+enum class Color {
+	RED, GREEN
+}
+
+fun getColor() = Color.RED
+
+fun getNumber() = 2
