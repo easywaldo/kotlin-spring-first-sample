@@ -10,4 +10,12 @@ class DemoApplicationTests {
 	fun contextLoads() {
 	}
 
+	@Test
+	fun `syntax test`() {
+		// null safety
+		val nullableStr: String? = null
+		val nullableStrLength = nullableStr?.length ?: "null 인 경우 반환".length
+		assert(nullableStrLength > 0)
+	}
+
 }
