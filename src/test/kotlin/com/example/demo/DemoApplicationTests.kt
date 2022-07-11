@@ -75,7 +75,8 @@ class DemoApplicationTests {
 		coffee.price = 6000
 
 		println("${coffee.brand} {coffee.name} 가격은 ${coffee.price}")
-
+		coffee.quantity = 100
+		println(coffee.quantity)
 	}
 
 }
@@ -101,6 +102,12 @@ class Coffee(
 		//get() = "스타벅스"
 		get() {
 			return "스타벅스"
+		}
+	var quantity: Int = 0
+		set(value) {
+			if (value > 0) {
+				field = value
+			}
 		}
 }
 
