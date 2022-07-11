@@ -65,6 +65,11 @@ class DemoApplicationTests {
 		for (i in numbers) {
 			println(i)
 		}
+
+		val b: String? = null
+		val c = b ?: failFast("a is null")
+		println(c.length)
+
 	}
 
 }
@@ -76,3 +81,7 @@ enum class Color {
 fun getColor() = Color.RED
 
 fun getNumber() = 2
+
+fun failFast(message: String): Nothing {
+	throw IllegalArgumentException(message)
+}
