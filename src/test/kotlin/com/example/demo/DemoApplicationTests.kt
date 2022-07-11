@@ -66,9 +66,15 @@ class DemoApplicationTests {
 			println(i)
 		}
 
-		val b: String? = null
+		val b: String? = "kotlin"
 		val c = b ?: failFast("a is null")
 		println(c.length)
+
+		val coffee = Coffee()
+		coffee.name = "아이스 아메리카노"
+		coffee.price = 6000
+
+		println("${coffee.brand} {coffee.name} 가격은 ${coffee.price}")
 
 	}
 
@@ -85,3 +91,19 @@ fun getNumber() = 2
 fun failFast(message: String): Nothing {
 	throw IllegalArgumentException(message)
 }
+
+class Coffee(
+	// trailing comma
+	var name: String = "",
+	var price: Int = 0,
+	) {
+	val brand: String
+		//get() = "스타벅스"
+		get() {
+			return "스타벅스"
+		}
+}
+
+
+class EmptyClass
+
