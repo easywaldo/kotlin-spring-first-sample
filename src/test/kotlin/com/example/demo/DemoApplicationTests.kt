@@ -25,6 +25,14 @@ class DemoApplicationTests {
 		}
 		println(str)
 
+		val day = 2
+		val result = when (day) {
+			1 -> "월요일"
+			2 -> "화요일"
+			3 -> "수요일"
+			else -> "ETC"
+		}
+		println(result)
 	}
 
 }
