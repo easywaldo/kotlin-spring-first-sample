@@ -15,6 +15,10 @@ class InheritTest {
         val childDog = ChildBuldog()
         childDog.age = 3
         childDog.bark()
+
+        val backendDeveloper = BackendDeveloper(age = 41)
+        println(backendDeveloper.age)
+        backendDeveloper.code("Kotlin")
     }
 }
 
@@ -35,5 +39,16 @@ class ChildBuldog : Buldog() {
     override var age: Int = 0
     override fun bark() {
         super.bark()
+    }
+}
+
+abstract class Developer {
+    abstract var age: Int
+    abstract fun code(language: String)
+}
+
+class BackendDeveloper(override var age: Int) : Developer() {
+    override fun code(language: String) {
+        println("I code with $language")
     }
 }
