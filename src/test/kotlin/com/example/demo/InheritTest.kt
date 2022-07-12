@@ -19,6 +19,14 @@ class InheritTest {
         val backendDeveloper = BackendDeveloper(age = 41)
         println(backendDeveloper.age)
         backendDeveloper.code("Kotlin")
+
+        val cart = MyCart(coin = 100)
+        cart.rent()
+        cart.add(Product(name = "장난감", price = 1000))
+
+        var notEnoughCart = MyCart(coin = 0)
+        notEnoughCart.rent()
+        notEnoughCart.add(Product(name = "인형", price = 100))
     }
 }
 
@@ -50,5 +58,29 @@ abstract class Developer {
 class BackendDeveloper(override var age: Int) : Developer() {
     override fun code(language: String) {
         println("I code with $language")
+    }
+}
+
+class Product(val name: String, val price: Int)
+interface Cart {
+    val weight : String
+        get() = "20KG" // 특정 값을 지정하는 경우에만 프로퍼티를 사용
+
+    var coin: Int
+    fun add(product: Product)
+    fun rent() {
+        if (coin > 0) {
+            println("카트를 대여합니다.")
+        }
+    }
+}
+class MyCart(override var coin: Int): Cart {
+
+    override fun add(product: Product) {
+        if(coin <= 0) {
+            println("코인을 넣어주세요.")
+        } else {
+            println("${product.name}을 카트에 추가합니다.")
+        }
     }
 }
