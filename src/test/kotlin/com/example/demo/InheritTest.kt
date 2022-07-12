@@ -11,6 +11,10 @@ class InheritTest {
         val dog = Buldog(age = 3)
         println(dog.age)
         dog.bark()
+
+        val childDog = ChildBuldog()
+        childDog.age = 3
+        childDog.bark()
     }
 }
 
@@ -20,9 +24,16 @@ open class Dog {
         println("멍멍")
     }
 }
-class Buldog(override var age: Int = 0): Dog() {
+open class Buldog(override var age: Int = 0): Dog() {
 
     override fun bark() {
         println("컹컹")
+    }
+}
+
+class ChildBuldog : Buldog() {
+    override var age: Int = 0
+    override fun bark() {
+        super.bark()
     }
 }
