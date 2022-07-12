@@ -24,6 +24,7 @@ class InheritTest {
         cart.rent()
         cart.roll()
         cart.add(Product(name = "장난감", price = 1000))
+        cart.printId()
 
         var notEnoughCart = MyCart(coin = 0)
         notEnoughCart.rent()
@@ -82,9 +83,17 @@ interface Cart : Wheel {
     override fun roll() {
         println("카트가 굴러가요..")
     }
+
+    fun printId() = println("12345")
 }
 
-interface Order
+interface Order {
+    fun add(product: Product) {
+        println("${product.name} 주문이 완료 되었습니다.")
+    }
+
+    fun printId() = println("987865")
+}
 
 class MyCart(override var coin: Int): Cart, Order {
 
@@ -93,6 +102,14 @@ class MyCart(override var coin: Int): Cart, Order {
             println("코인을 넣어주세요.")
         } else {
             println("${product.name}을 카트에 추가합니다.")
+
+            // Order interface 의 메서드를 호출하도록 직접 지정
+            super<Order>.add(product)
         }
+    }
+
+    override fun printId() {
+        super<Cart>.printId()
+        super<Order>.printId()
     }
 }
