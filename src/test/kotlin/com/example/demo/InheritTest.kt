@@ -22,6 +22,7 @@ class InheritTest {
 
         val cart = MyCart(coin = 100)
         cart.rent()
+        cart.roll()
         cart.add(Product(name = "장난감", price = 1000))
 
         var notEnoughCart = MyCart(coin = 0)
@@ -61,8 +62,12 @@ class BackendDeveloper(override var age: Int) : Developer() {
     }
 }
 
+interface Wheel {
+    fun roll()
+}
+
 class Product(val name: String, val price: Int)
-interface Cart {
+interface Cart : Wheel {
     val weight : String
         get() = "20KG" // 특정 값을 지정하는 경우에만 프로퍼티를 사용
 
@@ -72,6 +77,10 @@ interface Cart {
         if (coin > 0) {
             println("카트를 대여합니다.")
         }
+    }
+
+    override fun roll() {
+        println("카트가 굴러가요..")
     }
 }
 class MyCart(override var coin: Int): Cart {
