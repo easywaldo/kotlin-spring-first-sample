@@ -83,7 +83,10 @@ interface Cart : Wheel {
         println("카트가 굴러가요..")
     }
 }
-class MyCart(override var coin: Int): Cart {
+
+interface Order
+
+class MyCart(override var coin: Int): Cart, Order {
 
     override fun add(product: Product) {
         if(coin <= 0) {
