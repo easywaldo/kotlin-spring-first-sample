@@ -34,6 +34,15 @@ class InheritTest {
         if (PaymentStatus.UNPAID.isPayable()) {
             println("결제 가능상태")
         }
+        val paymentStatus = PaymentStatus.valueOf("PAID")
+        println(paymentStatus.label)
+
+        assert(paymentStatus.equals(PaymentStatus.PAID))
+        for (status in PaymentStatus.values()) {
+            println("[${status}](${status.label})")
+            println("[${status}](${status.name})")
+            println("[${status}](${status.ordinal})")
+        }
     }
 }
 
