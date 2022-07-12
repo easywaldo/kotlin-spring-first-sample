@@ -29,6 +29,11 @@ class InheritTest {
         var notEnoughCart = MyCart(coin = 0)
         notEnoughCart.rent()
         notEnoughCart.add(Product(name = "인형", price = 100))
+
+        println(PaymentStatus.UNPAID.label)
+        if (PaymentStatus.UNPAID.isPayable()) {
+            println("결제 가능상태")
+        }
     }
 }
 
@@ -112,4 +117,21 @@ class MyCart(override var coin: Int): Cart, Order {
         super<Cart>.printId()
         super<Order>.printId()
     }
+}
+
+enum class PaymentStatus(val label: String) {
+    UNPAID("미지급") {
+        override fun isPayable(): Boolean = true
+    },
+    PAID("지급완료") {
+        override fun isPayable(): Boolean = false
+    },
+    FAILED("지급실패") {
+        override fun isPayable(): Boolean = false
+    },
+    REFUNDED("환불") {
+        override fun isPayable(): Boolean = false
+    };
+
+    abstract fun isPayable(): Boolean
 }
