@@ -119,7 +119,10 @@ class MyCart(override var coin: Int): Cart, Order {
     }
 }
 
-enum class PaymentStatus(val label: String) {
+interface Payable {
+    fun isPayable(): Boolean
+}
+enum class PaymentStatus(val label: String) : Payable {
     UNPAID("미지급") {
         override fun isPayable(): Boolean = true
     },
@@ -132,6 +135,4 @@ enum class PaymentStatus(val label: String) {
     REFUNDED("환불") {
         override fun isPayable(): Boolean = false
     };
-
-    abstract fun isPayable(): Boolean
 }
