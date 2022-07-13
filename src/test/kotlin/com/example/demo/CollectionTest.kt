@@ -72,7 +72,9 @@ class CollectionTest {
             println(iterator.next())
         }
 
-
+        for (currency in currencyList) {
+            println(currency)
+        }
 
 
 
