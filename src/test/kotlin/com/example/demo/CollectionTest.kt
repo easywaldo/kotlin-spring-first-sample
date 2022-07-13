@@ -2,6 +2,7 @@ package com.example.demo
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import java.util.LinkedList
 
 @SpringBootTest
 class CollectionTest {
@@ -43,6 +44,31 @@ class CollectionTest {
         mutableNumberMap["one"] = 1
         mutableNumberMap["two"] = 2
         mutableNumberMap["three"] = 3
+
+        // collection builder
+        // 빌더는 내부에서는 mutable 반환은 immutable
+        val numberListByBuilder: List<Int> = buildList {
+            add(1)
+            add(2)
+            add(3)
+        }
+
+        // linked list
+        val linkedList = LinkedList<Int>().apply {
+            addFirst(3)
+            add(20)
+            addLast(100)
+        }
+
+        // array list
+        val arrayList = ArrayList<Int>().apply {
+            add(10)
+            add(20)
+            add(30)
+        }
+
+
+
 
     }
 }
