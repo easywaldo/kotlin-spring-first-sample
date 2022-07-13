@@ -76,6 +76,39 @@ class CollectionTest {
             println(currency)
         }
 
+        currencyList.forEach{
+            println(it)
+        }
+
+        // for loop -> map
+        val lowerList = listOf("a", "b", "c", "d")
+        val upperList = mutableListOf<String>()
+        for (lowerCase in lowerList) {
+            upperList.add(lowerCase.uppercase())
+        }
+        println(upperList)
+
+
+        val upperListByMap = lowerList.map{
+            it.uppercase()
+        }
+        println(upperListByMap)
+
+        val filteredList = mutableListOf<String>()
+        for (upperCase in upperListByMap) {
+            if (upperCase == "A" || upperCase == "C") {
+                filteredList.add(upperCase)
+            }
+        }
+        println(filteredList)
+
+        val filteredListByFilter = upperList.filter {
+            it == "A" || it == "C"
+        }
+        println(filteredListByFilter)
+
+
+
 
 
 
