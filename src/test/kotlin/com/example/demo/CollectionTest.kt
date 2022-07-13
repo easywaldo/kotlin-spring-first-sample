@@ -67,6 +67,13 @@ class CollectionTest {
             add(30)
         }
 
+        val iterator = currencyList.iterator()
+        while(iterator.hasNext()) {
+            println(iterator.next())
+        }
+
+
+
 
 
 
