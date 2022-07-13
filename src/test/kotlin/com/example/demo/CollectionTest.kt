@@ -107,6 +107,12 @@ class CollectionTest {
         }
         println(filteredListByFilter)
 
+        println("=========")
+        var filteredList3 = upperList.asSequence().filter { it == "A" || it == "C" }
+        // terminal operator 가 호출이 되어야 코드 실행을 함
+        println(filteredList3.toList())
+
+
 
 
 
