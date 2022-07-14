@@ -24,6 +24,13 @@ class DataTest {
         val personCopied = person1.copy(name = "delta")
         println(personCopied.name)
         println(person1.name)
+
+        println("이름=${person1.component1()}, 나이=${person1.component2()}")
+
+        // decomposition
+        val (name, age) = person1
+        println(name)
+        println(age)
     }
 }
 
