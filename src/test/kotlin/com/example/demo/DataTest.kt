@@ -20,7 +20,10 @@ class DataTest {
 
         // data class 가 아니라면 toString 구현을 해주어야 함
         println(person1.toString())
+
+        person2.name = "delta"
+        println(set.contains(person2))
     }
 }
 
-data class Person(val name: String, val age: Int)
+data class Person(var name: String, val age: Int)
