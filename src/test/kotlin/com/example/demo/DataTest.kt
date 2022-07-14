@@ -13,6 +13,13 @@ class DataTest {
 
         // data class 가 아니라면 동등하지 않음
         assert(person1 == person2)
+
+        // data class 가 아니라면 hashCode 구현을 해주어야 함
+        val set = hashSetOf(person1)
+        assert(set.contains(person2))
+
+        // data class 가 아니라면 toString 구현을 해주어야 함
+        println(person1.toString())
     }
 }
 
