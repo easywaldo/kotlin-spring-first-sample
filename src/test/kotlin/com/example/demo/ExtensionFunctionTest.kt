@@ -19,3 +19,9 @@ fun String.first() : Char {
 fun String.addFirst(char: Char) : String {
     return char + this.substring(0)
 }
+
+class MyExample {
+    fun printMessage() = println("class printing")
+}
+
+fun MyExample.printMessage(message: String) = println(message)
