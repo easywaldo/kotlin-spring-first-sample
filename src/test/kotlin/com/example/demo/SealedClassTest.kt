@@ -15,6 +15,17 @@ class SealedClassTest {
 
         println(WDeveloperPool.get("waldo"))
         println(WDeveloperPool.get("bravo"))
+
+        val androidDeveloper = AndroidDeveloper(name="android")
+        WDeveloperPool.add(androidDeveloper)
+        println(WDeveloperPool.get("android"))
+
+        val otherDeveloper = OtherDeveloper(name="other")
+        WDeveloperPool.add(otherDeveloper)
+        println(WDeveloperPool.get("other"))
+
+
+
     }
 }
 
@@ -36,6 +47,18 @@ data class WFrontendDeveloper(override val name: String) : WDeveloper() {
     }
 }
 
+data class OtherDeveloper(override val name: String) : WDeveloper() {
+    override fun code(language: String) {
+        TODO("Not yet implemented")
+    }
+}
+
+data class AndroidDeveloper(override val name:String) : WDeveloper() {
+    override fun code(language: String) {
+        println("저는 안드로이드 개발자 입니다 ${language} 를 사용합니다")
+    }
+}
+
 object WDeveloperPool {
     val pool = mutableMapOf<String, WDeveloper>()
 
@@ -43,6 +66,8 @@ object WDeveloperPool {
     fun add(developer: WDeveloper) = when(developer) {
         is WBackendDeveloper -> pool[developer.name] = developer
         is WFrontendDeveloper -> pool[developer.name] = developer
+        is OtherDeveloper -> println("지원하지 않는 개발자 타입입니다.")
+        is AndroidDeveloper -> pool[developer.name] = developer
     }
 
     fun get(name: String) = pool[name]
