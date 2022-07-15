@@ -9,6 +9,12 @@ class ExtensionFunctionTest {
     fun test() {
         println("ABCD".first())
         println("ABCD".addFirst('Z'))
+
+        var myExample: MyExample? = null
+        myExample.printNullOfNotNull()
+
+        myExample = MyExample()
+        myExample.printNullOfNotNull()
     }
 }
 
@@ -25,3 +31,8 @@ class MyExample {
 }
 
 fun MyExample.printMessage(message: String) = println(message)
+
+fun MyExample?.printNullOfNotNull() {
+    if (this == null) println("null 인 경우")
+    else println("not null 인 경우")
+}
