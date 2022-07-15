@@ -14,5 +14,13 @@ class ConditionalTest {
             job == "thief" -> println("oops")
             else -> println("wondering..")
         }
+
+        val age: Int = 40
+        val result: String = when {
+            age in 10..20 -> "young"
+            age in 30..40 -> "good"
+            else -> "well..."
+        }
+        println(result)
     }
 }
