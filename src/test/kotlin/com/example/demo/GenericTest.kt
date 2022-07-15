@@ -15,6 +15,11 @@ class GenericTest {
         val list3 : List<*> = listOf<String>("TEST")
         val list4 : List<*> = listOf<Int>(1,2,3,4)
 
+        val g1: List<String> = mutableListOf("test")
+        val g2: List<CharSequence> = g1 // 반공변성
+
+
+
 
     }
 }
