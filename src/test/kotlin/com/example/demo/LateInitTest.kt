@@ -10,9 +10,17 @@ class LateInitTest {
         var lateInit: LateInit = LateInit()
         lateInit.text = "hello"
         println(lateInit.text)
+
+        val lateInit2 = LateInit()
+        lateInit2.printText()
     }
 }
 
 class LateInit {
     lateinit var text: String
+
+    fun printText() {
+        text = "안녕하세요"
+        print(text)
+    }
 }
