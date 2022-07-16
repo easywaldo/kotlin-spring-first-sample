@@ -8,9 +8,15 @@ class LazyBindingTest {
     @Test
     fun test() {
         val helloBot = HelloBot()
-        helloBot.sayHello()
-        helloBot.sayHello()
-        helloBot.sayHello()
+//        helloBot.sayHello()
+//        helloBot.sayHello()
+//        helloBot.sayHello()
+
+        for (i in 1..5) {
+            Thread {
+                helloBot.sayHello()
+            }.start()
+        }
     }
 }
 
