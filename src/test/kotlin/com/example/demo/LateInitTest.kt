@@ -13,6 +13,7 @@ class LateInitTest {
 
         val lateInit2 = LateInit()
         lateInit2.printText()
+        lateInit2.printText()
     }
 }
 
@@ -20,7 +21,12 @@ class LateInit {
     lateinit var text: String
 
     fun printText() {
-        text = "안녕하세요"
-        print(text)
+        if (this::text.isInitialized) {
+            println("initialized..")
+        } else {
+            println("not initialized..")
+            text = "안녕하세요"
+        }
+        println(text)
     }
 }
