@@ -11,6 +11,9 @@ class LateInitTest {
         lateInit.text = "hello"
         println(lateInit.text)
 
+        println(lateInit.textInitialized)
+        println("=========================")
+
         val lateInit2 = LateInit()
         lateInit2.printText()
         lateInit2.printText()
@@ -19,6 +22,8 @@ class LateInitTest {
 
 class LateInit {
     lateinit var text: String
+    val textInitialized: Boolean
+        get() = this::text.isInitialized
 
     fun printText() {
         if (this::text.isInitialized) {
