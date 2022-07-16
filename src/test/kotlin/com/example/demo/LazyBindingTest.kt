@@ -21,7 +21,7 @@ class LazyBindingTest {
 }
 
 class HelloBot {
-    val greeting: String by lazy {
+    val greeting: String by lazy(LazyThreadSafetyMode.NONE) {
         println("초기화 로직 수행")
         getHello()
     }
