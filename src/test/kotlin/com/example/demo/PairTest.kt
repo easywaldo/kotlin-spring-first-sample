@@ -34,6 +34,10 @@ class PairTest {
 
         println(newTriple.component3())
 
+        // 구조 분해 할당
+        val (a, b, c) = newTriple
+        println("$a, $b, $c")
+
 
     }
 }
