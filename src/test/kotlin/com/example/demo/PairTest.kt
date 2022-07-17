@@ -51,7 +51,7 @@ class PairTest {
 //        list3.component4()
 //        list3.component5()
 
-        val map = mutableMapOf("easywaldo" to "developer")
+        val map = mutableMapOf(Pair("easywaldo", "software engineer"))
         for ((key, value) in map) {
             println("${key}'s job $value")
         }
