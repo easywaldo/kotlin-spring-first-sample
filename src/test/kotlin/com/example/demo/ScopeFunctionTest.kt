@@ -22,6 +22,7 @@ class ScopeFunctionTest {
 
             1234
         }
+        println(result)
 
 //        val config = DatabaseClient()
 //        config.url = "localhost:3306"
@@ -41,8 +42,23 @@ class ScopeFunctionTest {
         println(connected)
 
 
+        // with  >> run 과 비슷하게 사용할 수 있음
+        val message = "hello"
+        val length: Int = with(message) {
+            length
+        }
+        println(length)
 
-        println(result)
+
+        // with 안에 함수를 넣어서 처리가 가능하다
+        val connectedWith = with(DatabaseClient()) {
+            url = "localhost:3306"
+            username = "mysql"
+            password = "1234"
+            connect()
+        }
+        println(connectedWith)
+
     }
 }
 
