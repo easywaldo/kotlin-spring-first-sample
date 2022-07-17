@@ -19,12 +19,12 @@ class PairTest {
         println(newPair)
 
         val second = newPair.component2()
-       println(second)
+        println(second)
 
-       val list = newPair.component2()
-       println(list)
+        val list = newPair.component2()
+        println(list)
 
-       val triple = Triple("A", "B", "C")
+        val triple = Triple("A", "B", "C")
         println(triple)
 
         triple.first
@@ -35,8 +35,26 @@ class PairTest {
         println(newTriple.component3())
 
         // 구조 분해 할당
-        val (a, b, c) = newTriple
+        val (a: String, b: String, c: String) = newTriple
         println("$a, $b, $c")
+
+
+        // 리스트에 대한 구조분해 할당
+        val list3: List<String> = newTriple.toList()
+        val (a1, a2, a3) = list3
+        println("$a1, $a2, $a3")
+
+        // 리스트에 대해서는 앞선 5개의 요소에 대해서만 component 로 접근 가능
+        list3.component1()
+        list3.component2()
+        list3.component3()
+//        list3.component4()
+//        list3.component5()
+
+        val map = mutableMapOf("easywaldo" to "developer")
+        for ((key, value) in map) {
+            println("${key}'s job $value")
+        }
 
 
     }
