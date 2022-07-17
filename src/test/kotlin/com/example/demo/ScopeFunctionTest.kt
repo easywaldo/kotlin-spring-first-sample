@@ -84,6 +84,18 @@ class ScopeFunctionTest {
             it.printName()
         }
 
+//        val this: String? = null
+//        val it: String? = null
+
+        val hello = "hello"
+        val hi = "hi"
+        hello.let { a: String ->
+            println(a.length)
+            hi.let { b ->
+                println(b.length)
+            }
+        }
+
     }
 }
 
