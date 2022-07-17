@@ -31,11 +31,12 @@ class ScopeFunctionTest {
 //        println(connected)
 
         // run scope function
-        val connected = DatabaseClient().run {
-            url = "localhost:3306"
-            username = "mysql"
-            password = "1234"
-            connect()
+        // let 으로도 가능은 하지만 it 를 중복으로 사용해서 가독성이 저하 됨
+        val connected = DatabaseClient().let {
+            it.url = "localhost:3306"
+            it.username = "mysql"
+            it.password = "1234"
+            it.connect()
         }
         println(connected)
 
