@@ -73,6 +73,17 @@ class ScopeFunctionTest {
 
         println(connectedResultApply)
 
+
+        // 클래스 인스턴스 검증
+        val user: User = User(name ="momo", password = "1234")
+        user.validate()
+
+        // also 를 사용한 클래스 인스턴스 검증
+        User(name= "easywaldo", password = "1234").also {
+            it.validate()
+            it.printName()
+        }
+
     }
 }
 
@@ -88,4 +99,16 @@ class DatabaseClient {
         println("DB 접속 완료")
         return true
     }
+}
+
+class User(val name: String, val password: String) {
+    fun validate() {
+        if (name.isNullOrEmpty() && password.isNotEmpty()) {
+            println("검증 성공")
+        } else {
+            println("검증 실패")
+        }
+    }
+
+    fun printName() = println(name)
 }
