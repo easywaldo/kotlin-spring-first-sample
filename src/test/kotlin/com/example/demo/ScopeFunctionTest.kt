@@ -59,6 +59,20 @@ class ScopeFunctionTest {
         }
         println(connectedWith)
 
+
+        // apply 를 사용한 스코프 실행
+        val connectedApply = DatabaseClient().apply {
+            url = "localhost:3306"
+            username = "mysql"
+            password = "1234"
+        }
+        val connectedResultApply = connectedApply.connect()
+        connectedApply.connect().run {
+            println("연결 성공")
+        }
+
+        println(connectedResultApply)
+
     }
 }
 
