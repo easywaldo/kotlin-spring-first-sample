@@ -10,6 +10,9 @@ class NullSafetyTest {
         readBountyBoard("THREE", "easywaldo")
         val level: Int = obtainLevel("DDD")!!.replace("[^0-9]".toRegex(), "").toInt()
         println(level)
+
+        var level_2 = obtainLevel("B")?.toIntOrNull() ?: 0
+        println(level_2)
     }
 }
 
