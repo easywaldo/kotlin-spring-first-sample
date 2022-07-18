@@ -8,6 +8,8 @@ class NullSafetyTest {
     @Test
     fun test() {
         readBountyBoard("THREE", "easywaldo")
+        val level: Int = obtainLevel("DDD")!!.replace("[^0-9]".toRegex(), "").toInt()
+        println(level)
     }
 }
 
@@ -28,5 +30,15 @@ private fun obtainQuest(playerLevel: String): String? {
         "ONE" -> "go to the town"
         "TWO" -> "learn basic magic skill"
         else -> return null
+    }
+}
+
+private fun obtainLevel(location: String): String {
+    return when (location) {
+        "A" -> return "level 1"
+        "B" -> return "level 5"
+        "C" -> return "level 8"
+        "E" -> return "level 10"
+        else -> return "leve 0"
     }
 }
