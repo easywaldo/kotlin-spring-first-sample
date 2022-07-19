@@ -52,5 +52,12 @@ class ExceptionHandlingTest {
             throw it
         }
     }
+
+    @Test
+    fun test6() {
+        val result = kotlin.runCatching { getStr() }
+            .getOrDefault("default value")
+        println(result)
+    }
 }
 
