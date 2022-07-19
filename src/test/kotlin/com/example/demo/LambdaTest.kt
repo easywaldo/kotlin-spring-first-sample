@@ -43,7 +43,20 @@ class LambdaTest {
         val plus: (a: Int, b: Int) -> Int = { a, b -> a + b}
         println(plus(100, 100))
 
+        val result: Int = plus(1, 3)
+        println(result)
 
+        // higher order
+        val list = listOf("a", "b", "c")
+        val printStr: (String) -> Unit = { println(it) }
+        forEachStr(list, printStr)
+
+    }
+
+    fun forEachStr(collection: Collection<String>, action: (String) -> Unit) {
+        for (item in collection) {
+            action(item)
+        }
     }
 }
 
