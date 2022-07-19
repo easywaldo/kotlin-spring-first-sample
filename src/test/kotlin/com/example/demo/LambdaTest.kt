@@ -71,6 +71,32 @@ class LambdaTest {
 
         println(sum(1, 1))
         println(sum2(1, 1))
+
+        // 후행 람다 전달
+        list.filter {
+            it == "a"
+        }
+
+        arg1{
+            it.length
+            it.first()
+        }
+
+        arg2{
+            a: String, b: String ->
+            a.length
+            b.first()
+        }
+
+        val callRef: () -> Unit = { printHello() }
+        callRef()
+
+        val calRef2 = ::printHello
+        calRef2()
+
+        val nList = listOf("1", "2", "3")
+        nList.map { it.toInt() }.forEach { println(it) }
+        nList.map(String::toInt).forEach(::println)
     }
 
     fun forEachStr(collection: Collection<String>, action: (String) -> Unit) {
@@ -93,5 +119,8 @@ class LambdaTest {
 
     val sum = { x: Int, y: Int -> x + y }
     val sum2: (Int, Int) -> Int = { x, y -> x + y}
+
+    fun arg1(block: (String) -> Unit) { }
+    fun arg2(block: (String, String) -> Unit) { }
 }
 
