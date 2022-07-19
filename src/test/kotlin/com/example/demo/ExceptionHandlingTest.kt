@@ -82,5 +82,13 @@ class ExceptionHandlingTest {
             }.getOrDefault("default value")
         println(result)
     }
+
+    @Test
+    fun test10() {
+        val result = kotlin.runCatching { getStr() }
+            .recover { "recover" }
+            .getOrNull()
+        println(result)
+    }
 }
 
