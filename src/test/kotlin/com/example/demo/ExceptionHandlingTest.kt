@@ -77,7 +77,7 @@ class ExceptionHandlingTest {
     @Test
     fun test9() {
         val result = kotlin.runCatching { "hello" }
-            .map {
+            .mapCatching {
                 throw Exception("exception")
             }.getOrDefault("default value")
         println(result)
