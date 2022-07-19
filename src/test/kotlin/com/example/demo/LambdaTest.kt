@@ -40,6 +40,9 @@ class LambdaTest {
         printMessage2("hello")
         printMessage3("hello")
 
+        val plus: (a: Int, b: Int) -> Int = { a, b -> a + b}
+        println(plus(100, 100))
+
 
     }
 }
