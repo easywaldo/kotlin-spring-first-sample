@@ -90,5 +90,13 @@ class ExceptionHandlingTest {
             .getOrNull()
         println(result)
     }
+
+    @Test
+    fun test11() {
+        val result = kotlin.runCatching { getStr() }
+            .recoverCatching { throw Exception("exception") }
+            .getOrDefault("recover")
+        println(result)
+    }
 }
 
