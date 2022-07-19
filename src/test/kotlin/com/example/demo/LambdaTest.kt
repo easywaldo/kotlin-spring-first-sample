@@ -29,5 +29,18 @@ class LambdaTest {
         // call(printNo)
         call(printHello)
     }
+
+    @Test
+    fun test2() {
+        val printMessage: (String) -> Unit = { message: String -> println(message) }
+        val printMessage2: (String) -> Unit = { message -> println(message) }
+        val printMessage3: (String) -> Unit = { println(it) }
+
+        printMessage("hello")
+        printMessage2("hello")
+        printMessage3("hello")
+
+
+    }
 }
 
