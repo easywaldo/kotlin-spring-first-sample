@@ -59,5 +59,28 @@ class ExceptionHandlingTest {
             .getOrDefault("default value")
         println(result)
     }
+
+    @Test
+    fun test7() {
+        val result = kotlin.runCatching { getStr() }
+            .getOrThrow()
+    }
+
+    @Test
+    fun test8() {
+        val result: String = kotlin.runCatching { "hello" }
+            .map { "${it} gretting" }
+            .getOrThrow()
+        println(result)
+    }
+
+    @Test
+    fun test9() {
+        val result = kotlin.runCatching { "hello" }
+            .map {
+                throw Exception("exception")
+            }.getOrDefault("default value")
+        println(result)
+    }
 }
 
