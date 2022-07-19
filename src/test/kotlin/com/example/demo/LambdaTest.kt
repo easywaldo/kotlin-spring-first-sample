@@ -14,6 +14,8 @@ class LambdaTest {
     @Test
     fun test() {
         println(list[0]())
+        val func: () -> Unit = list[0]
+        func()
     }
 }
 
