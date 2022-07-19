@@ -34,5 +34,23 @@ class ExceptionHandlingTest {
         }
         println(result)
     }
+
+    @Test
+    fun test4() {
+        val result = kotlin.runCatching { getStr() }
+            .getOrNull()
+
+        println(result)
+    }
+
+    @Test
+    fun test5() {
+        val result: Throwable? = kotlin.runCatching { getStr() }
+            .exceptionOrNull()
+        result?.let {
+            println(it.message)
+            throw it
+        }
+    }
 }
 
