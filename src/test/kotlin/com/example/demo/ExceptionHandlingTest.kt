@@ -23,5 +23,16 @@ class ExceptionHandlingTest {
             println("default value")
         }
     }
+
+    @Test
+    fun test3() {
+        val result = kotlin.runCatching {
+            getStr()
+        }.getOrElse {
+            println(it.message)
+            "default value"
+        }
+        println(result)
+    }
 }
 
