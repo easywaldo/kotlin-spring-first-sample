@@ -8,7 +8,7 @@ class NullSafetyTest {
     @Test
     fun test() {
         readBountyBoard("THREE", "easywaldo")
-        val level: Int = obtainLevel("DDD")!!.replace("[^0-9]".toRegex(), "").toInt()
+        val level: Int = obtainLevel("E")!!.replace("[^0-9]".toRegex(), "").toInt()
         println(level)
 
         var level_2 = obtainLevel("B")?.toIntOrNull() ?: 0
@@ -17,15 +17,19 @@ class NullSafetyTest {
 }
 
 private fun readBountyBoard(playerLevel: String, heroName: String) {
-    val quest: String? = obtainQuest(playerLevel)
-    val message: String? = quest?.replace("Nogartse", "xxxxxxxx")
-        ?.let { censoredQuest ->
-            """
+    val message: String? = try {
+        val quest: String? = obtainQuest(playerLevel)
+        quest?.replace("Nogartse", "xxxxxxxx")
+            ?.let { censoredQuest ->
+                """
                 |$heroName approaches the bounty board. It reads:
                 |   "$censoredQuest"
                 """.trimMargin()
-        }
-    println(message ?: "$heroName approaches the bounty board, but it is blank.")
+            }
+    } catch (e: java.lang.Exception) {
+        "$heroName approaches the bounty board, but it is blank."
+    }
+    println(message)
 }
 
 private fun obtainQuest(playerLevel: String): String? {
