@@ -8,14 +8,21 @@ class PreconditionTest {
     @Test
     fun test() {
         obtainQuest(100)
+        obtainQuest(null)
         obtainQuest(0)
+
     }
 
     private fun obtainQuest(
-        playerLevel: Int,
+        playerLevel: Int?,
         playerClass: String = "paladin",
         hasBefriendedBarbarians: Boolean = true,
         hasAngeredBarbarians: Boolean = false) : String? {
+
+        checkNotNull(playerLevel) {
+            "No input was provided"
+        }
+
         require(playerLevel > 0) {
             "The player's level must be at least 1."
         }
