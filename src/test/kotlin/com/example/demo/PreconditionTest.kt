@@ -20,7 +20,8 @@ class PreconditionTest {
         hasAngeredBarbarians: Boolean = false) : String? {
 
         checkNotNull(playerLevel) {
-            "No input was provided"
+//            "No input was provided"
+            throw InvalidPlayerLevelException()
         }
 
         require(playerLevel > 0) {
@@ -34,3 +35,6 @@ class PreconditionTest {
         }
     }
 }
+
+class InvalidPlayerLevelException() :
+        IllegalArgumentException("Invalid player level (must be at least 1).")
