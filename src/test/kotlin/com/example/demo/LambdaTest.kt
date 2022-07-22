@@ -122,5 +122,19 @@ class LambdaTest {
 
     fun arg1(block: (String) -> Unit) { }
     fun arg2(block: (String, String) -> Unit) { }
+
+    val narrationModifier: (String) -> String = {
+        val numExclamationPoints = 3
+        it.uppercase() + "!".repeat(numExclamationPoints)
+    }
+
+    fun narrate (message: String) {
+        println(narrationModifier(message))
+    }
+
+    @Test
+    fun testNarrate() {
+        narrate("hello world")
+    }
 }
 
