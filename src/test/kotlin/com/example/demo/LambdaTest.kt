@@ -135,6 +135,20 @@ class LambdaTest {
     @Test
     fun testNarrate() {
         narrate("hello world")
+        println(loudNarration("Madrigal cautiously tip-toes through the hallway", "sneaky"))
+    }
+
+    val loudNarration: (String, String) -> String = { message, tone ->
+        when(tone) {
+            "excited" -> {
+                val numExclamationPoints = 3
+                message.uppercase() + "!".repeat(numExclamationPoints)
+            }
+            "sneaky" -> {
+                "$message. The narrator has just blown Madrigal's cover.".uppercase()
+            }
+            else -> message.uppercase()
+        }
     }
 }
 
