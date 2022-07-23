@@ -136,6 +136,7 @@ class LambdaTest {
     fun testNarrate() {
         narrate("hello world")
         println(loudNarration("Madrigal cautiously tip-toes through the hallway", "sneaky"))
+        println(narrationModifierTypeInference("hello world type inference"))
     }
 
     val loudNarration: (String, String) -> String = { message, tone ->
@@ -149,6 +150,11 @@ class LambdaTest {
             }
             else -> message.uppercase()
         }
+    }
+
+    val narrationModifierTypeInference = { message: String ->
+        val numExclamationPoints = 3
+        message.uppercase() + "!".repeat(numExclamationPoints)
     }
 }
 
