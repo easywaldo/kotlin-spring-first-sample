@@ -24,4 +24,15 @@ class DefineFunctionAcceptFunctionTest {
         val heroName = readLine() ?: ""
         narrate("$heroName heads to the town square")
     }
+
+    var calculationAdd: (Int, Int) -> Int = {a, b -> a + b }
+    fun calcFunc(funcCal: (Int, Int) -> Int, a: Int, b: Int) {
+        print(funcCal(a, b))
+    }
+
+    @Test
+    fun test2() {
+        calcFunc(calculationAdd, 1, 100)
+    }
+
 }
