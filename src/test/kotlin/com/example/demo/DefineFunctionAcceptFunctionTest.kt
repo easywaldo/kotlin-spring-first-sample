@@ -13,9 +13,14 @@ class DefineFunctionAcceptFunctionTest {
 
     @Test
     fun test() {
-        narrate("A hero enters the town of Kronstadt. What is their name?", {
-            message -> "\u001b[33;1m$message\u001b[0m"
-        })
+//        narrate("A hero enters the town of Kronstadt. What is their name?", {
+//            message -> "\u001b[33;1m$message\u001b[0m"
+//        })
+
+        narrate("A hero enters the town of Kronstadt. What is their name?") { message ->
+            // prints the message in yellow
+            "\u001b[33;1m$message\u001b[0m"
+        }
         val heroName = readLine() ?: ""
         narrate("$heroName heads to the town square")
     }
