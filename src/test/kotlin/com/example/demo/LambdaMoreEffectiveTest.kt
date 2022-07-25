@@ -63,8 +63,27 @@ class LambdaMoreEffectiveTest {
     fun test2() {
         narrate("A hero enters the town of Kronstadt. What is their name?")
         val heroName = readLine() ?: ""
+//        require(heroName != null && heroName.isNotEmpty()) {
+//            "The hero must have a name"
+//        }
 
         changeNarratorMood()
-        narrate("$heroName heads to the town square")
+//        narrate("$heroName heads to the town square")
+        narrate("$heroName, ${createTitle(heroName)}, heads to the town square")
+    }
+
+    private fun createTitle(name: String): String {
+        return when {
+            name.count {
+                it.lowercase() in "aeiou"
+            } > 4 -> "The Master of Vowels"
+            name.none {
+                it.isLetter()
+            } -> "The Witness Protection"
+            name.all {
+                it.isDigit()
+            } -> "The Identifiable"
+            else -> "The Renowned Hero"
+        }
     }
 }
