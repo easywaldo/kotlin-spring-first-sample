@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest
 class DefineFunctionAcceptFunctionTest {
     var narrationModifier: (String) -> String = { it }
 
+    private fun makeYellow(message: String) = "\u001b[33;1m$message\u001b[0m"
+
     fun narrate(message: String, modifier: (String) -> String = { narrationModifier(it)}) {
         println(modifier(message))
     }
@@ -33,6 +35,13 @@ class DefineFunctionAcceptFunctionTest {
     @Test
     fun test2() {
         calcFunc(calculationAdd, 1, 100)
+    }
+
+    @Test
+    fun test3() {
+        narrate(
+            "A hero enters the town of Kronstadt. What is their name?",::makeYellow
+        )
     }
 
 }
