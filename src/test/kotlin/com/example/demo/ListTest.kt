@@ -14,5 +14,12 @@ class ListTest {
         println(patrons.last())
 
         println(patrons.getOrElse(4) { "Unknown Patron" })
+
+        val alphaMessage = if (patrons.contains("Alpha")) {
+            "Alpha is in the back playing cards"
+        } else {
+            "Alpha isn't here"
+        }
+        println(alphaMessage)
     }
 }
