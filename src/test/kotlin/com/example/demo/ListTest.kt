@@ -21,5 +21,12 @@ class ListTest {
             "Alpha isn't here"
         }
         println(alphaMessage)
+
+        val otherMessage = if (patrons.containsAll(listOf("Alpha", "Bravo"))) {
+            "Good list"
+        } else {
+            "None list"
+        }
+        println(otherMessage)
     }
 }
