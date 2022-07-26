@@ -12,5 +12,7 @@ class ListTest {
 
         println(patrons.first())
         println(patrons.last())
+
+        println(patrons.getOrElse(4) { "Unknown Patron" })
     }
 }
