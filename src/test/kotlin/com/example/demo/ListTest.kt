@@ -38,6 +38,9 @@ class ListTest {
         narrate("Alex enters the tavern")
         patrons.add("Alex")
         println(patrons)
+        narrate("Alex (VIP) enters the tavern")
+        patrons.add(0, "Alex")
+        println(patrons)
     }
 
     var narrationModifier: (String) -> String = {
