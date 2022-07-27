@@ -41,6 +41,14 @@ class ListTest {
         narrate("Alex (VIP) enters the tavern")
         patrons.add(0, "Alex")
         println(patrons)
+
+        narrate("Brown and Tommy enters the tavern")
+        patrons.addAll(listOf("Brown", "Tommy"))
+        println(patrons)
+
+        narrate("Eli and Mordoc leaves the tavern")
+        patrons.removeAll(listOf("Eli", "Mordoc"))
+        println(patrons)
     }
 
     var narrationModifier: (String) -> String = {
