@@ -29,4 +29,22 @@ class ListTest {
         }
         println(otherMessage)
     }
+
+    @Test
+    fun visitTavern() {
+        var patrons = mutableListOf("Eli", "Mordoc", "Sophie")
+        narrate("Eli leaves the tavern")
+        patrons.remove("Eli")
+        narrate("Alex enters the tavern")
+        patrons.add("Alex")
+        println(patrons)
+    }
+
+    var narrationModifier: (String) -> String = {
+        it
+    }
+
+    fun narrate(message: String) {
+        println(narrationModifier(message))
+    }
 }
