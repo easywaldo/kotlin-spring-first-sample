@@ -67,6 +67,9 @@ class ListTest {
 
         val (_, _, job) = "easywaldo,22,developer".split(',')
         println(job)
+
+        val selected = patrons.random()
+        println(selected)
     }
 
     var narrationModifier: (String) -> String = {
