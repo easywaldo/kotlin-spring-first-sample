@@ -51,6 +51,9 @@ class ListTest {
         println(patrons)
 
         patrons.forEach { it -> println("Good evening $it") }
+        patrons.forEachIndexed {
+            index, it -> println("Good evening, $it - you are #${index + 1}")
+        }
     }
 
     var narrationModifier: (String) -> String = {
