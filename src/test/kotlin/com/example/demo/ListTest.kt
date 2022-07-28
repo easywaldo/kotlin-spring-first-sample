@@ -49,6 +49,8 @@ class ListTest {
         narrate("Eli and Mordoc leaves the tavern")
         patrons.removeAll(listOf("Eli", "Mordoc"))
         println(patrons)
+
+        patrons.forEach { it -> println("Good evening $it") }
     }
 
     var narrationModifier: (String) -> String = {
