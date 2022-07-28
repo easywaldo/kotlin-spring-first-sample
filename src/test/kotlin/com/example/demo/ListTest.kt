@@ -59,6 +59,11 @@ class ListTest {
         println(first)
         println(second)
         println(third)
+
+        val (one, two, three) = "one,two,three".split(',')
+        println(one)
+        println(two)
+        println(three)
     }
 
     var narrationModifier: (String) -> String = {
