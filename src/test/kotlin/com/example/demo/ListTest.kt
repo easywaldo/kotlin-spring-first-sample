@@ -54,6 +54,11 @@ class ListTest {
         patrons.forEachIndexed {
             index, it -> println("Good evening, $it - you are #${index + 1}")
         }
+
+        val (first, second, third) = listOf<String>("ceo", "cpo", "vp")
+        println(first)
+        println(second)
+        println(third)
     }
 
     var narrationModifier: (String) -> String = {
