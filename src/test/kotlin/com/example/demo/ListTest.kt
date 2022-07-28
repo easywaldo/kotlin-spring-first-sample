@@ -64,6 +64,9 @@ class ListTest {
         println(one)
         println(two)
         println(three)
+
+        val (_, _, job) = "easywaldo,22,developer".split(',')
+        println(job)
     }
 
     var narrationModifier: (String) -> String = {
