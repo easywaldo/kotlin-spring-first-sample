@@ -17,5 +17,10 @@ class SetTest {
         player.forEach{
             it -> println(it)
         }
+
+        println("======")
+        player.distinct().forEach {
+            println(it)
+        }
     }
 }
