@@ -7,7 +7,13 @@ import org.springframework.boot.test.context.SpringBootTest
 class SetTest {
     @Test
     fun test() {
-        val player = setOf<String>("tom", "tommy", "jason", "dean", "venom", "tom")
+        var player = setOf<String>("tom", "tommy", "jason", "dean", "venom", "tom")
+        player.forEach{
+            it -> println(it)
+        }
+        println("======")
+        player += setOf("john")
+        player.toMutableList().addAll(listOf("dean", "tom"))
         player.forEach{
             it -> println(it)
         }
