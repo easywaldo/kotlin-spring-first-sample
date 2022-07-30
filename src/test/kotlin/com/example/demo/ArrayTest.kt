@@ -38,4 +38,19 @@ class ArrayTest {
             print(letter)
         }
     }
+
+    @Test
+    fun test2() {
+        prefixLoop@for(prefix in listOf("alpha", "beta")) {
+            var number = 0
+            numbersLoop@while (number < 10) {
+                val identifier = "$prefix $number"
+                println(identifier)
+                if (identifier == "beta 3") {
+                    break@prefixLoop
+                }
+                number++
+            }
+        }
+    }
 }
