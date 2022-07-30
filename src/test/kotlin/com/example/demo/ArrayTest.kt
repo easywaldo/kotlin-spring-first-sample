@@ -20,12 +20,22 @@ class ArrayTest {
         (myList as MutableList)[2] = 1000
         println(myList[2])
 
-
+        printConstants()
     }
 
     fun displayPlayerAges(playerAges: IntArray) {
         playerAges.forEach {
             println(it)
+        }
+    }
+
+    fun printConstants() {
+        ('a'..'z').forEach letters@ {
+            letter ->
+            if ("aeiou".contains(letter)) {
+                return@letters
+            }
+            print(letter)
         }
     }
 }
