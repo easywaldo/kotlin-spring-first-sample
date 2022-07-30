@@ -16,9 +16,11 @@ class ArrayTest {
 
 //        assert(x == y)
 
-        var myList: List<Int> = listOf(1,2,3)
+        val myList: List<Int> = listOf(1,2,3)
         (myList as MutableList)[2] = 1000
         println(myList[2])
+
+
     }
 
     fun displayPlayerAges(playerAges: IntArray) {
