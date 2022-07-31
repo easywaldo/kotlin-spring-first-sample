@@ -18,9 +18,14 @@ class MapTest {
 
     fun visitTavern() {
         val patrons: MutableSet<String> = mutableSetOf()
+//        val patronGold = mapOf(
+//            TAVERN_MASTER to 98.21,
+//            heroName to 4.50
+//        )
+
         val patronGold = mapOf(
-            TAVERN_MASTER to 98.21,
-            heroName to 4.50
+            Pair("Madrigal", 4.50),
+            Pair("Bristone", 2.19)
         )
         while (patrons.size < 10) {
             patrons += "${firstNames.random()} ${lastNames.random()}"
