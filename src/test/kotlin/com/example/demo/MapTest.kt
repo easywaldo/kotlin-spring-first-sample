@@ -23,9 +23,15 @@ class MapTest {
 //            heroName to 4.50
 //        )
 
+//        val patronGold = mapOf(
+//            Pair("Madrigal", 4.50),
+//            Pair("Bristone", 2.19)
+//        )
+
         val patronGold = mapOf(
-            Pair("Madrigal", 4.50),
-            Pair("Bristone", 2.19)
+            "Bob" to 2.1,
+            "Nix" to 3.1,
+            "Nix" to 4.2
         )
         while (patrons.size < 10) {
             patrons += "${firstNames.random()} ${lastNames.random()}"
