@@ -56,6 +56,21 @@ class MapTest {
             println("${it.key} : ${it.value}")
         }
 
+        val testMap = mutableMapOf(
+            "alpha" to 3,
+            "bravo" to 2,
+            "charly" to 8,
+            "delta" to 1
+        )
+        testMap += mapOf(
+            "Eli" to 7,
+            "Mordoc" to 1,
+            "Phizo" to 9
+        )
+        testMap.forEach {
+            it -> println("${it.key} : ${it.value}")
+        }
+
     }
 
     var narrationModifier: (String) -> String = {
