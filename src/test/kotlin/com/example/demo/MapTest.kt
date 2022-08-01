@@ -28,7 +28,7 @@ class MapTest {
 //            Pair("Bristone", 2.19)
 //        )
 
-        val patronGold = mapOf(
+        val patronGold = mutableMapOf(
             "Bob" to 2.1,
             "Nix" to 3.1,
             "Nix" to 4.2
@@ -41,6 +41,20 @@ class MapTest {
 
         val goldPoint = patronGold.getOrDefault("Leo", 3.14)
         println(goldPoint)
+
+        while (patrons.size < 10) {
+            val patronName = "${firstNames.random()} ${lastNames.random()}"
+            patrons += patronName
+            patronGold += patronName to 6.0
+        }
+
+        narrate("$heroName sees several patrons in the tavern:")
+        narrate(patrons.joinToString())
+        println("patronSize : ${patronGold.size}")
+        patronGold.forEach {
+            println("patronGold info ====================")
+            println("${it.key} : ${it.value}")
+        }
 
     }
 
