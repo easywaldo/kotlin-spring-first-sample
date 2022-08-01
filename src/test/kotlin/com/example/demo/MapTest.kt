@@ -71,6 +71,15 @@ class MapTest {
             it -> println("${it.key} : ${it.value}")
         }
 
+        testMap.put("Eli", 100)
+        testMap.putAll(listOf(
+            "Phizo" to 1000,
+            "Tada" to 999
+        ))
+        testMap.forEach {
+            it -> println("${it.key} : ${it.value}")
+        }
+
     }
 
     var narrationModifier: (String) -> String = {
