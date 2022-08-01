@@ -39,6 +39,9 @@ class MapTest {
         println(patronGold)
         narrate("$heroName sees several patrons in the tavern:")
 
+        val goldPoint = patronGold.getOrDefault("Leo", 3.14)
+        println(goldPoint)
+
     }
 
     var narrationModifier: (String) -> String = {
