@@ -40,5 +40,13 @@ class TransformingDataMapTest {
         menuItemGrades.forEach {
             item -> println("${item.key} : ${item.value}")
         }
+
+        val menuItemGradesNew = menuData.associate {
+            entry -> val (_, name, grade) = entry.split(",")
+            name to grade
+        }
+        menuItemGradesNew.forEach {
+                item -> println("associate >> ${item.key} : ${item.value}")
+        }
     }
 }
