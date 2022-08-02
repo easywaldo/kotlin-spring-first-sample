@@ -79,6 +79,7 @@ class MapTest {
         testMap.forEach {
             it -> println("${it.key} : ${it.value}")
         }
+        testMap.forEach { (key, value) -> println("${key} : ${value}") }
 
     }
 
