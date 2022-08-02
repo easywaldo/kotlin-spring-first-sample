@@ -15,6 +15,11 @@ class TransformingDataMapTest {
         val menuItems = List(menuData.size) {
             index -> val (_, name, _) = menuData[index].split(",")
             println(name)
+            name
+        }
+
+        menuItems.forEach {
+            name -> println("name is ${name}")
         }
     }
 }
