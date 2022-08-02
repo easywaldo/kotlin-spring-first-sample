@@ -31,5 +31,14 @@ class TransformingDataMapTest {
         menuItemsNew.forEach {
                 name -> println("name is ${name}")
         }
+
+        val menuItemGrades = menuData.map { menuEntry ->
+            val (_, name, grade) = menuEntry.split(",")
+            name to grade
+        }.toMap()
+
+        menuItemGrades.forEach {
+            item -> println("${item.key} : ${item.value}")
+        }
     }
 }
