@@ -21,5 +21,15 @@ class TransformingDataMapTest {
         menuItems.forEach {
             name -> println("name is ${name}")
         }
+
+        // type inference
+        val menuItemsNew = menuData.map {
+            menuEntry ->
+            val (_, name, _) = menuEntry.split(",")
+            name
+        }
+        menuItemsNew.forEach {
+                name -> println("name is ${name}")
+        }
     }
 }
