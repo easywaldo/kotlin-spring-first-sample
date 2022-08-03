@@ -3,6 +3,9 @@ package com.example.demo
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import java.io.File
+import java.util.*
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 @SpringBootTest
 class TransformingDataMapTest {
@@ -60,6 +63,26 @@ class TransformingDataMapTest {
         }
         menuItemsGradesNew2.forEach {
             item -> println("name: ${item.key}, type: ${item.value}")
+        }
+
+        val itemListMap = menuData.map { menuEntry ->
+            val (type, name, _) = menuEntry.split(",")
+            name to type
+        }.toMap()
+        val likes = getFavoriteMenuItems("weapon", itemListMap.map { it.key }, itemListMap)
+        println(likes)
+
+    }
+
+    private fun getFavoriteMenuItems(
+        patron: String,
+        menuItems: List<String>,
+        menuItemTypes: Map<String, String>): List<String> {
+        return when (patron) {
+            "weapon" -> menuItems.filter { menuItem ->
+                menuItemTypes[menuItem]?.contains("weapon") == true
+            }
+            else -> menuItems.shuffled().take(Random.nextInt(1..2))
         }
     }
 }
