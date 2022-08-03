@@ -48,5 +48,18 @@ class TransformingDataMapTest {
         menuItemGradesNew.forEach {
                 item -> println("associate >> ${item.key} : ${item.value}")
         }
+
+        val menuData2 = File("data/menu-data.txt")
+            .readText()
+            .split("\n")
+            .map{
+                it.split(",")
+            }
+        val menuItemsGradesNew2 = menuData2.associate {
+            (type, name, _) -> name to type
+        }
+        menuItemsGradesNew2.forEach {
+            item -> println("name: ${item.key}, type: ${item.value}")
+        }
     }
 }
