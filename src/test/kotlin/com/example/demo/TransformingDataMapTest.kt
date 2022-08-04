@@ -91,12 +91,19 @@ class TransformingDataMapTest {
         val foodData = File("data/food_data.txt")
             .readText()
             .split("\n")
-            .map{
+            .map {
                 it.split(",")
-            }
-        val likesFoods = foodData.filter { item ->
-            item.contains("steak")
-        }.map { it }
-        println(likesFoods)
+            }.toList()
+        val likeList = foodData.map {
+            it -> it[1] to it[2].split("|")
+        }.toMap()
+
+        val filteredList = likeList.filter { it -> listOf<String>("steak", "pizza").contains(it.key) }
+        val filteredSumMap = filteredList.map {
+                e -> e.value.sumOf { it -> it.toInt() }
+        }
+        val filteredFlatMap = filteredList.flatMap {
+            it -> it.value
+        }
     }
 }
