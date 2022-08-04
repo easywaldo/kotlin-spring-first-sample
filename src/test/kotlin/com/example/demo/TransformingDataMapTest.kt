@@ -85,4 +85,18 @@ class TransformingDataMapTest {
             else -> menuItems.shuffled().take(Random.nextInt(1..2))
         }
     }
+
+    @Test
+    fun flat_map_test() {
+        val foodData = File("data/food_data.txt")
+            .readText()
+            .split("\n")
+            .map{
+                it.split(",")
+            }
+        val likesFoods = foodData.filter { item ->
+            item.contains("steak")
+        }.map { it }
+        println(likesFoods)
+    }
 }

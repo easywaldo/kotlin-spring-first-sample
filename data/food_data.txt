@@ -1,0 +1,7 @@
+easywaldo,apple,8700
+tata,taco,12000
+nick,steak,92000
+dean,pizza,32040
+bob,pasta,45000
+jenifer,taco,32090
+denver,steak,129000
