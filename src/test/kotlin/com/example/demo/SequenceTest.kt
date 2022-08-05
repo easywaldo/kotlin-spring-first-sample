@@ -6,8 +6,13 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest
 class SequenceTest {
     @Test
-    fun test() {
+    fun none_sequence_test() {
+        val listOfPrimes = (1..5000)
+            .toList()
+            .filter { isPrime(it) }
+            .take(1000)
 
+        listOfPrimes.forEach { println(it) }
     }
 
     fun isPrime(number: Int): Boolean {
@@ -18,5 +23,17 @@ class SequenceTest {
                 }
             }
         return true
+    }
+
+    @Test
+    fun sequence_test()  {
+        val oneThousandPrimes = generateSequence(3) { value ->
+            value + 1
+        }.filter { isPrime(it) }.take(1000)
+
+        oneThousandPrimes.forEach {
+            println(it)
+        }
+
     }
 }
