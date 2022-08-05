@@ -106,4 +106,16 @@ class TransformingDataMapTest {
             it -> it.value
         }
     }
+
+    @Test
+    fun zip_test() {
+        val firstNames = listOf("ralph", "triumph", "teddy", "holan", "nelson", "monte")
+        val lastNames = listOf("johnson", "jonadan", "jackson", "klarkson", "donas", "william")
+
+        val zippedNames = firstNames.shuffled().zip(lastNames.shuffled()) {
+            f, s -> "$f $s"
+        }.toMutableSet()
+
+        zippedNames.forEach { println(it) }
+    }
 }
