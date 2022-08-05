@@ -118,4 +118,18 @@ class TransformingDataMapTest {
 
         zippedNames.forEach { println(it) }
     }
+
+    @Test
+    fun zip_test2() {
+        val firstNames = listOf("ralph", "triumph", "teddy", "holan", "nelson", "monte")
+        val lastNames = listOf("johnson", "jonadan", "jackson", "klarkson", "donas", "william")
+
+        val firstNamesMap = mutableMapOf<String, Int>(Pair("ralph", 10), Pair("triumph", 20), Pair("teddy", 15))
+        val secondNamesMap = mutableMapOf<String, Int>(Pair("johnson", 15), Pair("jackson", 25), Pair("donas", 17))
+
+        val zippedNames = firstNamesMap.toList().zip(secondNamesMap.toList()) {
+                first, last -> first.second + last.second
+        }.toList()
+        val total = zippedNames.sum()
+    }
 }
