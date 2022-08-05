@@ -36,4 +36,11 @@ class SequenceTest {
         }
 
     }
+
+    @Test
+    fun sequence_test2() {
+        val listOfNumbers = (0..1000000).toList()
+        val sequenceOfNumbers = listOfNumbers.asSequence()
+
+    }
 }
