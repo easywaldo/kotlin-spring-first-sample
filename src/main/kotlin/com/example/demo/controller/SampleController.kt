@@ -46,4 +46,9 @@ class SampleController(
     fun registerGoods(@RequestBody registerGoods: RegisterGoods) {
         return goodsService.registerGoods(registerGoods)
     }
+
+    @GetMapping("/goods/{id}")
+    fun getGoods(@PathVariable id: Long): Goods {
+        return goodsService.getGoods(id)
+    }
 }
