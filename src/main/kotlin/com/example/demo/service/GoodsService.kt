@@ -26,6 +26,6 @@ class GoodsService(private val goodsRepositoryParam: GoodsRepository) {
         val emptyGoods = Goods()
         emptyGoods.goodsName = "Empty Goods"
         val goods = goodsRepository.findById(goodsSeq)
-        return goods.get()
+        return goods.orElse(emptyGoods)
     }
 }
