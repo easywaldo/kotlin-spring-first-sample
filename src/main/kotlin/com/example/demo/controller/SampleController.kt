@@ -1,17 +1,15 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.Goods
-import com.example.demo.domain.GoodsRepository
 import com.example.demo.domain.Member
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import com.example.demo.service.GoodsService
+import org.springframework.web.bind.annotation.*
 
 @RestController
-class SampleController(private val goodsRepository: GoodsRepository) {
+class SampleController(
+    private val goodsServiceParam: GoodsService) {
 
+    var goodsService: GoodsService = goodsServiceParam
 
     var memberList: List<Member> = listOf(Member(
         id = 1,
@@ -40,6 +38,6 @@ class SampleController(private val goodsRepository: GoodsRepository) {
 
     @GetMapping("/goods")
     fun getGoodsList(): List<Goods> {
-        return goodsRepository.findAll()
+        return goodsService.getGoodsList()
     }
 }
