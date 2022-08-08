@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Goods
 import com.example.demo.domain.Member
+import com.example.demo.dto.RegisterGoods
 import com.example.demo.service.GoodsService
 import org.springframework.web.bind.annotation.*
 
@@ -39,5 +40,10 @@ class SampleController(
     @GetMapping("/goods")
     fun getGoodsList(): List<Goods> {
         return goodsService.getGoodsList()
+    }
+
+    @PostMapping("/goods")
+    fun registerGoods(@RequestBody registerGoods: RegisterGoods) {
+        return goodsService.registerGoods(registerGoods)
     }
 }
