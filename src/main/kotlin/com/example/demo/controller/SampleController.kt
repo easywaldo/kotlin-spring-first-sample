@@ -57,4 +57,9 @@ class SampleController(
     fun updateGoods(@RequestBody updateGoods: UpdateGoods) {
         return goodsService.updateGoods(updateGoods)
     }
+
+    @DeleteMapping("/goods/{id}")
+    fun deleteGoods(@PathVariable id: Long) {
+        return goodsService.deleteGoods(id)
+    }
 }

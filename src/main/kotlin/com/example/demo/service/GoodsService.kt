@@ -38,4 +38,9 @@ class GoodsService(private val goodsRepositoryParam: GoodsRepository) {
         }
         goods.get().goodsName = updateGoods.name
     }
+
+    @Transactional(readOnly = false)
+    fun deleteGoods(goodsSeq: Long): Unit {
+        goodsRepository.deleteById(goodsSeq)
+    }
 }
