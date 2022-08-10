@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.domain.Goods
 import com.example.demo.domain.Member
 import com.example.demo.dto.RegisterGoods
+import com.example.demo.dto.UpdateGoods
 import com.example.demo.service.GoodsService
 import org.springframework.web.bind.annotation.*
 
@@ -50,5 +51,10 @@ class SampleController(
     @GetMapping("/goods/{id}")
     fun getGoods(@PathVariable id: Long): Goods {
         return goodsService.getGoods(id)
+    }
+
+    @PutMapping("/goods/{id}")
+    fun updateGoods(@RequestBody updateGoods: UpdateGoods) {
+        return goodsService.updateGoods(updateGoods)
     }
 }

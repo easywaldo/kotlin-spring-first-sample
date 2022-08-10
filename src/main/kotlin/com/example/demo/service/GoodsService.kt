@@ -3,6 +3,7 @@ package com.example.demo.service
 import com.example.demo.domain.Goods
 import com.example.demo.domain.GoodsRepository
 import com.example.demo.dto.RegisterGoods
+import com.example.demo.dto.UpdateGoods
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.Optional
@@ -27,5 +28,14 @@ class GoodsService(private val goodsRepositoryParam: GoodsRepository) {
         emptyGoods.goodsName = "Empty Goods"
         val goods = goodsRepository.findById(goodsSeq)
         return goods.orElse(emptyGoods)
+    }
+
+    @Transactional(readOnly = false)
+    fun updateGoods(updateGoods: UpdateGoods): Unit {
+        val goods = goodsRepository.findById(updateGoods.goodsSeq)
+        if (goods.isEmpty) {
+            throw IllegalArgumentException("empty goods")
+        }
+        goods.get().goodsName = updateGoods.name
     }
 }
