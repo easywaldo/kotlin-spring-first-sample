@@ -26,6 +26,16 @@ class ReduceTest {
             .toDouble()
 
         assert(tableOrder > 0)
+
+        printAll("sword", "shield", "gun", "tow", "cannon", "knife")
+        printAll("car", "airplane")
+    }
+
+    fun printAll(vararg messages: String) {
+        println("I have ${messages.size} things to say.")
+        messages.forEach {
+            println(it)
+        }
     }
 }
 
