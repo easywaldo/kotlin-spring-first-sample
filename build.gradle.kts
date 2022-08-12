@@ -32,6 +32,7 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
+	implementation("io.arrow-kt:arrow-core:1.1.2")
 }
 
 tasks.withType<KotlinCompile> {
