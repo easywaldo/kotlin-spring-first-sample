@@ -27,4 +27,13 @@ class ScopeTest {
         }
         println(greeting)
     }
+
+    @Test
+    fun let_test_or_null() {
+        val patrons: List<String> = listOf()
+        val greeting = patrons.firstOrNull()?.let {
+            "$it walks over to Madrigal and says, \"Hi! I'm $it. Welcome to Kronstadt!\""
+        } ?: "Nobody greets Madrigal because the tavern is empty"
+        println(greeting)
+    }
 }
