@@ -71,6 +71,14 @@ class ScopeTest {
         }
         println(healthStatus)
     }
+
+    @Test
+    fun with_test() {
+        val nameTooLong: Boolean = with("Polarcubis, Supreme Master of NyeHack") {
+            length >= 20
+        }
+        println(nameTooLong)
+    }
 }
 
 data class Employee(val name: String, val language: String)
