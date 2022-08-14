@@ -48,6 +48,16 @@ class ScopeTest {
         }
         println(greeting)
     }
+
+    @Test
+    fun run_test() {
+        val tavernPlaylist = mutableListOf<String>("waldo", "john", "horn")
+        val nowPlayingMessage: String = tavernPlaylist.run {
+            shuffle()
+            "${first()} is currently playing in the tavern"
+        }
+        println(nowPlayingMessage)
+    }
 }
 
 data class Employee(val name: String, val language: String)
