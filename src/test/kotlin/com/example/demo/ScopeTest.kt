@@ -36,4 +36,18 @@ class ScopeTest {
         } ?: "Nobody greets Madrigal because the tavern is empty"
         println(greeting)
     }
+
+    @Test
+    fun let_test_2() {
+        val patrons: List<Employee> = listOf(
+            Employee(name = "waldo", language = "kotlin"),
+            Employee(name = "john", language = "python"),
+        )
+        val greeting = patrons.last().let {
+            "hello ${it.name} you are ${it.language} developer!!"
+        }
+        println(greeting)
+    }
 }
+
+data class Employee(val name: String, val language: String)
