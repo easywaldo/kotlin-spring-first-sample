@@ -58,6 +58,19 @@ class ScopeTest {
         }
         println(nowPlayingMessage)
     }
+
+    @Test
+    fun run_test_2() {
+        val healthPoints = 90
+        val healthStatus = run {
+            if (healthPoints == 100) {
+                "perfect health"
+            } else {
+                "has injuries"
+            }
+        }
+        println(healthStatus)
+    }
 }
 
 data class Employee(val name: String, val language: String)
