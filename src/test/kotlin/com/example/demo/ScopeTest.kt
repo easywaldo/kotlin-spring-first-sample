@@ -110,6 +110,27 @@ class ScopeTest {
             ?.readText()
         println("none contents : $noneContents")
     }
+
+    @Test
+    fun filter_also_test_2() {
+        var goodCompany: List<Company> = mutableListOf()
+        val companies = listOf<Company>(
+            Company(name = "alpha", level = 1, amount = 1000),
+            Company(name = "bravo", level = 2, amount = 1500),
+            Company(name = "delta", level = 1, amount = 1100),
+            Company(name = "charly", level = 2, amount = 1800)
+        )
+        companies.filter {
+            c -> c.amount > 1000
+        }.also { c ->
+            goodCompany += c
+        }
+
+        goodCompany.forEach {
+            println(it.name)
+        }
+    }
 }
 
 data class Employee(val name: String, val language: String)
+data class Company(val name: String, val level: Int, val amount: Int)
