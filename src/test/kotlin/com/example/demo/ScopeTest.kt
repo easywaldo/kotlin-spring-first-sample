@@ -2,6 +2,7 @@ package com.example.demo
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import java.io.File
 
 @SpringBootTest
 class ScopeTest {
@@ -78,6 +79,23 @@ class ScopeTest {
             length >= 20
         }
         println(nameTooLong)
+    }
+
+    @Test
+    fun also_test() {
+        var fileContents: List<String>
+        File("test.txt")
+            .also {
+                println(it.name)
+            }
+            .readLines()
+            .also {
+                fileContents = it
+            }
+        println("done")
+        fileContents.forEach {
+            println(it)
+        }
     }
 }
 
