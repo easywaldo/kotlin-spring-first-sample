@@ -97,6 +97,19 @@ class ScopeTest {
             println(it)
         }
     }
+
+    @Test
+    fun take_if_test() {
+        val fileContents = File("test.txt")
+            .takeIf { it.exists() }
+            ?.readText()
+        println(fileContents)
+
+        val noneContents = File("none.txt")
+            .takeIf { it.exists() }
+            ?.readText()
+        println("none contents : $noneContents")
+    }
 }
 
 data class Employee(val name: String, val language: String)
