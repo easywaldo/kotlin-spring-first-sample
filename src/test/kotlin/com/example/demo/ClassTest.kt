@@ -18,6 +18,7 @@ class ClassTest {
 
 class Player {
     val name = "waldo"
+        get() = field.replaceFirstChar { it.uppercase() }
     fun castFireball(numFireballs: Int = 2) {
         narrate("A glass of Fireball springs into existence (x$numFireballs)")
     }
