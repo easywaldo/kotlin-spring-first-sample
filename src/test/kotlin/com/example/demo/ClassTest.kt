@@ -8,10 +8,10 @@ class ClassTest {
     @Test
     fun player_test() {
         val player = Player()
-        player.name = "easy waldo"
         narrate("${player.name}, ${createTitle(player.name)}, heads to the town square")
         player.castFireball()
 
+        player.changeName("easy waldo")
         println(player.name)
     }
 }
@@ -20,11 +20,15 @@ class Player {
     var name = "waldo"
         get() = field.replaceFirstChar {
             it.uppercase() }
-        set(value) {
+        private set(value) {
             field = value.trim().replace(" ", "")
         }
     fun castFireball(numFireballs: Int = 2) {
         narrate("A glass of Fireball springs into existence (x$numFireballs)")
+    }
+    fun changeName(newName: String) {
+        narrate("$name legally changes their name to $newName")
+        name = newName
     }
 }
 
