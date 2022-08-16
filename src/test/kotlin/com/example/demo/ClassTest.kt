@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest
 class ClassTest {
     @Test
     fun player_test() {
-//        var heroName = "waldo"
         val player = Player()
+        player.name = "easy waldo"
         narrate("${player.name}, ${createTitle(player.name)}, heads to the town square")
         player.castFireball()
 
@@ -17,8 +17,12 @@ class ClassTest {
 }
 
 class Player {
-    val name = "waldo"
-        get() = field.replaceFirstChar { it.uppercase() }
+    var name = "waldo"
+        get() = field.replaceFirstChar {
+            it.uppercase() }
+        set(value) {
+            field = value.trim().replace(" ", "")
+        }
     fun castFireball(numFireballs: Int = 2) {
         narrate("A glass of Fireball springs into existence (x$numFireballs)")
     }
