@@ -7,14 +7,17 @@ import org.springframework.boot.test.context.SpringBootTest
 class ClassTest {
     @Test
     fun player_test() {
-        var heroName = "waldo"
+//        var heroName = "waldo"
         val player = Player()
-        narrate("$heroName, ${createTitle(heroName)}, heads to the town square")
+        narrate("${player.name}, ${createTitle(player.name)}, heads to the town square")
         player.castFireball()
+
+        println(player.name)
     }
 }
 
 class Player {
+    val name = "waldo"
     fun castFireball(numFireballs: Int = 2) {
         narrate("A glass of Fireball springs into existence (x$numFireballs)")
     }
