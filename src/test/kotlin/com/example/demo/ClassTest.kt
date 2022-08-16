@@ -13,6 +13,9 @@ class ClassTest {
 
         player.changeName("easy waldo")
         println(player.name)
+
+        player.changeName("1292345")
+        println(player.title)
     }
 }
 
@@ -23,6 +26,20 @@ class Player {
         private set(value) {
             field = value.trim().replace(" ", "")
         }
+    val title: String
+        get() = when {
+            name.all {
+                it.isDigit()
+            } -> "The Identifiable"
+            name.none() {
+                it.isLetter()
+            } -> "The Witness Protection Member"
+            name.count() {
+                it.lowercase() in "aeiou"
+            } > 4 -> "The Master of Vowels"
+            else -> "The Renowned Hero"
+        }
+
     fun castFireball(numFireballs: Int = 2) {
         narrate("A glass of Fireball springs into existence (x$numFireballs)")
     }
