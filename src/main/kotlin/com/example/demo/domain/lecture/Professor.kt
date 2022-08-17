@@ -1,6 +1,11 @@
 package com.example.demo.domain.lecture
 
 class Professor {
+    init {
+        println("initialized...")
+    }
+
+
     var name = "easywaldo"
     get() = field.replaceFirstChar { it.uppercase() }
     private set(value) {
