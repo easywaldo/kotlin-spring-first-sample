@@ -7,6 +7,8 @@ class Professor {
         field = value.trim()
     }
 
+    var weapon: Weapon? = Weapon("Knowledge")
+
     val title: String
         get() = when {
             name.all { it.isDigit() } -> "The Identifiable"
@@ -24,4 +26,16 @@ class Professor {
         println("need to change name")
         name = newName
     }
+
+    fun printWeaponName() {
+        // compile error
+        /*if (weapon != null) {
+            println(weapon.name)
+        }*/
+        weapon?.let {
+            println(it.name)
+        }
+    }
 }
+
+class Weapon(val name: String)
