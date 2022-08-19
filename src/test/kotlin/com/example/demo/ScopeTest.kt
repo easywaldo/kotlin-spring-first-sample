@@ -39,6 +39,18 @@ class ScopeTest {
         }
         println(greeting)
     }
+
+    @Test
+    fun let_test_3() {
+        val hiddenQuest: String = "kotlin and python"
+        val questMessage: String = hiddenQuest?.let {
+            """
+                You should master $hiddenQuest !!
+                And make web service using related framework !!
+            """.trimMargin()
+        }
+        println(questMessage)
+    }
 }
 
 data class Employee(val name: String, val language: String)
