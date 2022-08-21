@@ -1,5 +1,6 @@
 package com.example.demo.inheritance
 
+import com.example.demo.Player
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -30,7 +31,24 @@ class Inheritance01Test {
         }
         println(className)
         println(className2)
+
+        val player = Player()
+        printIsSourceOfBlessings(className)
+        printIsSourceOfBlessings(className2)
+        printIsSourceOfBlessings(player)
     }
+}
+
+fun printIsSourceOfBlessings(any: Any) {
+    val isSourceOfBlessings: Boolean = if (any is Player) {
+        any.title == "The Blessed"
+    } else if (any is Room) {
+        (any as Room).name == "this checking is unsafe"
+        any.name == "Fount of Blessings"
+    } else {
+        false
+    }
+    println("$any is source of blessings: $isSourceOfBlessings")
 }
 
 open class Room(val name: String) {
