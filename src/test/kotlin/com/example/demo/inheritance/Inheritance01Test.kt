@@ -14,6 +14,22 @@ class Inheritance01Test {
         val townSquare = TownSquare()
         townSquare.enterRoom()
         println(townSquare.description())
+
+        assert(townSquare is TownSquare)
+        assert(townSquare is Room)
+
+        var className: String = when(townSquare) {
+            is TownSquare -> "TownSquare"
+            is Room -> "Room"
+            else -> throw IllegalArgumentException()
+        }
+        var className2: String = when(townSquare) {
+            is Room -> "Room"
+            is TownSquare -> "TownSquare"
+            else -> throw IllegalArgumentException()
+        }
+        println(className)
+        println(className2)
     }
 }
 
