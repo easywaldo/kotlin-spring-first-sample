@@ -32,7 +32,7 @@ class Inheritance01Test {
         println(className)
         println(className2)
 
-        val player = Player()
+        val player = Player("easywaldo", "Seoul", 100, true)
         printIsSourceOfBlessings(className)
         printIsSourceOfBlessings(className2)
         printIsSourceOfBlessings(player)
