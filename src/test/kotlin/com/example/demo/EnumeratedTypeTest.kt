@@ -10,8 +10,15 @@ class EnumeratedTypeTest {
         println(Direction.East)
 
         var currentPosition = Coordinate(5, 2)
-        currentPosition = Direction.East.updateCoordinate(currentPosition)
-        println(currentPosition)
+        val movedPosition = Direction.East.updateCoordinate(currentPosition)
+        println(movedPosition)
+
+        println(Direction.East.ordinal)
+        println(movedPosition.hashCode())
+        println(movedPosition.equals(currentPosition))
+        println(movedPosition == Coordinate(6, 2))
+        println(movedPosition.equals(Coordinate(6, 2)))
+        println(movedPosition.toString())
     }
 }
 
