@@ -19,6 +19,12 @@ class EnumeratedTypeTest {
         println(movedPosition == Coordinate(6, 2))
         println(movedPosition.equals(Coordinate(6, 2)))
         println(movedPosition.toString())
+
+        println(Direction.North.name)
+        println(Direction.valueOf("South"))
+        for (e in Direction.values()) {
+            println(e.name)
+        }
     }
 }
 
