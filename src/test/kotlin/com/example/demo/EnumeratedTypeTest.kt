@@ -11,9 +11,9 @@ class EnumeratedTypeTest {
     }
 }
 
-enum class Direction {
-    North,
-    East,
-    South,
-    West,
+enum class Direction(private val directionCoordinate: Coordinate) {
+    North(Coordinate(0, -1)),
+    East(Coordinate(1, 0)),
+    South(Coordinate(0, -1)),
+    West(Coordinate(-1, 0)),
 }
