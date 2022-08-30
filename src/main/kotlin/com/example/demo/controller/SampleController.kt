@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Goods
 import com.example.demo.domain.Member
+import com.example.demo.dto.GoodsResponseDto
 import com.example.demo.dto.RegisterGoods
 import com.example.demo.dto.UpdateGoods
 import com.example.demo.service.GoodsService
@@ -39,8 +40,10 @@ class SampleController(
     }
 
     @GetMapping("/goods")
-    fun getGoodsList(): List<Goods> {
-        return goodsService.getGoodsList()
+    fun getGoodsList(): List<GoodsResponseDto> {
+        return goodsService.getGoodsList().map {
+            GoodsResponseDto(it.goodsName)
+        }.toList()
     }
 
     @PostMapping("/goods")
