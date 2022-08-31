@@ -35,7 +35,8 @@ enum class Direction(private val directionCoordinate: Coordinate) {
     West(Coordinate(-1, 0));
 
     fun updateCoordinate(coordinate: Coordinate) =
-        Coordinate(
-            x = coordinate.x + directionCoordinate.x,
-            y = coordinate.y + directionCoordinate.y)
+//        Coordinate(
+//            x = coordinate.x + directionCoordinate.x,
+//            y = coordinate.y + directionCoordinate.y)
+        coordinate + directionCoordinate
 }
