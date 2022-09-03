@@ -2,13 +2,25 @@ package com.example.demo
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import kotlin.random.Random
 
 @SpringBootTest
 class InterfaceTest {
     @Test
     fun test() {
-        val gamePlayer1: Fightable = GamePlayer(initialName = "easywaldo", homeTown = "Seoul", healthPoints = 300, isImmortal = true)
-        val gamePlayer2: Fightable = GamePlayer(initialName = "dodo", homeTown = "NewYork", healthPoints = 300, isImmortal = true)
+        val gamePlayer1: Fightable = GamePlayer(
+            initialName = "easywaldo",
+            homeTown = "Seoul",
+            healthPoints = 300,
+            isImmortal = true)
+        val gamePlayer2: Fightable = GamePlayer(
+            initialName = "dodo",
+            homeTown = "NewYork",
+            healthPoints = 300,
+            isImmortal = false)
+
+        gamePlayer1.attack(gamePlayer2)
+        println(gamePlayer2.healthPoints)
     }
 }
 
@@ -18,8 +30,15 @@ interface Fightable {
     val diceCount: Int
     val diceSides: Int
 
-    fun takeDamage(damage: Int)
-    fun attack(opponent: Fightable)
+    fun takeDamage(damage: Int) {
+    }
+    fun attack(opponent: Fightable) {
+        val damageRoll = (0 until diceCount).sumOf {
+            Random.nextInt(diceSides)
+        }
+        println("$name deals $damageRoll to ${opponent.name}")
+        opponent.takeDamage(damageRoll)
+    }
 }
 
 class GamePlayer(
@@ -36,17 +55,19 @@ class GamePlayer(
         }
 
     override val diceCount: Int
-        get() = TODO("Not yet implemented")
+        get() = 5
 
     override val diceSides: Int
-        get() = TODO("Not yet implemented")
+        get() = 3
 
     override fun takeDamage(damage: Int) {
-        TODO("Not yet implemented")
+        if (!isImmortal) {
+            healthPoints -= damage
+        }
     }
 
     override fun attack(opponent: Fightable) {
-        TODO("Not yet implemented")
+        super.attack(opponent)
     }
 
 }
