@@ -1,5 +1,6 @@
 package com.example.demo
 
+import com.example.demo.inheritance.TownSquare
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import kotlin.random.Random
@@ -21,6 +22,22 @@ class InterfaceTest {
 
         gamePlayer1.attack(gamePlayer2)
         println(gamePlayer2.healthPoints)
+
+        val goblin = Goblin("Ninja Goblin", "hidden sword", 100)
+        gamePlayer1.attack(goblin)
+
+        val theRoom1 = Room("quite room")
+        theRoom1.enterRoom()
+
+        val theRoom2 = MonsterRoom("horrible room")
+        theRoom2.enterRoom()
+
+        val worldMap = listOf(
+            listOf(TownSquare(), Room("Back Room")),
+            listOf(MonsterRoom("A Long Corridor"), Room("A Generic Room")),
+            listOf(MonsterRoom("The Dungeon"))
+        )
+
     }
 }
 
@@ -85,5 +102,27 @@ abstract class Monster(
 class Goblin(
     name: String = "Goblin",
     description: String = "A nasty-looking goblin",
-    healthPoints: Int = 30, override val diceCount: Int, override val diceSides: Int
-): Monster(name, description, healthPoints)
+    healthPoints: Int = 30
+): Monster(name, description, healthPoints) {
+    override val diceSides: Int
+        get() = 2
+    override val diceCount: Int
+        get() = 8
+}
+
+open class Room(val name: String) {
+    protected open val status = "Calm"
+
+    open fun description() = "$name (Currently: $status"
+
+    open fun enterRoom() {
+        println("There is nothing to do here")
+    }
+}
+
+open class MonsterRoom(
+    name: String,
+    var monster: Monster? = Goblin()
+): Room(name) {
+    override fun description() = super.description() + "(Creature: ${monster?.description}"
+}
