@@ -47,6 +47,15 @@ class Bag<T> {
     }
 }
 
+
+abstract class Loot {
+    abstract val name: String
+}
+
+interface Sellable {
+    val values: Int
+}
+
 class LootBox<T>(var contents: T) {
     var isOpen = false
         private set
@@ -59,6 +68,11 @@ class LootBox<T>(var contents: T) {
         }
     }
 }
-class Fedora(val name: String, val value: Int)
-class Gemstones(val value: Int)
-class Key(val name: String)
+class Fedora(override val name: String, override val values: Int): Loot(), Sellable
+
+class Gemstones(val value: Int, override val values: Int): Loot(), Sellable {
+    override val name: String
+        get() = "sack of gemstones worth $value gold"
+
+}
+class Key(override val name: String) : Loot()
