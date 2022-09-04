@@ -23,6 +23,9 @@ class GenericTest {
             // 반공변성을 해결하기 위해서 in keyword 사용
             mutableListOf<CharSequence>("1", "2"), mutableListOf<String>("3", "4"))
 
+        val lootBoxOne: LootBox<Fedora> = LootBox(Fedora("a generic-looking fedora", 15))
+        val lootBoxTow: LootBox<Gemstones> = LootBox(Gemstones((150)))
+
     }
 }
 
@@ -37,3 +40,8 @@ class Bag<T> {
         to.addAll(from)
     }
 }
+
+class LootBox<T>(var contents: T)
+class Fedora(val name: String, val value: Int)
+class Gemstones(val value: Int)
+class Key(val name: String)
