@@ -32,6 +32,14 @@ class GenericTest {
             } ?: "The box is empty")
         }
 
+        val lootBox: LootBox<Loot> = LootBox(Fedora("a dazzling fuchsia fedora", 15))
+        // val fedora: Fedora = lootBox.contents // type error
+
+        val hatDropOffBox = DropOffBox<Fedora>()
+        hatDropOffBox.sellLoot((Fedora("a sequin-covered fedora", 20)))
+
+        // hatDropOffBox.sellLoot(Gemstones(100))  // error: type mismatch: inferred type is Gemstones but Fedora was expected
+
     }
 }
 
@@ -56,7 +64,7 @@ interface Sellable {
     val values: Int
 }
 
-class LootBox<T>(var contents: T) {
+class LootBox<T: Loot>(var contents: T) {
     var isOpen = false
         private set
 
@@ -68,11 +76,18 @@ class LootBox<T>(var contents: T) {
         }
     }
 }
+
+class DropOffBox<T> where T: Loot, T: Sellable {
+    fun sellLoot(sellableLoot: T): Int {
+        return (sellableLoot.values * 0.7).toInt()
+    }
+}
+
 class Fedora(override val name: String, override val values: Int): Loot(), Sellable
 
-class Gemstones(val value: Int, override val values: Int): Loot(), Sellable {
+class Gemstones(override val values: Int): Loot(), Sellable {
     override val name: String
-        get() = "sack of gemstones worth $value gold"
+        get() = "sack of gemstones worth $values gold"
 
 }
 class Key(override val name: String) : Loot()
