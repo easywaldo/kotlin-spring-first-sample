@@ -26,6 +26,12 @@ class GenericTest {
         val lootBoxOne: LootBox<Fedora> = LootBox(Fedora("a generic-looking fedora", 15))
         val lootBoxTow: LootBox<Gemstones> = LootBox(Gemstones((150)))
 
+        repeat(2) {
+            println(lootBoxOne.takeLoot()?.let {
+                "The hero retrieves ${it.name} from the box"
+            } ?: "The box is empty")
+        }
+
     }
 }
 
@@ -41,7 +47,18 @@ class Bag<T> {
     }
 }
 
-class LootBox<T>(var contents: T)
+class LootBox<T>(var contents: T) {
+    var isOpen = false
+        private set
+
+    fun takeLoot(): T? {
+        return contents.takeIf {
+            !isOpen
+        }.also {
+            isOpen = true
+        }
+    }
+}
 class Fedora(val name: String, val value: Int)
 class Gemstones(val value: Int)
 class Key(val name: String)
