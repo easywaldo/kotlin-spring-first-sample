@@ -41,6 +41,21 @@ class GenericTest {
         // hatDropOffBox.sellLoot(Gemstones(100))  // error: type mismatch: inferred type is Gemstones but Fedora was expected
 
     }
+
+    @Test
+    fun test2() {
+        val loot: Loot = Fedora("a generic-looking fedora", 15)
+        var fedoraBox: LootBox<Fedora> = LootBox(Fedora("a generic-looking fedora", 15))
+        var lootBox: LootBox<Loot> = LootBox(Gemstones(150))
+
+        lootBox = fedoraBox
+//        lootBox.contents = Gemstones(200) // type mismatch
+        val myFedora: Fedora = fedoraBox.contents
+
+        val hatDropOffBox: DropOffBox<Hat> = DropOffBox()
+        val fedoraDropOffBox: DropOffBox<Fedora> = hatDropOffBox
+        println(fedoraDropOffBox.sellLoot(Fedora("one-of-a-kind fedora", 1000)))
+    }
 }
 
 class MyGeneric<T>(val t: T) {
@@ -64,7 +79,7 @@ interface Sellable {
     val values: Int
 }
 
-class LootBox<T: Loot>(var contents: T) {
+class LootBox<out T: Loot>(val contents: T) {
     var isOpen = false
         private set
 
@@ -77,13 +92,17 @@ class LootBox<T: Loot>(var contents: T) {
     }
 }
 
-class DropOffBox<T> where T: Loot, T: Sellable {
+class DropOffBox<in T> where T: Loot, T: Sellable {
     fun sellLoot(sellableLoot: T): Int {
         return (sellableLoot.values * 0.7).toInt()
     }
 }
 
-class Fedora(override val name: String, override val values: Int): Loot(), Sellable
+abstract class Hat: Loot(), Sellable
+
+class Fedora(override val name: String, override val values: Int): Hat()
+
+class Fez(override val name: String, override val values: Int): Hat()
 
 class Gemstones(override val values: Int): Loot(), Sellable {
     override val name: String
