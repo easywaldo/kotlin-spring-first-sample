@@ -45,15 +45,21 @@ class GenericTest {
     @Test
     fun test2() {
         val loot: Loot = Fedora("a generic-looking fedora", 15)
+
+        // Loot 클래스를 상속받는 Fedora 는 타입 매칭
         var fedoraBox: LootBox<Fedora> = LootBox(Fedora("a generic-looking fedora", 15))
+        // Loot 클래스를 상속받는 Gemstones 는 타입 매칭
         var lootBox: LootBox<Loot> = LootBox(Gemstones(150))
 
         lootBox = fedoraBox
 //        lootBox.contents = Gemstones(200) // type mismatch
         val myFedora: Fedora = fedoraBox.contents
 
+        // Loot 클래스의 하위클래스인 Hat, Loot 클래스의 하위클래스인 DropOffBox 모두 같은 레벨 안에 있으므로 type match
         val hatDropOffBox: DropOffBox<Hat> = DropOffBox()
+        // Hat 클래스의 하위클래스인 Fedora 에 상위클래스인 Hat 클래스 타입이 매칭이 된다
         val fedoraDropOffBox: DropOffBox<Fedora> = hatDropOffBox
+
         println(fedoraDropOffBox.sellLoot(Fedora("one-of-a-kind fedora", 1000)))
     }
 }
