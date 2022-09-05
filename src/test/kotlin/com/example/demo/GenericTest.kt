@@ -96,6 +96,14 @@ class LootBox<out T: Loot>(val contents: T) {
             isOpen = true
         }
     }
+
+    inline fun <reified U> takeLootOfType(): U? {
+        return if (contents is U) {
+            takeLoot() as U
+        } else {
+            null
+        }
+    }
 }
 
 class DropOffBox<in T> where T: Loot, T: Sellable {
