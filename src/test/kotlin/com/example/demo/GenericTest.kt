@@ -61,6 +61,10 @@ class GenericTest {
         val fedoraDropOffBox: DropOffBox<Fedora> = hatDropOffBox
 
         println(fedoraDropOffBox.sellLoot(Fedora("one-of-a-kind fedora", 1000)))
+
+
+        println(fedoraBox.takeLootOfType<Fedora>())
+        println(lootBox.takeLootOfType<Gemstones>())
     }
 }
 
