@@ -12,6 +12,10 @@ class ExtensionFunctionTest2 {
         5.print()
 
         "Madrigal has left the building".print().addEnthusiasm().print()
+
+        println("Hello World".let {
+            it.plus(" Again")
+        })
     }
 }
 
@@ -21,4 +25,10 @@ fun String.addEnthusiasm(enthusiasmLevel: Int = 1) =
 fun <T> T.print(): T {
     println(this)
     return this
+}
+
+
+// kotlin let extension function
+inline fun <T, R> T.let(block: (T) -> R): R {
+    return block(this)
 }
