@@ -10,12 +10,15 @@ class ExtensionFunctionTest2 {
         println("HelloWorld".addEnthusiasm(5))
 
         5.print()
+
+        "Madrigal has left the building".print().addEnthusiasm().print()
     }
 }
 
 fun String.addEnthusiasm(enthusiasmLevel: Int = 1) =
     this + "!".repeat(enthusiasmLevel)
 
-fun Any.print() {
+fun <T> T.print(): T {
     println(this)
+    return this
 }
