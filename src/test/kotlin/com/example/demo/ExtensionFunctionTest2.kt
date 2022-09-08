@@ -1,6 +1,5 @@
 package com.example.demo
 
-import com.example.demo.inheritance.TownSquare
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -37,6 +36,11 @@ class ExtensionFunctionTest2 {
         println(monsterRoom.monster?.name)
         println(monsterRoom.monster?.description)
     }
+
+    @Test
+    fun frame_test() {
+        print("Welcome, Madrigal".frame(5))
+    }
 }
 
 fun String.addEnthusiasm(enthusiasmLevel: Int = 1) =
@@ -58,4 +62,14 @@ inline fun MonsterRoom.configurePitGoblin(
     val goblin = block(Goblin("Pit Goblin", description = "An Evil Pit Goblin"))
     monster = goblin
     return this
+}
+
+fun String.frame(padding: Int, formatChar: String = "*"): String {
+    val greeting = this
+    val middle = formatChar
+        .padEnd(padding)
+        .plus(greeting)
+        .plus(formatChar.padStart(padding))
+    val end = (0 until middle.length).joinToString("") { formatChar }
+    return "$end\n$middle\n$end"
 }
