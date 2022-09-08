@@ -19,6 +19,24 @@ class ExtensionFunctionTest2 {
         val roomOne = MonsterRoom(name = "red goblin")
         println(roomOne.orEmptyRoom().name)
     }
+
+    @Test
+    fun test2() {
+        val monsterRoom = MonsterRoom(name = "Terrible", Goblin(name = "lightning"))
+        monsterRoom.configurePitGoblin {
+            goblin -> goblin.healthPoints = when {
+                "Haunted" in name -> 60
+                "Dungeon" in name -> 100
+                "Town square" in name -> 15
+                "Terrible" in name -> 150
+                else -> 30
+            }
+            goblin
+        }
+        println("Monster health's point is ${monsterRoom.monster?.healthPoints}")
+        println(monsterRoom.monster?.name)
+        println(monsterRoom.monster?.description)
+    }
 }
 
 fun String.addEnthusiasm(enthusiasmLevel: Int = 1) =
@@ -33,3 +51,11 @@ infix fun Coordinate.move(direction: Direction) =
 
 fun Room?.orEmptyRoom(name: String = "the middle of nowhere"): Room =
     this ?: Room(name)
+
+inline fun MonsterRoom.configurePitGoblin(
+    block: MonsterRoom.(Goblin) -> Goblin
+): MonsterRoom {
+    val goblin = block(Goblin("Pit Goblin", description = "An Evil Pit Goblin"))
+    monster = goblin
+    return this
+}
