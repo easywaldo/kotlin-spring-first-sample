@@ -33,6 +33,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
 	implementation("io.arrow-kt:arrow-core:1.1.2")
+
+	implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
 }
 
 tasks.withType<KotlinCompile> {

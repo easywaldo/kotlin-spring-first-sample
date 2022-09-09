@@ -1,5 +1,7 @@
 package com.example.demo.coroutines
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import java.net.URL
@@ -12,7 +14,13 @@ class FetchFlightTest {
     @Test
     fun test() {
         println("Started")
-        println(fetchFlight())
+//        println(fetchFlight())
+
+        GlobalScope.launch {
+            println(fetchFlight())
+        }
+
+
         println("Finished")
 
     }
