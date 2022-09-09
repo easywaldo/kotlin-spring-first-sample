@@ -1,7 +1,9 @@
 package com.example.demo.coroutines
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import java.net.URL
@@ -33,6 +35,8 @@ class FetchFlightTest {
 
     }
 
-    fun fetchFlight(): String = URL(FLIGHT_ENDPOINT).readText()
+    suspend fun fetchFlight(): String = withContext(Dispatchers.IO) {
+        URL(FLIGHT_ENDPOINT).readText()
+    }
 
 }
