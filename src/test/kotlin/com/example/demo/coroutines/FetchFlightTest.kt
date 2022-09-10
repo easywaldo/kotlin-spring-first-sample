@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import java.net.URL
 
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.request.get
+
 @SpringBootTest
 class FetchFlightTest {
     private val BASE_URL = "http://kotlin-book.bignerdranch.com/2e"
@@ -35,8 +39,13 @@ class FetchFlightTest {
 
     }
 
-    suspend fun fetchFlight(): String = withContext(Dispatchers.IO) {
-        URL(FLIGHT_ENDPOINT).readText()
+//    suspend fun fetchFlight(): String = withContext(Dispatchers.IO) {
+//        URL(FLIGHT_ENDPOINT).readText()
+//    }
+
+    suspend fun fetchFlight(): String {
+        val client = HttpClient(CIO)
+        return client.get<String>(FLIGHT_ENDPOINT)
     }
 
 }
