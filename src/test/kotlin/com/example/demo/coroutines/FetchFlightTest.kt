@@ -16,6 +16,7 @@ import io.ktor.client.request.get
 class FetchFlightTest {
     private val BASE_URL = "http://kotlin-book.bignerdranch.com/2e"
     private val FLIGHT_ENDPOINT = "$BASE_URL/flight"
+    private val LOYALTY_ENDPOINT = "$BASE_URL/loyalty"
 
     @Test
     fun test() {
@@ -45,7 +46,10 @@ class FetchFlightTest {
 
     suspend fun fetchFlight(): String {
         val client = HttpClient(CIO)
-        return client.get<String>(FLIGHT_ENDPOINT)
+        val flightResponse = client.get<String>(FLIGHT_ENDPOINT)
+        val loyaltyResponse = client.get<String>(LOYALTY_ENDPOINT)
+
+        return "$flightResponse\n$loyaltyResponse"
     }
 
 }
