@@ -1,9 +1,5 @@
 package com.example.demo.coroutines
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import java.net.URL
@@ -11,6 +7,8 @@ import java.net.URL
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
+import kotlinx.coroutines.*
+import org.springframework.web.servlet.function.ServerResponse.async
 
 @SpringBootTest
 class FetchFlightTest {
@@ -44,27 +42,34 @@ class FetchFlightTest {
 //        URL(FLIGHT_ENDPOINT).readText()
 //    }
 
-    suspend fun fetchFlight(passengerName: String): FlightStatus {
+    suspend fun fetchFlight(passengerName: String): FlightStatus = coroutineScope {
         val client = HttpClient(CIO)
 
-        println("Started fetching flight info")
+//        println("Started fetching flight info")
 
-        val flightResponse = client.get<String>(FLIGHT_ENDPOINT).also {
+        val flightResponse = async {
             println("Finished fetching flight info")
+            client.get<String>(FLIGHT_ENDPOINT).also {
+                println("Finished fetching flight info")
+            }
         }
 
-        println("Started fetching loyalty info")
-        val loyaltyResponse = client.get<String>(LOYALTY_ENDPOINT).also {
+//        println("Started fetching loyalty info")
+        val loyaltyResponse = async {
             println("Finished fetching loyalty info")
+            client.get<String>(LOYALTY_ENDPOINT).also {
+                println("Finished fetching loyalty info")
+            }
         }
 
 //        return "$flightResponse\n$loyaltyResponse"
 
+        delay(500)
         println("Combining flight data")
-        return FlightStatus.parse(
+        FlightStatus.parse(
             passengerName = passengerName,
-            flightResponse = flightResponse,
-            loyaltyResponse = loyaltyResponse
+            flightResponse = flightResponse.await(),
+            loyaltyResponse = loyaltyResponse.await()
         )
     }
 
