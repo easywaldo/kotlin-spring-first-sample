@@ -30,7 +30,7 @@ class FetchFlightTest {
         runBlocking {
             println("Started")
             launch {
-                println(fetchFlight())
+                println(fetchFlight("Easywaldo"))
             }
             println("Finished")
         }
@@ -44,12 +44,53 @@ class FetchFlightTest {
 //        URL(FLIGHT_ENDPOINT).readText()
 //    }
 
-    suspend fun fetchFlight(): String {
+    suspend fun fetchFlight(passengerName: String): FlightStatus {
         val client = HttpClient(CIO)
         val flightResponse = client.get<String>(FLIGHT_ENDPOINT)
         val loyaltyResponse = client.get<String>(LOYALTY_ENDPOINT)
 
-        return "$flightResponse\n$loyaltyResponse"
+//        return "$flightResponse\n$loyaltyResponse"
+        return FlightStatus.parse(
+            passengerName = passengerName,
+            flightResponse = flightResponse,
+            loyaltyResponse = loyaltyResponse
+        )
+    }
+
+}
+
+data class FlightStatus(
+    val flightNumber: String,
+    val passengerName: String,
+    val passengerLoyaltyTier: String,
+    val originAirport: String,
+    val destinationAirport: String,
+    val status: String,
+    val departureTimeInMinutes: Int
+) {
+
+    companion object {
+        fun parse(
+            flightResponse: String,
+            loyaltyResponse: String,
+            passengerName: String
+        ): FlightStatus {
+            val (flightNumber, originAirport, destinationAirport, status,
+                departureTimeInMinutes) = flightResponse.split(",")
+
+            val (loyaltyTierName, milesFlown, milesToNextTier) =
+                loyaltyResponse.split(",")
+
+            return FlightStatus(
+                flightNumber = flightNumber,
+                passengerName = passengerName,
+                passengerLoyaltyTier = loyaltyTierName,
+                originAirport = originAirport,
+                destinationAirport = destinationAirport,
+                status = status,
+                departureTimeInMinutes = departureTimeInMinutes.toInt()
+            )
+        }
     }
 
 }
