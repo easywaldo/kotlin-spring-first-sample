@@ -47,7 +47,7 @@ class FetchFlightTest {
         runBlocking {
             println("Started")
             launch {
-                fetchFlights(listOf("Easywaldo", "John"))
+                fetchFlights(listOf("Easywaldo", "John", "DunDun", "Alex"))
             }
             println("Finished")
         }
@@ -101,13 +101,16 @@ class FetchFlightTest {
             passengerNamesChannel.close()
         }
 
-        repeat(numberOfWorkers) {
+//        repeat(numberOfWorkers) {
             launch {
-//            fetchFlightStatuses(passengerNamesChannel)
-                fetchFlightStatuses(passengerNamesChannel, fetchFlightsChannel)
+                (1..numberOfWorkers).map {
+                    launch {
+                        fetchFlightStatuses(passengerNamesChannel, fetchFlightsChannel)
+                    }
+                }.joinAll()
                 fetchFlightsChannel.close()
             }
-        }
+//        }
 
 //        emptyList()
         fetchFlightsChannel.toList()
