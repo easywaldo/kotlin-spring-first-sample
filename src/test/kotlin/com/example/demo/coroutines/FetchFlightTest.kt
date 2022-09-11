@@ -98,11 +98,13 @@ class FetchFlightTest {
             passengerNames.forEach {
                 passengerNamesChannel.send(it)
             }
+            passengerNamesChannel.close()
         }
 
         launch {
 //            fetchFlightStatuses(passengerNamesChannel)
             fetchFlightStatuses(passengerNamesChannel, fetchFlightsChannel)
+            fetchFlightsChannel.close()
         }
 
 //        emptyList()
