@@ -89,7 +89,7 @@ class FetchFlightTest {
     }
 
     suspend fun fetchFlights(
-        passengerNames: List<String> = listOf("Madrigal", "Polarcubis")
+        passengerNames: List<String> = listOf("Madrigal", "Polarcubis", "Estragon", "Taernyl"), numberOfWorkers: Int = 2
     ): List<FlightStatus> = coroutineScope {
         val passengerNamesChannel = Channel<String>()
         val fetchFlightsChannel = Channel<FlightStatus>()
@@ -101,10 +101,12 @@ class FetchFlightTest {
             passengerNamesChannel.close()
         }
 
-        launch {
+        repeat(numberOfWorkers) {
+            launch {
 //            fetchFlightStatuses(passengerNamesChannel)
-            fetchFlightStatuses(passengerNamesChannel, fetchFlightsChannel)
-            fetchFlightsChannel.close()
+                fetchFlightStatuses(passengerNamesChannel, fetchFlightsChannel)
+                fetchFlightsChannel.close()
+            }
         }
 
 //        emptyList()
