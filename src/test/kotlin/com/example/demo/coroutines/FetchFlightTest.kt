@@ -8,6 +8,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
 import org.springframework.web.servlet.function.ServerResponse.async
 
 @SpringBootTest
@@ -36,6 +37,17 @@ class FetchFlightTest {
 
 //        println("Finished")
 
+    }
+
+    @Test
+    fun test2() {
+        runBlocking {
+            println("Started")
+            launch {
+                fetchFlights(listOf("Easywaldo", "John"))
+            }
+            println("Finished")
+        }
     }
 
 //    suspend fun fetchFlight(): String = withContext(Dispatchers.IO) {
@@ -72,6 +84,33 @@ class FetchFlightTest {
             loyaltyResponse = loyaltyResponse.await()
         )
     }
+
+    suspend fun fetchFlights(
+        passengerNames: List<String> = listOf("Madrigal", "Polarcubis")
+    ): List<FlightStatus> = coroutineScope {
+        val passengerNamesChannel = Channel<String>()
+
+        launch {
+            passengerNames.forEach {
+                passengerNamesChannel.send(it)
+            }
+        }
+
+        launch {
+            fetchFlightStatuses(passengerNamesChannel)
+        }
+
+        emptyList()
+    }
+
+    suspend fun fetchFlightStatuses(
+        fetchChannel: Channel<String>
+    ) {
+        val passengerName = fetchChannel.receive()
+        val flight = fetchFlight(passengerName)
+        println("Fetched flight: $flight")
+    }
+
 
 }
 
