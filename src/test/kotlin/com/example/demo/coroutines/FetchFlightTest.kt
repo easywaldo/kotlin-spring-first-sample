@@ -9,6 +9,8 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.SendChannel
 import kotlinx.coroutines.channels.toList
 import org.springframework.web.servlet.function.ServerResponse.async
 
@@ -108,8 +110,8 @@ class FetchFlightTest {
     }
 
     suspend fun fetchFlightStatuses(
-        fetchChannel: Channel<String>,
-        resultChannel: Channel<FlightStatus>
+        fetchChannel: ReceiveChannel<String>,
+        resultChannel: SendChannel<FlightStatus>
     ) {
 //        val passengerName = fetchChannel.receive()
 //        val flight = fetchFlight(passengerName)
