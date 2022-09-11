@@ -106,9 +106,13 @@ class FetchFlightTest {
     suspend fun fetchFlightStatuses(
         fetchChannel: Channel<String>
     ) {
-        val passengerName = fetchChannel.receive()
-        val flight = fetchFlight(passengerName)
-        println("Fetched flight: $flight")
+//        val passengerName = fetchChannel.receive()
+//        val flight = fetchFlight(passengerName)
+
+        for (passengerName in fetchChannel) {
+            val flight = fetchFlight(passengerName)
+            println("Fetched flight: $flight")
+        }
     }
 
 
