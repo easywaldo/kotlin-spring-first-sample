@@ -9,6 +9,7 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.toList
 import org.springframework.web.servlet.function.ServerResponse.async
 
 @SpringBootTest
@@ -89,6 +90,7 @@ class FetchFlightTest {
         passengerNames: List<String> = listOf("Madrigal", "Polarcubis")
     ): List<FlightStatus> = coroutineScope {
         val passengerNamesChannel = Channel<String>()
+        val fetchFlightsChannel = Channel<FlightStatus>()
 
         launch {
             passengerNames.forEach {
@@ -97,14 +99,17 @@ class FetchFlightTest {
         }
 
         launch {
-            fetchFlightStatuses(passengerNamesChannel)
+//            fetchFlightStatuses(passengerNamesChannel)
+            fetchFlightStatuses(passengerNamesChannel, fetchFlightsChannel)
         }
 
-        emptyList()
+//        emptyList()
+        fetchFlightsChannel.toList()
     }
 
     suspend fun fetchFlightStatuses(
-        fetchChannel: Channel<String>
+        fetchChannel: Channel<String>,
+        resultChannel: Channel<FlightStatus>
     ) {
 //        val passengerName = fetchChannel.receive()
 //        val flight = fetchFlight(passengerName)
@@ -112,6 +117,7 @@ class FetchFlightTest {
         for (passengerName in fetchChannel) {
             val flight = fetchFlight(passengerName)
             println("Fetched flight: $flight")
+            resultChannel.send(flight)
         }
     }
 
