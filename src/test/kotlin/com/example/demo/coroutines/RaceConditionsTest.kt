@@ -1,6 +1,7 @@
 package com.example.demo.coroutines
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
@@ -23,5 +24,11 @@ class RaceConditionsTest {
         }
 
         println(checkedPassengers)
+    }
+
+    fun test2() {
+        println("Task started")
+        /*delay(100)*/ // compile error
+        println("Task finished")
     }
 }
