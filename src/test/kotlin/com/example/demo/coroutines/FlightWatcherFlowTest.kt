@@ -3,12 +3,11 @@ package com.example.demo.coroutines
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -27,9 +26,22 @@ class FlightWatcherFlowTest {
                 "${it.passengerName} (${it.flightNumber})"
             }
             println("Found flights for $flightDescriptions")
+            val flightsAtGate = MutableStateFlow(flights.size)
 
-            flights.forEach {
-                watchFlight(it)
+            launch {
+                flightsAtGate
+                    .collect {
+                            flightCount ->
+                        println("There are $flightCount flights being tracked")
+                    }
+                println("Finished tracking all flights")
+            }
+
+            launch {
+                flights.forEach {
+                    watchFlight(it)
+                    flightsAtGate.value = flightsAtGate.value -1
+                }
             }
         }
     }
