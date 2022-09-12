@@ -34,11 +34,18 @@ class FlightWatcherFlowTest {
         }
     }
 
-    suspend fun watchFlight(initialFlight: FlightStatus) {
+    suspend fun watchFlight(initialFlight: FlightStatusV2) {
         val passengerName = initialFlight.passengerName
-        val currentFlight: Flow<FlightStatus> = flow {
+        val currentFlight: Flow<FlightStatusV2> = flow {
             var flight = initialFlight
-            repeat(5) {
+//            repeat(5) {
+//                emit(flight)
+//                delay(1000)
+//                flight = flight.copy(
+//                    departureTimeInMinutes = flight.departureTimeInMinutes - 1
+//                )
+//            }
+            while (flight.departureTimeInMinutes >= 0 && !flight.isFlightCanceled) {
                 emit(flight)
                 delay(1000)
                 flight = flight.copy(
@@ -54,7 +61,7 @@ class FlightWatcherFlowTest {
         println("Finished tracking $passengerName's flight")
     }
 
-    suspend fun fetchFlight(passengerName: String): FlightStatus = coroutineScope {
+    suspend fun fetchFlight(passengerName: String): FlightStatusV2 = coroutineScope {
         val client = HttpClient(CIO)
 
         val flightResponse = async {
@@ -73,7 +80,7 @@ class FlightWatcherFlowTest {
 
         delay(500)
         println("Combining flight data")
-        FlightStatus.parse(
+        FlightStatusV2.parse(
             passengerName = passengerName,
             flightResponse = flightResponse.await(),
             loyaltyResponse = loyaltyResponse.await()
@@ -85,3 +92,82 @@ class FlightWatcherFlowTest {
     ) = passengerNames.map { fetchFlight(it) }
 }
 
+
+enum class LoyaltyTier(
+    val tierName: String,
+    val boardingWindowStart: Int
+) {
+    Bronze("Bronze", 25),
+    Silver("Silver", 25),
+    Gold("Gold", 30),
+    Platinum("Platinum", 35),
+    Titanium("Titanium", 40),
+    Diamond("Diamond", 45),
+    DiamondPlus("Diamond+", 50),
+    DiamondPlusPlus("Diamond++", 60)
+}
+
+enum class BoardingState {
+    FlightCanceled,
+    BoardingNotStarted,
+    WaitingToBoard,
+    Boarding,
+    BoardingEnded
+}
+
+
+data class FlightStatusV2(
+    val flightNumber: String,
+    val passengerName: String,
+    val passengerLoyaltyTier: LoyaltyTier,
+    val originAirport: String,
+    val destinationAirport: String,
+    val status: String,
+    val departureTimeInMinutes: Int
+) {
+
+    companion object {
+        fun parse(
+            flightResponse: String,
+            loyaltyResponse: String,
+            passengerName: String
+        ): FlightStatusV2 {
+            val (flightNumber, originAirport, destinationAirport, status,
+                departureTimeInMinutes) = flightResponse.split(",")
+
+            val (loyaltyTierName, milesFlown, milesToNextTier) =
+                loyaltyResponse.split(",")
+
+            return FlightStatusV2(
+                flightNumber = flightNumber,
+                passengerName = passengerName,
+                passengerLoyaltyTier = LoyaltyTier.values().first { it.tierName == loyaltyTierName },
+                originAirport = originAirport,
+                destinationAirport = destinationAirport,
+                status = status,
+                departureTimeInMinutes = departureTimeInMinutes.toInt()
+            )
+        }
+    }
+
+    val isFlightCanceled: Boolean
+        get() = status.equals("Canceled", ignoreCase = true)
+
+    val hasBoardingStarted: Boolean
+        get() = departureTimeInMinutes in 15..60
+
+    val isBoardingOver: Boolean
+        get() = departureTimeInMinutes < 15
+
+    val isEligibleToBoard: Boolean
+        get() = departureTimeInMinutes in 15..passengerLoyaltyTier.boardingWindowStart
+
+    val boardingStatus: BoardingState
+        get() = when {
+            isFlightCanceled -> BoardingState.FlightCanceled
+            isBoardingOver -> BoardingState.BoardingEnded
+            isEligibleToBoard -> BoardingState.Boarding
+            hasBoardingStarted -> BoardingState.WaitingToBoard
+            else -> BoardingState.BoardingNotStarted
+        }
+}
