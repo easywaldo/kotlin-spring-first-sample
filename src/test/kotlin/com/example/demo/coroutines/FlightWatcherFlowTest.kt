@@ -66,17 +66,20 @@ class FlightWatcherFlowTest {
             }
         }
         currentFlight
-            .onCompletion {
-                println("Finished tracking $passengerName's flight")
-            }
-            .collect {
-                val status = when (it.boardingStatus) {
+            .map { flight ->
+                when (flight.boardingStatus) {
                     BoardingState.FlightCanceled -> "Your flight was canceled"
                     BoardingState.BoardingNotStarted -> "Boarding will start soon"
                     BoardingState.WaitingToBoard -> "Other passengers are boarding"
                     BoardingState.Boarding -> "You can now board the plane"
                     BoardingState.BoardingEnded -> "The boarding doors have closed"
-                } + " (Flight departs in ${it.departureTimeInMinutes} minutes)"
+                } + " (Flight departs in ${flight.departureTimeInMinutes} minutes)"
+            }
+            .onCompletion {
+                println("Finished tracking $passengerName's flight")
+            }
+            .collect {
+                status ->
                 println("$passengerName: $status")
             }
     }
