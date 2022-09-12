@@ -4,10 +4,7 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -30,11 +27,14 @@ class FlightWatcherFlowTest {
 
             launch {
                 flightsAtGate
+                    .takeWhile { it > 0 }
+                    .onCompletion {
+                        println("Finished tracking all flights")
+                    }
                     .collect {
                             flightCount ->
                         println("There are $flightCount flights being tracked")
                     }
-                println("Finished tracking all flights")
             }
 
             launch {
@@ -66,11 +66,19 @@ class FlightWatcherFlowTest {
             }
         }
         currentFlight
-            .collect {
-                println("$passengerName: $it")
+            .onCompletion {
+                println("Finished tracking $passengerName's flight")
             }
-
-        println("Finished tracking $passengerName's flight")
+            .collect {
+                val status = when (it.boardingStatus) {
+                    BoardingState.FlightCanceled -> "Your flight was canceled"
+                    BoardingState.BoardingNotStarted -> "Boarding will start soon"
+                    BoardingState.WaitingToBoard -> "Other passengers are boarding"
+                    BoardingState.Boarding -> "You can now board the plane"
+                    BoardingState.BoardingEnded -> "The boarding doors have closed"
+                } + " (Flight departs in ${it.departureTimeInMinutes} minutes)"
+                println("$passengerName: $status")
+            }
     }
 
     suspend fun fetchFlight(passengerName: String): FlightStatusV2 = coroutineScope {
