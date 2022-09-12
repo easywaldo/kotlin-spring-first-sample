@@ -1,6 +1,7 @@
 package com.example.demo.coroutines
 
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -26,6 +27,27 @@ class SharedFlowTest {
             launch {
                 delay(2200)
                 numbersFlow.collect { println("Collector 2: Got $it") }
+            }
+        }
+    }
+
+    @Test
+    fun mutable_shared_flow_test() {
+        runBlocking {
+            val numbersFlow = MutableSharedFlow<Int>()
+
+            launch {
+                numbersFlow.collect { println("Collector 1: Got $it") }
+            }
+
+            launch {
+                delay(2200)
+                numbersFlow.collect { println("Collector 2: Got $it") }
+            }
+
+            (1..5).forEach {
+                delay(1000)
+                numbersFlow.emit(it)
             }
         }
     }
