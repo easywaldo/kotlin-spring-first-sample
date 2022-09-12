@@ -13,12 +13,13 @@ class FlightWatcherFlowTest {
     private val BASE_URL = "http://kotlin-book.bignerdranch.com/2e"
     private val FLIGHT_ENDPOINT = "$BASE_URL/flight"
     private val LOYALTY_ENDPOINT = "$BASE_URL/loyalty"
+    val bannedPassengers = setOf("Nogartse")
 
     @Test
     fun flow_test() {
         runBlocking {
             println("Getting the latest flight info...")
-            val flights = fetchFlights()
+            val flights = fetchFlights(listOf("Nogartse"))
             val flightDescriptions = flights.joinToString {
                 "${it.passengerName} (${it.flightNumber})"
             }
@@ -49,6 +50,9 @@ class FlightWatcherFlowTest {
     suspend fun watchFlight(initialFlight: FlightStatusV2) {
         val passengerName = initialFlight.passengerName
         val currentFlight: Flow<FlightStatusV2> = flow {
+            require(passengerName !in bannedPassengers) {
+                "Cannot track $passengerName's flight. They are banned from the airport."
+            }
             var flight = initialFlight
 //            repeat(5) {
 //                emit(flight)
@@ -66,6 +70,10 @@ class FlightWatcherFlowTest {
             }
         }
         currentFlight
+            .catch {
+                    throwable ->
+                throwable.printStackTrace()
+            }
             .map { flight ->
                 when (flight.boardingStatus) {
                     BoardingState.FlightCanceled -> "Your flight was canceled"
