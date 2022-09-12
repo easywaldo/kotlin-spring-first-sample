@@ -50,6 +50,8 @@ class FlightWatcherFlowTest {
             .collect {
                 println("$passengerName: $it")
             }
+
+        println("Finished tracking $passengerName's flight")
     }
 
     suspend fun fetchFlight(passengerName: String): FlightStatus = coroutineScope {
