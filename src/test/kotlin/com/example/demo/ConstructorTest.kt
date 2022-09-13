@@ -7,13 +7,21 @@ import org.springframework.boot.test.context.SpringBootTest
 class ConstructorTest {
     @Test
     fun test() {
-        val mockUp = MockUp(firstName = "", lastName = "easywaldo")
+        val mockUp = MockUp(firstName = "sir", lastName = "easy waldo")
+
+        println(mockUp.initialName)
     }
 }
 
 class MockUp(firstName: String, lastName: String) {
     val fullName = "$firstName $lastName"
-    var initialName: String = ""
+    var initialName: String? = null
+        get() {
+            return "initial name is $field"
+        }
+        set(value) {
+            field = value
+        }
 
     init {
         if (firstName.isEmpty() or lastName.isEmpty()) {
