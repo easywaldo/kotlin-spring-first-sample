@@ -13,9 +13,14 @@ class ConstructorTest {
 
 class MockUp(firstName: String, lastName: String) {
     val fullName = "$firstName $lastName"
+    var initialName: String = ""
+
     init {
         if (firstName.isEmpty() or lastName.isEmpty()) {
             println("name is empty")
+        }
+        if (lastName.split(" ").size > 1) {
+            initialName = lastName.split(" ").first()
         }
     }
 }
