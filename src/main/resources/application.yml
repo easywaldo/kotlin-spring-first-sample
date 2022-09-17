@@ -1,2 +1,23 @@
 server:
     port: 8088
+
+spring:
+    application:
+        name: config-server
+    profiles:
+        active: native
+
+    cloud:
+        config:
+            server:
+                native:
+                    search-locations: classpath:/config
+                git:
+                    uri: https://github.com/easywaldo/kotlin-spring-first-sample
+                    default-label: main
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: ['refresh', 'beans', 'evn']

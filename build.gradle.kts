@@ -37,6 +37,14 @@ dependencies {
 	implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
 	implementation ("io.ktor:ktor-client-core:1.6.2")
 	implementation ("io.ktor:ktor-client-cio:1.6.2")
+
+	implementation ("org.springframework.cloud:spring-cloud-config-server")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom ("org.springframework.cloud:spring-cloud-dependencies:2021.0.4")
+	}
 }
 
 tasks.withType<KotlinCompile> {
