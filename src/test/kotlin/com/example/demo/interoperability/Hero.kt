@@ -12,6 +12,6 @@ class Hero {
         println(adversary.utterGreeting())
 
         val friendshipLevel = adversary.determineFriendshipLevel()
-        println(friendshipLevel.lowercase())
+        println(friendshipLevel?.lowercase() ?: "It's complicated")
     }
 }
