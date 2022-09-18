@@ -10,5 +10,8 @@ class Hero {
     fun test() {
         val adversary = Jhava()
         println(adversary.utterGreeting())
+
+        val friendshipLevel = adversary.determineFriendshipLevel()
+        println(friendshipLevel.lowercase())
     }
 }
