@@ -6,8 +6,11 @@ import com.example.demo.dto.GoodsResponseDto
 import com.example.demo.dto.RegisterGoods
 import com.example.demo.dto.UpdateGoods
 import com.example.demo.service.GoodsService
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.cloud.context.config.annotation.RefreshScope
 import org.springframework.web.bind.annotation.*
 
+@RefreshScope
 @RestController
 class SampleController(
     private val goodsServiceParam: GoodsService) {
@@ -19,6 +22,9 @@ class SampleController(
         name = "easywaldo",
         job = "software engineer"
     ))
+
+    @Value("\${spring.application.name}")
+    val appName: String = ""
 
     @GetMapping("/member/{id}")
     fun getMember(@PathVariable id: Int): String {
@@ -64,5 +70,10 @@ class SampleController(
     @DeleteMapping("/goods/{id}")
     fun deleteGoods(@PathVariable id: Long) {
         return goodsService.deleteGoods(id)
+    }
+
+    @GetMapping("/config")
+    fun getConfig(): String {
+        return appName
     }
 }
