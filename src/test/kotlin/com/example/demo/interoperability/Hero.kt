@@ -18,6 +18,9 @@ class Hero {
         println(adversaryHitPoints.coerceAtLeast(100))
         println(adversaryHitPoints.javaClass)
 
+        adversary.greeting = "Hello, Hero."
+        println(adversary.utterGreeting())
+
 
     }
 }
