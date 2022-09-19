@@ -13,5 +13,11 @@ class Hero {
 
         val friendshipLevel = adversary.determineFriendshipLevel()
         println(friendshipLevel?.lowercase() ?: "It's complicated")
+
+        val adversaryHitPoints: Int = adversary.hitPoints
+        println(adversaryHitPoints.coerceAtLeast(100))
+        println(adversaryHitPoints.javaClass)
+
+
     }
 }
