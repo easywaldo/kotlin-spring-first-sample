@@ -8,11 +8,7 @@ class HigherFunctionTest {
     @Test
     fun test() {
         var total: Int = 0
-        println(measureTime {
-            for (i in 1 .. 10000) {
-                total += 10
-            }
-        })
+        println(sumTest())
     }
 
     fun measureTime(action: (() -> Unit)?): Long {
@@ -21,5 +17,13 @@ class HigherFunctionTest {
         action?.invoke()
 
         return System.nanoTime() - start
+    }
+
+    fun sumTest(): Int {
+        var total: Int = 0
+        for (i in 1 .. 10000) {
+            total += 10
+        }
+        return total
     }
 }
