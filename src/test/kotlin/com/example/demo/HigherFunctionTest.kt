@@ -12,6 +12,19 @@ class HigherFunctionTest {
             sumTest()
             sumTest()
         }))
+
+
+        var isReceived = Address().run {
+            zipCode = 123456
+            city = "Seoul"
+            street = "golden coast"
+            house = "777 jackson"
+            post("Hello!")
+        }
+
+        if (!isReceived) {
+            println("Message is not delivered")
+        }
     }
 
     fun measureTime(action: ()->Unit): Long {
@@ -27,5 +40,18 @@ class HigherFunctionTest {
         for (i in 1 .. 10000) {
             total += 10
         }
+    }
+}
+
+
+class Address {
+    var zipCode: Int = 0
+    var city: String = ""
+    var street: String = ""
+    var house: String = ""
+
+    fun post(message: String): Boolean {
+        "Message for {$zipCode, $city, $street, $house} : $message"
+        return readLine() == "OK"
     }
 }
