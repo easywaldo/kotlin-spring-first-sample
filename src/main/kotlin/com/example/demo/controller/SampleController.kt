@@ -8,7 +8,10 @@ import com.example.demo.dto.UpdateGoods
 import com.example.demo.service.GoodsService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.cloud.context.config.annotation.RefreshScope
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 
 @RefreshScope
 @RestController
@@ -27,11 +30,12 @@ class SampleController(
     val appName: String = ""
 
     @GetMapping("/member/{id}")
-    fun getMember(@PathVariable id: Int): String {
+    fun getMember(@PathVariable id: Int): Mono<ResponseEntity<String>> {
         val result = memberList.first {
             it.id == id
         }.name
-        return result
+        return Mono.just(ResponseEntity.ok(result))
+
     }
 
     @PostMapping("/member")
