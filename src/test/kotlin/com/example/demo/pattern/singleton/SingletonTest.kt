@@ -10,7 +10,7 @@ class SingletonTest {
         // static factoy method
         Server.withPort(8080)
 
-        val server = Server(port = 8088)
+        // val server = Server(port = 8088)    // Doesn't compile
     }
 }
 
