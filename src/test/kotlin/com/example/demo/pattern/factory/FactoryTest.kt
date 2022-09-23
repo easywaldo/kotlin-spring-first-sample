@@ -26,7 +26,7 @@ class FactoryTest {
     }
 
     @Test
-    fun test3() {
+    fun implements_dataclass_test() {
         val portProperty = IntProperty(name = "port", value = 8088)
         println(portProperty is IntProperty)
 
@@ -109,4 +109,25 @@ fun server(propertyStrings: List<String>): ServerConfiguration {
         parsedProperties += property(p)
     }
     return ServerConfigurationImpl(parsedProperties)
+}
+
+
+class Parser {
+    companion object {
+        fun property(prop: String): Property {
+            val (name, value) = prop.split(":")
+            return when (name) {
+                "port" -> IntProperty(name, value.trim().toInt())
+                "environment" -> StringProperty(name, value.trim())
+                else -> throw RuntimeException("Unknown property: $name")
+            }
+        }
+        fun server(propertyStrings: List<String>): ServerConfiguration {
+            val parsedProperties = mutableListOf<Property>()
+            for (p in propertyStrings) {
+                parsedProperties += property(p)
+            }
+            return ServerConfigurationImpl(parsedProperties)
+        }
+    }
 }
