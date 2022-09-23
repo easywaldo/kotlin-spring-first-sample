@@ -23,8 +23,20 @@ class FactoryTest {
 
         // type casting
         val port: Int? = portProperty.value as? Int
+    }
 
+    @Test
+    fun test3() {
+        val portProperty = IntProperty(name = "port", value = 8088)
+        println(portProperty is IntProperty)
 
+        val confProperty = StringProperty(name = "server", value = "linux")
+
+        if (portProperty is IntProperty) {
+            val port: Int = portProperty.value
+        }
+
+        println(confProperty is StringProperty)
     }
 }
 
@@ -70,8 +82,19 @@ data class ServerConfigurationImpl(
 fun property(prop: String): Property {
     val (name, value) = prop.split(":")
     return when (name) {
-        "port" -> PropertyImpl(name, value.trim().toInt())
-        "environment" -> PropertyImpl(name, value.trim())
+        "port" -> IntProperty(name, value.trim().toInt())
+        "environment" -> StringProperty(name, value.trim())
         else -> throw RuntimeException("Unknown property: $name")
     }
 }
+
+data class IntProperty(
+    override val name: String,
+    override val value: Int
+) : Property
+data class StringProperty(
+    override val name: String,
+    override val value: String
+) : Property
+
+
