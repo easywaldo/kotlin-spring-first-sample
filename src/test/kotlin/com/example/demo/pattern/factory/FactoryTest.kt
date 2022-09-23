@@ -15,6 +15,17 @@ class FactoryTest {
         }
         println(pieces)
     }
+
+    @Test
+    fun test2() {
+        val portProperty = property("port: 8080")
+        val environment = property("environment: production")
+
+        // type casting
+        val port: Int? = portProperty.value as? Int
+
+
+    }
 }
 
 interface ChessPiece {
@@ -37,5 +48,30 @@ fun createPiece(notation: String): ChessPiece {
         'p' -> Pawn(file, rank)
         // ...
         else -> throw RuntimeException("Unknown piece: $type")
+    }
+}
+
+
+interface Property {
+    val name: String
+    val value: Any
+}
+interface ServerConfiguration {
+    val properties: List<Property>
+}
+data class PropertyImpl(
+    override val name: String,
+    override val value: Any
+) : Property
+data class ServerConfigurationImpl(
+    override val properties: List<Property>
+) : ServerConfiguration
+
+fun property(prop: String): Property {
+    val (name, value) = prop.split(":")
+    return when (name) {
+        "port" -> PropertyImpl(name, value.trim().toInt())
+        "environment" -> PropertyImpl(name, value.trim())
+        else -> throw RuntimeException("Unknown property: $name")
     }
 }
