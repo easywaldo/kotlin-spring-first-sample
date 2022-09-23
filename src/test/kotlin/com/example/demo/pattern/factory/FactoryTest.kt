@@ -38,6 +38,11 @@ class FactoryTest {
 
         println(confProperty is StringProperty)
     }
+
+    @Test
+    fun test4() {
+        println(server(listOf("port: 8080", "environment: production")))
+    }
 }
 
 interface ChessPiece {
@@ -98,3 +103,10 @@ data class StringProperty(
 ) : Property
 
 
+fun server(propertyStrings: List<String>): ServerConfiguration {
+    val parsedProperties = mutableListOf<Property>()
+    for (p in propertyStrings) {
+        parsedProperties += property(p)
+    }
+    return ServerConfigurationImpl(parsedProperties)
+}
