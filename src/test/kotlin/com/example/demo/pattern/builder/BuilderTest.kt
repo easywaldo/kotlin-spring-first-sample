@@ -19,17 +19,16 @@ class BuilderTest {
 
 data class Mail_V1(
     val to: List<String>,
-    val cc: List<String>?,
-    val title: String?,
-    val message: String?,
-    val important: Boolean,
+    val cc: List<String> = listOf(),
+    val title: String = "",
+    val message: String = "",
+    val important: Boolean = false,
 )
 val mail = Mail_V1(
-    listOf("manager@company.com"),    // To
-    null,                         // CC
-    "Ping ",                     // Title
-    null,                    // Message,
-    true)
+    to = listOf("manager@company.com"),
+    cc = listOf("cto@company.com", "vp@company.com"),
+    important = true,
+)
 
 class MailBuilder {
     private var to: List<String> = listOf()
