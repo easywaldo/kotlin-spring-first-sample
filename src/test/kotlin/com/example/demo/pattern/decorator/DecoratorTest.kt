@@ -21,8 +21,8 @@ class DecoratorTest {
         val starTrekRepository = DefaultStarTrekRepositoryImpl()
         val withValidating = ValidatingAdd(starTrekRepository)
         val withLoggingAndValidating = LoggingGetCaptain(withValidating)
-        withLoggingAndValidating.addCaptain("USS Voyager","easywaldo")
-        withLoggingAndValidating.getCaptain("USS Voyager")
+        withLoggingAndValidating["USS Voyager"] = "easywaldo"
+        withLoggingAndValidating["USS Voyager"]
     }
 }
 
@@ -54,33 +54,33 @@ class ValidatingAddCaptainStarTrekRepository : StarTrekRepository() {
 }
 
 interface IStarTrekRepository {
-    fun getCaptain(starshipName: String): String
-    fun addCaptain(starshipName: String, captainName: String)
+    operator fun get(starshipName: String): String
+    operator fun set(starshipName: String, captainName: String)
 }
 
 class DefaultStarTrekRepositoryImpl : IStarTrekRepository {
     private val starshipCaptains = mutableMapOf("USS Enterprise" to "Jean-Luc Picard")
-    override fun getCaptain(starshipName: String): String {
+    override fun get(starshipName: String): String {
         return starshipCaptains[starshipName] ?: "Unknown"
     }
-    override fun addCaptain(starshipName: String, captainName: String) {
+    override fun set(starshipName: String, captainName: String) {
         starshipCaptains[starshipName] = captainName
     }
 }
 
 class LoggingGetCaptain(private val repository: IStarTrekRepository): IStarTrekRepository by repository {
-    override fun getCaptain(starshipName: String): String {
+    override fun get(starshipName: String): String {
         println("Getting captain for $starshipName")
-        return repository.getCaptain(starshipName)
+        return repository.get(starshipName)
     }
 }
 
 class ValidatingAdd(private val repository: IStarTrekRepository): IStarTrekRepository by repository {
     private val maxNameLength = 15
-    override fun addCaptain(starshipName: String, captainName: String) {
+    override fun set(starshipName: String, captainName: String) {
         require (captainName.length < maxNameLength) {
             "$captainName name is longer than $maxNameLength characters!"
         }
-        repository.addCaptain(starshipName, captainName)
+        repository.set(starshipName, captainName)
     }
 }
