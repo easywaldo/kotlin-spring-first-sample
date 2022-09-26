@@ -23,6 +23,24 @@ class DecoratorTest {
         val withLoggingAndValidating = LoggingGetCaptain(withValidating)
         withLoggingAndValidating["USS Voyager"] = "easywaldo"
         withLoggingAndValidating["USS Voyager"]
+
+
+        println(withLoggingAndValidating is LoggingGetCaptain)
+        // This is our top level decorator, no problem here
+
+        println(withLoggingAndValidating is IStarTrekRepository)
+        // This is the interface we implement, still no problem
+        // left: LoggingGetCaptain, right: IStarTrekRepository
+        // LoggingGetCaptain 의 상위타입으로 비교 (공변성?)
+
+        println(withLoggingAndValidating is ValidatingAdd)
+        // We wrap this class, but compiler cannot validate it
+        // 구현 수준 레벨은 동일하나 구현체 클래스 타입이 다르다
+
+        println(withLoggingAndValidating is DefaultStarTrekRepositoryImpl)
+        // We wrap this class, but compiler cannot validate it
+        // left: LoggingGetCaptain, right: DefaultStarTrekRepositoryImpl
+        // 구현 수준 레벨은 동일하나 구현체 클래스 타입이 다르다
     }
 }
 
@@ -71,7 +89,7 @@ class DefaultStarTrekRepositoryImpl : IStarTrekRepository {
 class LoggingGetCaptain(private val repository: IStarTrekRepository): IStarTrekRepository by repository {
     override fun get(starshipName: String): String {
         println("Getting captain for $starshipName")
-        return repository.get(starshipName)
+        return repository[starshipName]
     }
 }
 
@@ -81,6 +99,10 @@ class ValidatingAdd(private val repository: IStarTrekRepository): IStarTrekRepos
         require (captainName.length < maxNameLength) {
             "$captainName name is longer than $maxNameLength characters!"
         }
-        repository.set(starshipName, captainName)
+        repository[starshipName] = captainName
+    }
+    override fun get(starshipName: String): String {
+        println("Getting captain for $starshipName")
+        return repository[starshipName]
     }
 }
