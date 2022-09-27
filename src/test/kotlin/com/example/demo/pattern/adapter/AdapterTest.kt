@@ -12,6 +12,8 @@ class AdapterTest {
                 usPowerOutlet().toEUPlug()
             ).toUsbTypeC()
         )
+
+        val usPowerCellPhone = cellPhone(usCharger(usPowerOutlet()))
     }
 }
 
@@ -54,6 +56,12 @@ fun usPowerOutlet(): USPlug {
 fun charger(plug: EUPlug): UsbMini {
     return object : UsbMini {
         override val hasPower=Power.valueOf(plug.hasPower)
+    }
+}
+
+fun usCharger(plug: USPlug): UsbTypeC {
+    return object : UsbTypeC {
+        override val hasPower: Boolean = true
     }
 }
 
