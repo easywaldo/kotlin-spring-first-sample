@@ -14,6 +14,8 @@ class AdapterTest {
         )
 
         val usPowerCellPhone = cellPhone(usCharger(usPowerOutlet()))
+
+        val brokenPhone = cellPhone(brokenCharger(usPowerOutlet()))
     }
 }
 
@@ -62,6 +64,13 @@ fun charger(plug: EUPlug): UsbMini {
 fun usCharger(plug: USPlug): UsbTypeC {
     return object : UsbTypeC {
         override val hasPower: Boolean = true
+    }
+}
+
+fun brokenCharger(plug: USPlug): UsbTypeC {
+    return object : UsbTypeC {
+        override val hasPower: Boolean
+            get() = true
     }
 }
 
