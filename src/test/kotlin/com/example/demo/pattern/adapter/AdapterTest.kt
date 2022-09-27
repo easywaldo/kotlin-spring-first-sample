@@ -2,6 +2,7 @@ package com.example.demo.pattern.adapter
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import java.util.stream.Stream
 
 @SpringBootTest
 class AdapterTest {
@@ -20,6 +21,18 @@ class AdapterTest {
         println(cellPhone.hasPower)
         println(usPowerCellPhone.hasPower)
         println(brokenPhone.hasPower)
+    }
+
+    @Test
+    fun test2() {
+        val list = listOf("a", "b", "c")
+        printStream(list.stream())
+    }
+}
+
+fun printStream(stream: Stream<String>) {
+    stream.forEach {
+        println(it)
     }
 }
 
