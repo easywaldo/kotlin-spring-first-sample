@@ -16,6 +16,10 @@ class AdapterTest {
         val usPowerCellPhone = cellPhone(usCharger(usPowerOutlet()))
 
         val brokenPhone = cellPhone(brokenCharger(usPowerOutlet()))
+
+        println(cellPhone.hasPower)
+        println(usPowerCellPhone.hasPower)
+        println(brokenPhone.hasPower)
     }
 }
 
@@ -38,12 +42,18 @@ interface UsbTypeC {
     val hasPower: Boolean
 }
 
-fun cellPhone(chargeCable: UsbTypeC) {
+class Phone(hasPower: Boolean) {
+    val hasPower: Boolean = hasPower
+}
+
+fun cellPhone(chargeCable: UsbTypeC): Phone {
     if (chargeCable.hasPower) {
         println("I've Got The Power!")
     } else {
         println("No power")
     }
+
+    return Phone(chargeCable.hasPower)
 }
 
 // Power outlet exposes USPlug interface
@@ -53,8 +63,7 @@ fun usPowerOutlet(): USPlug {
     }
 }
 
-// Charger accepts EUPlug interface and exposes UsbMini
-// interface
+// Charger accepts EUPlug interface and exposes UsbMini interface
 fun charger(plug: EUPlug): UsbMini {
     return object : UsbMini {
         override val hasPower=Power.valueOf(plug.hasPower)
@@ -70,12 +79,12 @@ fun usCharger(plug: USPlug): UsbTypeC {
 fun brokenCharger(plug: USPlug): UsbTypeC {
     return object : UsbTypeC {
         override val hasPower: Boolean
-            get() = true
+            get() = false
     }
 }
 
 fun USPlug.toEUPlug(): EUPlug {
-    val hasPower = if (this.hasPower == 1) "TRUE" else       "FALSE"
+    val hasPower = if (this.hasPower == 1) "TRUE" else "FALSE"
     return object : EUPlug {
         // Transfer power
         override val hasPower = hasPower
