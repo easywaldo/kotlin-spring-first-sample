@@ -27,6 +27,9 @@ class AdapterTest {
     fun test2() {
         val list = listOf("a", "b", "c")
         printStream(list.stream())
+
+        val stream = Stream.generate { 42 }
+        stream.toList()
     }
 }
 
