@@ -23,6 +23,7 @@ class BridgeTest {
 interface Trooper {
     fun move(x: Long, y: Long)
     fun attackRebel(x: Long, y: Long)
+    fun retreat()
 }
 
 typealias PointsOfDamage = Long
@@ -43,6 +44,10 @@ data class StormTrooper(
     }
     override fun attackRebel(x: Long, y: Long) {
         weapon.attack(x, y)
+    }
+
+    override fun retreat() {
+        TODO("Not yet implemented")
     }
 }
 
