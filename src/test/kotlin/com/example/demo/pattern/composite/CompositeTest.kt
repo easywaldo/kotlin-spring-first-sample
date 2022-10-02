@@ -20,6 +20,36 @@ class CompositeTest {
         // Nesting Composite
         val platoon = Squad(Squad(), Squad())
     }
+
+    @Test
+    fun iterator_test() {
+        val bobaFett = StormTrooper(Rifle(), RegularLegs())
+        val squad = Squad(listOf(bobaFett.copy(), bobaFett.copy(), bobaFett.copy()))
+
+        // Composite
+        val squadSecond = Squad(listOf(bobaFett.copy(), bobaFett.copy(), bobaFett.copy()))
+
+        val platoon = Squad(
+            StormTrooper(Rifle(), RegularLegs()),
+            Squad(
+                Squad(listOf(bobaFett.copy(), bobaFett.copy(), bobaFett.copy())),
+            ),
+            squadSecond,
+            Squad(
+                bobaFett,
+                bobaFett
+            ),
+            squadSecond,
+        )
+
+        platoon.printAnything(platoon.iterator())
+    }
+}
+
+interface Trooper {
+    fun move(x: Long, y: Long)
+    fun attackRebel(x: Long, y: Long)
+    fun retreat()
 }
 
 class Squad(private val units: List<Trooper>): Trooper {
@@ -42,6 +72,21 @@ class Squad(private val units: List<Trooper>): Trooper {
 
     override fun retreat() {
         println("retreat - squad")
+    }
+
+    operator fun iterator() = object: Iterator<Trooper> {
+        private var i = 0
+        override fun hasNext(): Boolean {
+            return i < units.size
+        }
+
+        override fun next() = units[i++]
+    }
+
+    fun <T> printAnything(iter: Iterator<T>) {
+        while (iter.hasNext()) {
+            println(iter.next())
+        }
     }
 }
 
