@@ -17,32 +17,37 @@ interface WhatCanHappen {
     fun calmAgain()
 }
 
-class Snail : WhatCanHappen {
-    private var mood: Mood = Still
+class Snail {
+    internal var mood: Mood = Still(this)
     // As before
     private var healthPoints = 10
-    override fun seeHero() {
-        mood = when(mood) {
-            is Still -> Aggressive
-            else -> mood
-        }
-    }
-    override fun getHit(pointsOfDamage: Int) {
-        healthPoints -= pointsOfDamage
-        mood = when {
-            (healthPoints <= 0) -> Dead
-            mood is Aggressive -> Retreating
-            else -> mood
-        }
-    }
-    override fun calmAgain() {
-    }
+
 }
 
-sealed class Mood {
-    // Some abstract methods here, like draw(), for example
+sealed class Mood: WhatCanHappen
+class Still(private val snail: Snail) : Mood() {
+    override fun seeHero() {
+        snail.mood = Aggressive
+    }
+
+    override fun getHit(pointsOfDamage: Int) {
+        // Same logic from before
+    }
+
+    override fun calmAgain() {
+        // Return to Still state
+    }
 }
-object Still : Mood()
-object Aggressive : Mood()
-object Retreating : Mood()
-object Dead : Mood()
+object Aggressive : Mood() {
+    override fun seeHero() {
+        TODO("Not yet implemented")
+    }
+
+    override fun getHit(pointsOfDamage: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun calmAgain() {
+        TODO("Not yet implemented")
+    }
+}
