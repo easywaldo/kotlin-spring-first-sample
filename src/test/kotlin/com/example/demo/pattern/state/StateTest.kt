@@ -7,7 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest
 class StateTest {
     @Test
     fun test() {
-
+        val still = Still(Snail())
+        still.seeHero()
+        still.getHit(3)
+        still.calmAgain()
     }
 }
 
@@ -20,7 +23,12 @@ interface WhatCanHappen {
 class Snail {
     internal var mood: Mood = Still(this)
     // As before
-    private var healthPoints = 10
+    var healthPoints: Int = 10
+        get() = field
+        set(value) {
+            field = value
+        }
+
 
 }
 
@@ -28,19 +36,21 @@ sealed class Mood: WhatCanHappen
 class Still(private val snail: Snail) : Mood() {
     override fun seeHero() {
         snail.mood = Aggressive
+        println("see hero aggressive")
     }
 
     override fun getHit(pointsOfDamage: Int) {
-        // Same logic from before
+        snail.healthPoints -= pointsOfDamage
     }
 
     override fun calmAgain() {
         // Return to Still state
+        println(snail.healthPoints)
     }
 }
 object Aggressive : Mood() {
     override fun seeHero() {
-        TODO("Not yet implemented")
+        println("see hero aggressive")
     }
 
     override fun getHit(pointsOfDamage: Int) {
