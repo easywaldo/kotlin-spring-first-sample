@@ -26,7 +26,7 @@ public class RouterViewFileAdapter implements RouterViewOutputPort {
                 String[] routerEntity = line.split(";");
                 var id = routerEntity[0];
                 var type = routerEntity[1];
-                Router router = new Router(RouterType.valueOf(type), new RouterId("easywaldo", "001"));
+                Router router = new Router(RouterType.valueOf(type), RouterId.withId("12345678910"));
             });
         }
         catch (Exception e) {

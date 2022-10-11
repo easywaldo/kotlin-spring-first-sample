@@ -1,11 +1,18 @@
 package ddd_sample;
 
-public class RouterId {
-    private String routerName;
-    private String id;
+import java.util.UUID;
 
-    public RouterId(String routerName, String id) {
-        this.routerName = routerName;
+public class RouterId {
+    private final UUID id;
+    private RouterId(UUID id) {
         this.id = id;
+    }
+
+    public static RouterId withId(String id)  {
+        return new RouterId(UUID.fromString(id));
+    }
+
+    public static RouterId withoutId() {
+        return new RouterId(UUID.randomUUID());
     }
 }
