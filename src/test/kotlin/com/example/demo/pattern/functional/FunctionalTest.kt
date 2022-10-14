@@ -10,6 +10,11 @@ class FunctionalTest {
         val multiplyFunction = generateMultiply()
         val result = mathInvoker(5, 6, multiplyFunction)
         println(result)
+
+        val next = counter()
+        println(next())
+        println(next())
+        println(next())
     }
 }
 
@@ -21,4 +26,9 @@ fun generateMultiply(): (Int, Int) -> Int {
 
 fun mathInvoker(x: Int, y: Int, mathFunction: (Int, Int) ->   Int) {
     println(mathFunction(x, y))
+}
+
+fun counter(): () -> Int {
+    var i = 0
+    return { i++ }
 }
