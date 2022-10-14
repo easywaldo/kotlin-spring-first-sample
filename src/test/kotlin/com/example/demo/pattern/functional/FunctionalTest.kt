@@ -16,6 +16,11 @@ class FunctionalTest {
         println(next())
         println(next())
     }
+
+    @Test
+    fun test2() {
+        println(testHello())
+    }
 }
 
 fun generateMultiply(): (Int, Int) -> Int {
@@ -31,4 +36,9 @@ fun mathInvoker(x: Int, y: Int, mathFunction: (Int, Int) ->   Int) {
 fun counter(): () -> Int {
     var i = 0
     return { i++ }
+}
+
+fun hello() = "Hello"
+fun testHello(): Boolean {
+    return "Hello" == hello()
 }
