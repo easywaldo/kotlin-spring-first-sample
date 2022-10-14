@@ -21,6 +21,13 @@ class FunctionalTest {
     fun test2() {
         println(testHello())
     }
+
+    @Test
+    fun non_side_effect_test() {
+        val list = mutableListOf<Int>(1,2,3,4,5)
+        println(withoutFirst(list))
+        println(withoutFirst(list))
+    }
 }
 
 fun generateMultiply(): (Int, Int) -> Int {
@@ -41,4 +48,8 @@ fun counter(): () -> Int {
 fun hello() = "Hello"
 fun testHello(): Boolean {
     return "Hello" == hello()
+}
+
+fun <T> withoutFirst(list: List<T>): T {
+    return ArrayList(list).removeAt(0)
 }
