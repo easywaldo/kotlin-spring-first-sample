@@ -45,6 +45,9 @@ class FunctionalTest {
         println(subtract(50)(8))
         println(shorter_subtract(50)(3))
         println(more_shorter_subtract(30)(2))
+
+        val infoLogger = createLoger(LogLevel.INFO)
+        infoLogger("this is log message")
     }
 }
 
@@ -84,4 +87,16 @@ fun shorter_subtract(x: Int) = fun(y: Int): Int {
 
 fun more_shorter_subtract(x: Int) = {
     y: Int -> x - y
+}
+
+
+enum class LogLevel {
+    ERROR, WARNING, INFO
+}
+fun log(level: LogLevel, message: String) = println("$level: $message")
+val errorLog = fun(message: String) {
+    log(LogLevel.ERROR, message)
+}
+fun createLoger(level: LogLevel): (String) -> Unit {
+    return { message: String -> log(level, message) }
 }
