@@ -35,7 +35,7 @@ class FunctionalTest {
         for (d in dwarfs) {
             println(d)
         }
-        dwarfs.forEach { d ->
+        dwarfs.forEach { d: String ->
             println(d)
         }
     }
