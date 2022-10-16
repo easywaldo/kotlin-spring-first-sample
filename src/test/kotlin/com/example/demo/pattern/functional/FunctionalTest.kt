@@ -35,6 +35,9 @@ class FunctionalTest {
         for (d in dwarfs) {
             println(d)
         }
+        dwarfs.forEach { d ->
+            println(d)
+        }
     }
 }
 
