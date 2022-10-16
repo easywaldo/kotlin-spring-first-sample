@@ -43,6 +43,8 @@ class FunctionalTest {
     @Test
     fun currying_test() {
         println(subtract(50)(8))
+        println(shorter_subtract(50)(3))
+        println(more_shorter_subtract(30)(2))
     }
 }
 
@@ -74,4 +76,12 @@ fun subtract(x: Int): (Int) -> Int {
     return fun(y: Int): Int {
         return x - y
     }
+}
+
+fun shorter_subtract(x: Int) = fun(y: Int): Int {
+    return x - y
+}
+
+fun more_shorter_subtract(x: Int) = {
+    y: Int -> x - y
 }
