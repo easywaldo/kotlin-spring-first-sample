@@ -28,6 +28,14 @@ class FunctionalTest {
         println(withoutFirst(list))
         println(withoutFirst(list))
     }
+
+    @Test
+    fun for_each_loop() {
+        val dwarfs = listOf("Dwalin", "Balin", "Kili", "Fili",   "Dori", "Nori", "Ori", "Oin", "Gloin", "Bifur", "Bofur",   "Bombur", "Thorin")
+        for (d in dwarfs) {
+            println(d)
+        }
+    }
 }
 
 fun generateMultiply(): (Int, Int) -> Int {
