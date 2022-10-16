@@ -49,6 +49,21 @@ class FunctionalTest {
         val infoLogger = createLogger(LogLevel.INFO)
         infoLogger("this is log message")
     }
+
+    @Test
+    fun memoization_test() {
+        val input = listOf(
+            setOf(1, 2, 3),
+            setOf(3, 1, 2),
+            setOf(2, 3, 1),
+            setOf(4, 5, 6)
+        )
+        val summarizer = summarizer()
+        input.forEach {
+            println("========= summary ========")
+            println(summarizer(it))
+        }
+    }
 }
 
 fun generateMultiply(): (Int, Int) -> Int {
@@ -99,4 +114,15 @@ val errorLog = fun(message: String) {
 }
 fun createLogger(level: LogLevel): (String) -> Unit {
     return { message: String -> log(level, message) }
+}
+
+fun sum(numbers: Set<Int>): Double {
+    return numbers.sumByDouble { it.toDouble() }
+}
+
+fun summarizer(): (Set<Int>) -> Double {
+    val resultsCache = mutableMapOf<Set<Int>, Double>()
+    return { numbers: Set<Int> ->
+        resultsCache.computeIfAbsent(numbers, ::sum)
+    }
 }
