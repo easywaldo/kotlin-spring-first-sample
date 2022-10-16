@@ -39,6 +39,11 @@ class FunctionalTest {
             println(d)
         }
     }
+
+    @Test
+    fun currying_test() {
+        println(subtract(50)(8))
+    }
 }
 
 fun generateMultiply(): (Int, Int) -> Int {
@@ -63,4 +68,10 @@ fun testHello(): Boolean {
 
 fun <T> withoutFirst(list: List<T>): T {
     return ArrayList(list).removeAt(0)
+}
+
+fun subtract(x: Int): (Int) -> Int {
+    return fun(y: Int): Int {
+        return x - y
+    }
 }
