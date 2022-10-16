@@ -25,16 +25,8 @@ class Dog: Animal {
         return "Bark-bark";
     }
 }
-fun getSound(animal: Animal): String {
-    var sound: String? = null;
-    if (animal is Cat) {
-        sound = (animal as Cat).purr();
-    }
-    else if (animal is Dog) {
-        sound = (animal as Dog).bark();
-    }
-    if (sound == null) {
-        throw java.lang.RuntimeException();
-    }
-    return sound;
+fun getSound(animal: Animal) = when(animal) {
+    is Cat -> animal.purr()
+    is Dog -> animal.bark()
+    else -> throw java.lang.RuntimeException("Unknown animal")
 }
