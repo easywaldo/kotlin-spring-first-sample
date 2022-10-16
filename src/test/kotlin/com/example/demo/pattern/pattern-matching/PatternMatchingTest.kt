@@ -37,7 +37,7 @@ fun getSound(animal: Animal) = when(animal) {
     else -> throw java.lang.RuntimeException("Unknown animal")
 }
 
-fun sumRec(i: Int, sum: Long, numbers: List<Int>): Long {
+tailrec fun sumRec(i: Int, sum: Long, numbers: List<Int>): Long {
     return if (i == numbers.size) {
         return sum
     } else {
