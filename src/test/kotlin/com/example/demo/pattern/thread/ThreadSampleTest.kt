@@ -27,4 +27,18 @@ class ThreadSampleTest {
             }
         }
     }
+
+    @Test
+    fun test3() {
+        val t = thread(
+            start = false,
+            isDaemon = false,
+            contextClassLoader = null,
+            name = "easywaldo",
+            priority = 1,
+            block = { println("hello thread") }
+        )
+        // Later
+        t.start()
+    }
 }
