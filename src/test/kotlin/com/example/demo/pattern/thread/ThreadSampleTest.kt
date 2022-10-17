@@ -41,4 +41,13 @@ class ThreadSampleTest {
         // Later
         t.start()
     }
+
+    @Test
+    fun test4() {
+        thread(isDaemon = true) {
+            for (i in 1..1_000_000) {
+                println("daemon thread says: $i")
+            }
+        }
+    }
 }
