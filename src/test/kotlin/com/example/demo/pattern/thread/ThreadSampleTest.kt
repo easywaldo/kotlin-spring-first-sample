@@ -2,6 +2,7 @@ package com.example.demo.pattern.thread
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import java.util.concurrent.CountDownLatch
 import kotlin.concurrent.thread
 
 @SpringBootTest
@@ -49,5 +50,21 @@ class ThreadSampleTest {
                 println("daemon thread says: $i")
             }
         }
+    }
+
+    @Test
+    fun thread_safety() {
+        var counter = 0
+        val latch = CountDownLatch(100_000)
+        repeat(100) {
+            thread {
+                repeat(1000) {
+                    counter++
+                    latch.countDown()
+                }
+            }
+        }
+        latch.await()
+        println("Counter $counter")
     }
 }
