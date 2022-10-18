@@ -67,4 +67,20 @@ class ThreadSampleTest {
         latch.await()
         println("Counter $counter")
     }
+
+    @Test
+    fun synchronized_test() {
+        var counter = 0
+        val latch = CountDownLatch(100_000)
+        thread {
+            repeat(1000) {
+                synchronized(latch) {
+                    counter++
+                    latch.countDown()
+                }
+            }
+            println("Counter is $counter")
+        }
+
+    }
 }
