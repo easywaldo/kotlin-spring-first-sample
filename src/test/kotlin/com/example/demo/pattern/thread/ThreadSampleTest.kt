@@ -3,6 +3,9 @@ package com.example.demo.pattern.thread
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.concurrent.thread
 
 @SpringBootTest
@@ -82,5 +85,25 @@ class ThreadSampleTest {
             println("Counter is $counter")
         }
 
+    }
+
+    @Test
+    fun thread_pool_test1() {
+        val pool = Executors.newFixedThreadPool(100)
+        val counter = AtomicInteger(0)
+        val start = System.currentTimeMillis()
+        for (i in 1..10_000) {
+            pool.submit {
+                // Do something
+                counter.incrementAndGet()
+                // Simulate wait on IO
+                Thread.sleep(100)
+                // Do something again
+                counter.incrementAndGet()
+            }
+        }
+        pool.awaitTermination(20, TimeUnit.SECONDS)
+        pool.shutdown()
+        println("Took me ${System.currentTimeMillis() - start}   millis to complete ${counter.get() / 2} tasks")
     }
 }
