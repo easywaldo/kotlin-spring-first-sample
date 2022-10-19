@@ -55,7 +55,7 @@ class CoroutineTest {
 
     @Test
     fun cancellable_test() {
-        val cancellable = launch {
+        val job1 = CoroutineScope(Dispatchers.Default).launch {
             try {
                 for (i in 1..10_000) {
                     println("Cancellable: $i")
@@ -66,16 +66,18 @@ class CoroutineTest {
                 e.printStackTrace()
             }
         }
-        val notCancellable = launch {
-            for (i in 1..10_000) {
-                if (i % 100 == 0) {
-                    println("Not cancellable $i")
+        val job2 = CoroutineScope(Dispatchers.Default).launch {
+            val notCancellable = launch {
+                for (i in 1..10_000) {
+                    if (i % 100 == 0) {
+                        println("Not cancellable $i")
+                    }
                 }
             }
         }
         runBlocking {
-            cancellable.run { cancel()  }
-            notCancellable.run { cancel() }
+            job1.join()
+            job2.join()
         }
     }
 
