@@ -8,6 +8,7 @@ import java.util.*
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.system.measureTimeMillis
 
 @SpringBootTest
 class CoroutineTest {
@@ -40,11 +41,46 @@ class CoroutineTest {
             val uuid = task.await()
             println(uuid)
         }
+    }
 
-
+    @Test
+    fun profile_test() {
+        runBlocking {
+            val t1 = measureTimeMillis {
+                profile("easywaldo")
+            }
+            println("Async: $t1")
+        }
     }
 
     fun fastUuidAsync() = GlobalScope.async {
         UUID.randomUUID()
+    }
+
+    suspend fun profile(id: String): Profile {
+        // Takes 1s
+        val bio = fetchBioOverHttpAsync(id)
+        // Takes 100ms
+        val picture = fetchPictureFromDBAsync(id)
+        // Takes 500ms
+        val friends = fetchFriendsFromDBAsync(id)
+        return Profile(
+            bio.await(),
+            picture.await(),
+            friends.await())
+    }
+
+    data class Profile(val bio: String, val picture: String, val friends: List<String>)
+    fun fetchFriendsFromDBAsync(id: String) = GlobalScope.async {
+        delay(500)
+        emptyList<String>()
+    }
+    fun fetchPictureFromDBAsync(id: String) = GlobalScope.async {
+        delay(500)
+        "best picture"
+    }
+    fun fetchBioOverHttpAsync(id: String) = GlobalScope.async {
+        delay(500)
+        "bio information"
     }
 }
