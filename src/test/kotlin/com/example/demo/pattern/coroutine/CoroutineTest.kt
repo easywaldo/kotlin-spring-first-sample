@@ -53,6 +53,32 @@ class CoroutineTest {
         }
     }
 
+    @Test
+    fun cancellable_test() {
+        val cancellable = launch {
+            try {
+                for (i in 1..10_000) {
+                    println("Cancellable: $i")
+                    yield()
+                }
+            }
+            catch (e: CancellationException) {
+                e.printStackTrace()
+            }
+        }
+        val notCancellable = launch {
+            for (i in 1..10_000) {
+                if (i % 100 == 0) {
+                    println("Not cancellable $i")
+                }
+            }
+        }
+        runBlocking {
+            cancellable.run { cancel()  }
+            notCancellable.run { cancel() }
+        }
+    }
+
     fun fastUuidAsync() = GlobalScope.async {
         UUID.randomUUID()
     }
