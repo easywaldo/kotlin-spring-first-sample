@@ -79,6 +79,10 @@ class CoroutineTest {
             job1.join()
             job2.join()
         }
+        runBlocking {
+            job1.cancel("canceled")
+            job2.cancel("canceled")
+        }
     }
 
     fun fastUuidAsync() = GlobalScope.async {
