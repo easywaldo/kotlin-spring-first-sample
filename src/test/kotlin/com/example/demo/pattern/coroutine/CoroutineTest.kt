@@ -4,10 +4,12 @@ import com.example.demo.concurrent.launch
 import kotlinx.coroutines.*
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.web.servlet.function.ServerResponse.async
 import java.util.*
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.random.Random.Default.nextLong
 import kotlin.system.measureTimeMillis
 
 @SpringBootTest
@@ -82,6 +84,33 @@ class CoroutineTest {
         runBlocking {
             job1.cancel("canceled")
             job2.cancel("canceled")
+        }
+    }
+
+    @Test
+    fun timeout_test() {
+        runBlocking {
+            val coroutine = async {
+                withTimeout(500) {
+                    try {
+                        val time = kotlin.random.Random.nextLong(1000)
+                        println("It will take me $time to do")
+                        delay(time)
+                        println("Returning profile")
+                        "Profile"
+                    }
+                    catch (e: TimeoutCancellationException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+            val result = try {
+                coroutine.await()
+            }
+            catch (e: TimeoutCancellationException) {
+                println("Timeout raised..")
+            }
+
         }
     }
 
