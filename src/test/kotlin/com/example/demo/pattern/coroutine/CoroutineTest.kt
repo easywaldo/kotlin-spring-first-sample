@@ -77,10 +77,10 @@ class CoroutineTest {
                 }
             }
         }
-        runBlocking {
-            job1.join()
-            job2.join()
-        }
+//        runBlocking {
+//            job1.join()
+//            job2.join()
+//        }
         runBlocking {
             job1.cancel("canceled")
             job2.cancel("canceled")
