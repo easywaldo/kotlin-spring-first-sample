@@ -88,6 +88,13 @@ class CoroutineTest {
     }
 
     @Test
+    fun coroutine_thread_name_test() {
+        GlobalScope.launch {
+            println("GlobalScope.launch ${Thread.currentThread().name}")
+        }
+    }
+
+    @Test
     fun timeout_test() {
         runBlocking {
             val coroutine = async {
