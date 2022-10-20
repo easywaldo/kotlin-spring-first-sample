@@ -95,6 +95,15 @@ class CoroutineTest {
     }
 
     @Test
+    fun launch_thread_name_test() {
+        runBlocking {
+            launch(Dispatchers.Default) {
+                println(Thread.currentThread().name)
+            }
+        }
+    }
+
+    @Test
     fun timeout_test() {
         runBlocking {
             val coroutine = async {
