@@ -26,4 +26,18 @@ class DataFlowTest {
             println(it)
         }
     }
+
+    @Test
+    fun filter_test() {
+        val numbers = 1..1000
+        val notFizzbuzz = mutableListOf<Int>()
+        for (n in numbers) {
+            if (n % 3 == 0 || n % 5 == 0) {
+                notFizzbuzz.add(n)
+            }
+        }
+        notFizzbuzz.forEach {
+            println(it)
+        }
+    }
 }
