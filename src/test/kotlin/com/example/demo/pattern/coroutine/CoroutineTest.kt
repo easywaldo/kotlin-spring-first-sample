@@ -130,6 +130,20 @@ class CoroutineTest {
         }
     }
 
+    @Test
+    fun async_long_dispatcher_test() {
+        runBlocking {
+            val task = async(Dispatchers.IO) {
+                for (i in 1.. 1000) {
+                    println("do something")
+                }
+            }
+            task.invokeOnCompletion {
+                println("completed...")
+            }
+        }
+    }
+
     fun fastUuidAsync() = GlobalScope.async {
         UUID.randomUUID()
     }
