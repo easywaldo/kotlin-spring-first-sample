@@ -40,4 +40,17 @@ class DataFlowTest {
             println(it)
         }
     }
+
+    @Test
+    fun filter_functional_test() {
+        val numbers = 1..1000
+        val nnotFizzbuzz = mutableListOf<Int>()
+        var found: List<Int> = (1..100).filter{
+            it -> it % 3 == 0 || it % 5 == 0
+        }
+        found.forEach {
+            println(it)
+        }
+
+    }
 }
