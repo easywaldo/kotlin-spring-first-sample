@@ -144,6 +144,28 @@ class CoroutineTest {
         }
     }
 
+    @Test
+    fun parent_children_task() {
+        runBlocking {
+            val parent = launch(Dispatchers.Default) {
+                val children = List(10) { childId ->
+                    launch {
+                        for (i in 1..1_000_000) {
+                            UUID.randomUUID()
+                            if (i % 100_000 == 0) {
+                                println("$childId - $i")
+                                yield()
+                            }
+                            if (childId == 8 && i == 300_000) {
+                                throw RuntimeException("Something bad happened")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     fun fastUuidAsync() = GlobalScope.async {
         UUID.randomUUID()
     }
