@@ -65,4 +65,16 @@ class DataFlowTest {
                 println("$index: $value, ")
             }
     }
+
+    @Test
+    fun summing_up_elements() {
+        val numbers = 1..100
+        var sum = 0
+        for (n in numbers) {
+            sum += n
+        }
+        val reduced: Int = numbers.reduce { acc, i -> acc + i  }
+        println(sum)
+        println(reduced)
+    }
 }
