@@ -53,4 +53,16 @@ class DataFlowTest {
         }
 
     }
+
+    @Test
+    fun filter_and_foreach_test() {
+        val numbers = (0..5)
+            .map { it * it }
+            .filter{
+                it < 20
+            }
+            .forEachIndexed { index, value ->
+                println("$index: $value, ")
+            }
+    }
 }
