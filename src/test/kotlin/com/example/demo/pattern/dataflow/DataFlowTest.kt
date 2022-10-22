@@ -77,4 +77,22 @@ class DataFlowTest {
         println(sum)
         println(reduced)
     }
+
+    @Test
+    fun getting_rid_of_nesting() {
+        val listOfLists: List<List<Int>> = listOf(
+            listOf(1,2), listOf(3,4,5), listOf(6,7,8)
+        )
+        val flattened = mutableListOf<Int>()
+        for (list in listOfLists) {
+            flattened.addAll(list)
+        }
+        val flattened_second: List<Int> = listOfLists.flatMap {
+            it
+        }
+        val flattened_third: List<Int> = listOfLists.flatten()
+        flattened.forEach { println(it) }
+        flattened_second.forEach { println(it) }
+        flattened_third.forEach { println(it) }
+    }
 }
