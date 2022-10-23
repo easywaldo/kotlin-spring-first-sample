@@ -40,6 +40,9 @@ dependencies {
 
 	implementation ("org.springframework.cloud:spring-cloud-config-server")
 	implementation ("org.springframework.cloud:spring-cloud-config-client")
+
+	implementation ("io.github.microutils:kotlin-logging-jvm:3.0.2")
+	implementation ("com.auth0:java-jwt:3.3.0")
 }
 
 dependencyManagement {
