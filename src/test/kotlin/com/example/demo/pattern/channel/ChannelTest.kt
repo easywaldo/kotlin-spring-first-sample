@@ -33,5 +33,10 @@ class ChannelTest {
                 emit(it)
             }
         }
+        launch {
+            numbersFlow.collect { number ->
+                println("Listener received $number")
+            }
+        }
     }
 }
