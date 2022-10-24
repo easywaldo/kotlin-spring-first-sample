@@ -2,6 +2,7 @@ package com.example.demo.pattern.sequence
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import kotlin.system.measureTimeMillis
 
 @SpringBootTest
 class SequenceTest {
@@ -20,5 +21,20 @@ class SequenceTest {
                 b += t
             }
         }
+    }
+
+    @Test
+    fun sequence_lazy_test() {
+        val numbers = (1..1_000_000).toList()
+        println(measureTimeMillis {
+            numbers.map {
+                it * it
+            }.take(1).forEach { it }
+        })
+        println(measureTimeMillis {
+            numbers.asSequence().map {
+                it * it
+            }.take(1).forEach { it }
+        })
     }
 }
