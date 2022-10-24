@@ -1,6 +1,5 @@
 package com.example.demo.pattern.channel
 
-import com.example.demo.concurrent.launch
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -13,16 +12,19 @@ import org.springframework.boot.test.context.SpringBootTest
 class ChannelTest {
     @Test
     fun channel_sample() {
-        val chan = Channel<Int>()
         runBlocking {
-            for (c in chan) {
-                println(c)
+            val channel = Channel<Int>()
+            launch {
+                (0..10).forEach {
+                    println("send $it")
+                    channel.send(it)
+                }
             }
 
-            (1..10).forEach {
-                chan.send(it)
+            repeat(11) {
+                println("receive ${channel.receive()}")
             }
-            chan.close()
+            channel.close()
         }
     }
 
