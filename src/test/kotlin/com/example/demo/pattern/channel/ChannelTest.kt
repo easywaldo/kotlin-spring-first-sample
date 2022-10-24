@@ -6,16 +6,15 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.flow
-import org.apache.tomcat.jni.Socket.send
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 class ChannelTest {
     @Test
-    fun test() {
+    fun channel_sample() {
         val chan = Channel<Int>()
-        launch {
+        runBlocking {
             for (c in chan) {
                 println(c)
             }
@@ -28,7 +27,7 @@ class ChannelTest {
     }
 
     @Test
-    fun test2() {
+    fun flow_sample() {
         val numbersFlow: Flow<Int> = flow {
             (0..10).forEach {
                 println("Sending $it")
@@ -48,7 +47,7 @@ class ChannelTest {
     }
 
     @Test
-    fun test3() {
+    fun flow_corutine_default_scope() {
         val numbersFlow: Flow<Int> = flow {
             (0..10).forEach {
                 println("Sending $it")
