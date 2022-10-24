@@ -36,6 +36,9 @@ class ChannelTest {
         launch {
             numbersFlow.collect { number ->
                 println("Listener received $number")
+                if (number == 9) {
+                    throw RuntimeException()
+                }
             }
         }
     }
