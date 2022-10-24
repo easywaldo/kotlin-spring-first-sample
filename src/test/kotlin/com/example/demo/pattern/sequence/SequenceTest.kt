@@ -29,12 +29,19 @@ class SequenceTest {
         println(measureTimeMillis {
             numbers.map {
                 it * it
-            }.take(1).forEach { it }
+            }.take(1).forEach { println("elem: $it") }
         })
         println(measureTimeMillis {
             numbers.asSequence().map {
                 it * it
-            }.take(1).forEach { it }
+            }.take(1).forEach { println("elem: $it") }
+        })
+
+        val seq_numbers = (1..1_000_000).asSequence()
+        println(measureTimeMillis {
+            seq_numbers.map {
+                it * it
+            }.take(1).forEach { println("elem: $it") }
         })
     }
 }
