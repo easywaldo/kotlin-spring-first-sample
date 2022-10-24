@@ -34,11 +34,13 @@ class ChannelTest {
             }
         }
         launch {
-            numbersFlow.collect { number ->
-                println("Listener received $number")
-                if (number == 9) {
-                    throw RuntimeException()
+            try {
+                numbersFlow.collect { number ->
+                    println("Listenerreceived $number")
                 }
+            }
+            catch (e: Exception) {
+                println("Got an error")
             }
         }
     }
