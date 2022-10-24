@@ -4,6 +4,7 @@ import com.example.demo.concurrent.launch
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.runBlocking
 import org.apache.tomcat.jni.Socket.send
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -33,7 +34,7 @@ class ChannelTest {
                 emit(it)
             }
         }
-        launch {
+        runBlocking {
             try {
                 numbersFlow.collect { number ->
                     println("Listenerreceived $number")
