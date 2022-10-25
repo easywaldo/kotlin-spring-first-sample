@@ -11,7 +11,8 @@ class DeferredTest {
     fun test() {
         runBlocking {
             val value = valueAsync()
-            println(value.await())
+            value.cancel()
+            //println(value.await())
         }
     }
     suspend fun valueAsync(): Deferred<String> = coroutineScope {
@@ -30,4 +31,31 @@ class DeferredTest {
         deferred
     }
 
+    @Test
+    fun barrier_test() {
+        runBlocking {
+            val test = fetchFavoriteCharacter("easywaldo")
+            println(test.name)
+            println(test.catchphrase)
+            println(test.picture)
+        }
+    }
+
+    data class FavoriteCharacter(
+        val name: String,
+        val catchphrase: String,
+        val picture: ByteArray = Random.nextBytes(42))
+
+    fun CoroutineScope.getCatchphraseAsync(characterName: String) = async {
+        "hello world"
+    }
+    fun CoroutineScope.getPicture(characterName: String) = async {
+        byteArrayOf(1,2,3,4)
+    }
+
+    suspend fun fetchFavoriteCharacter(name: String) = coroutineScope {
+        val catchphrase = getCatchphraseAsync(name).await()
+        val picture = getPicture(name).await()
+        FavoriteCharacter(name, catchphrase, picture)
+    }
 }
