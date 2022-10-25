@@ -4,6 +4,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flow
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -83,6 +84,37 @@ class ChannelTest {
                     delay(1000)
                     println("Coroutine $coroutineId received $number")
                 }
+            }
+        }
+    }
+
+    @Test
+    fun conflating_flow() {
+        val stock: Flow<Int> = flow {
+            var i = 0
+            while (true) {
+                if (i > 100) {
+                    break
+                }
+                emit(++i)
+                delay(100)
+            }
+        }
+//        runBlocking {
+//            var seconds = 0
+//            stock.collect { number ->
+//                delay(1000)
+//                seconds++
+//                println("$seconds seconds -> received $number")
+//            }
+//        }
+
+        runBlocking {
+            var seconds = 0
+            stock.conflate().collect { number ->
+                delay(1000)
+                seconds++
+                println("$seconds seconds -> received $number")
             }
         }
     }
