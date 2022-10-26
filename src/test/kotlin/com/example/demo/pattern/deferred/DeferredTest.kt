@@ -54,8 +54,8 @@ class DeferredTest {
     }
 
     suspend fun fetchFavoriteCharacter(name: String) = coroutineScope {
-        val catchphrase = getCatchphraseAsync(name).await()
-        val picture = getPicture(name).await()
-        FavoriteCharacter(name, catchphrase, picture)
+        val catchphrase = getCatchphraseAsync(name)
+        val picture = getPicture(name)
+        FavoriteCharacter(name, catchphrase.await(), picture.await())
     }
 }
