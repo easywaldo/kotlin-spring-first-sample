@@ -38,6 +38,9 @@ class DeferredTest {
             println(test.name)
             println(test.catchphrase)
             println(test.picture)
+
+            val (name, catchphrase, _) = fetchFavoriteCharacter("Inigo Montoya")
+            println("$name says: $catchphrase")
         }
     }
 
