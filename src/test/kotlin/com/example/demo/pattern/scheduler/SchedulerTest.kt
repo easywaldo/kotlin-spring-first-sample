@@ -3,6 +3,7 @@ package com.example.demo.pattern.scheduler
 import kotlinx.coroutines.*
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import java.util.concurrent.ForkJoinPool
 
 @SpringBootTest
 class SchedulerTest {
@@ -31,6 +32,20 @@ class SchedulerTest {
                     yield()
                 }
             }
+        }
+    }
+
+    @Test
+    fun creating_own_schedulers() {
+        runBlocking {
+            val forkJoinPool = ForkJoinPool(4).asCoroutineDispatcher()
+
+            repeat(1000) {
+                launch(forkJoinPool) {
+                    println(Thread.currentThread().name)
+                }
+            }
+            forkJoinPool.close()
         }
     }
 }
