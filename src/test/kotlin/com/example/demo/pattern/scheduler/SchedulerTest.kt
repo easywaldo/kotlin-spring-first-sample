@@ -85,5 +85,24 @@ class SchedulerTest {
         }
     }
 
-    data class Document(val page: String)
+    fun CoroutineScope.produceTitles(parsedPages: ReceiveChannel<Document>) = produce {
+        fun getTitles(dom: Document): List<String> {
+            return dom.getElementsByTagName("h1").map {
+                it.toString()
+            }
+        }
+        for (page in parsedPages) {
+            for (t in getTitles(page)) {
+                send(t)
+            }
+        }
+    }
+
+    class Document(val page: String) {
+        var domMap = mutableMapOf<String, String>()
+        fun getElementsByTagName(s: String): String? {
+            return domMap.get(s)
+        }
+
+    }
 }
