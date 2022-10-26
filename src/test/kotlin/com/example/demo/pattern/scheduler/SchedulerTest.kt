@@ -1,6 +1,7 @@
 package com.example.demo.pattern.scheduler
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.produce
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -72,4 +73,17 @@ class SchedulerTest {
             }
         }
     }
+
+    fun CoroutineScope.produceDom(pages: ReceiveChannel<String>) = produce {
+        fun parseDom(page: String): Document {
+            // In reality this would use a DOM library to parse
+            // string to DOM
+            return Document(page)
+        }
+        for (p in pages) {
+            send(parseDom(p))
+        }
+    }
+
+    data class Document(val page: String)
 }
