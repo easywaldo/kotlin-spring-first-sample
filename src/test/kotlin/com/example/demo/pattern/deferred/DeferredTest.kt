@@ -44,6 +44,18 @@ class DeferredTest {
         }
     }
 
+    @Test
+    fun each_async_coroutine_should_wait_all_task_completing_test() {
+        runBlocking {
+            val characters: List<Deferred<FavoriteCharacter>> = listOf(
+                Me.getFavoriteCharacter(),
+                Taylor.getFavoriteCharacter(),
+                Michael.getFavoriteCharacter(),
+            )
+            println(characters.awaitAll())
+        }
+    }
+
     data class FavoriteCharacter(
         val name: String,
         val catchphrase: String,
@@ -60,5 +72,30 @@ class DeferredTest {
         val catchphrase = getCatchphraseAsync(name)
         val picture = getPicture(name)
         FavoriteCharacter(name, catchphrase.await(), picture.await())
+    }
+
+
+    // barrier pattern sample
+    object Michael {
+        suspend fun getFavoriteCharacter() = coroutineScope {
+            async {
+                FavoriteCharacter("Terminator","Hasta la vista, baby")
+            }
+        }
+    }
+    object Taylor {
+        suspend fun getFavoriteCharacter() = coroutineScope {
+            async {
+                FavoriteCharacter("Don Vito Corleone","I'm going to make him an offer he can't refuse")
+            }
+        }
+    }
+    object Me {
+        suspend fun getFavoriteCharacter() = coroutineScope {
+            async {
+                // I already prepared the answer!
+                FavoriteCharacter("Inigo Montoya","Hello, my name is...")
+            }
+        }
     }
 }
