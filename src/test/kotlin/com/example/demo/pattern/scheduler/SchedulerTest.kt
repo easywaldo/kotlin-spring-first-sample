@@ -2,6 +2,7 @@ package com.example.demo.pattern.scheduler
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.channels.produce
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -58,6 +59,18 @@ class SchedulerTest {
         }
     }
 
+    @Test
+    fun composing_pipeline_test() {
+        runBlocking {
+            val pagesProducer = producePages()
+            val domProducer = produceDom(pagesProducer)
+            val titleProducer = produceTitles(domProducer)
+            titleProducer.consumeEach {
+                println(it)
+            }
+        }
+    }
+
     fun CoroutineScope.producePages() = produce {
         fun getPages(): List<String> {
             return listOf(
@@ -100,8 +113,8 @@ class SchedulerTest {
 
     class Document(val page: String) {
         var domMap = mutableMapOf<String, String>()
-        fun getElementsByTagName(s: String): String? {
-            return domMap.get(s)
+        fun getElementsByTagName(s: String): String {
+            return domMap.get(s).toString()
         }
 
     }
