@@ -34,4 +34,21 @@ class FanInTest {
             doWork(id, workChannel)
         }
     }
+
+
+    fun CoroutineScope.doWorkFanOut(
+        id: Int,
+        channel: ReceiveChannel<String>
+    ) = launch(Dispatchers.Default) {
+        for (p in channel) {
+            println("Worker $id processed $p")
+        }
+    }
+
+    suspend fun doWorkFanOut() = coroutineScope {
+        val workChannel = generateWork()
+        val workers = List(10) { id ->
+            doWorkFanOut(id, workChannel)
+        }
+    }
 }
