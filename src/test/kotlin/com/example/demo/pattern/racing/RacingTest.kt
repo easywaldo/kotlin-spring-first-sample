@@ -26,6 +26,20 @@ class RacingTest {
         }
     }
 
+    @Test
+    fun fast_producer_test() {
+        runBlocking {
+            val firstOption = fastProducer("Quick&Angry 7")
+            val secondOption = fastProducer("Revengers: Penultimatum")
+            delay(10)
+            val movieToWatch = select<String> {
+                firstOption.onReceive { it }
+                secondOption.onReceive { it }
+            }
+            println(movieToWatch)
+        }
+    }
+
     fun CoroutineScope.preciseWeather() = produce {
         delay(Random.nextLong(100))
         send("Precise Weather" to "+25c")
@@ -33,5 +47,9 @@ class RacingTest {
     fun CoroutineScope.weatherToday() = produce {
         delay(Random.nextLong(100))
         send("Weather Today" to "+24c")
+    }
+
+    fun CoroutineScope.fastProducer(movieName: String) = produce(capacity = 1) {
+        send(movieName)
     }
 }
