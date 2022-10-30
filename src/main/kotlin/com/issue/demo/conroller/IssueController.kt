@@ -1,5 +1,6 @@
 package com.issue.demo.conroller
 
+import com.issue.demo.config.AuthUser
 import com.issue.demo.dto.IssueRequest
 import com.issue.demo.service.IssueService
 import org.springframework.web.bind.annotation.PostMapping
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 class IssueController(private val issueService: IssueService,) {
     @PostMapping
     fun create(
-        @RequestBody request: IssueRequest, ) = issueService.create(1, request)
+        authUser: AuthUser,
+        @RequestBody request: IssueRequest, ) = issueService.create(authUser.userId, request)
 
 }
