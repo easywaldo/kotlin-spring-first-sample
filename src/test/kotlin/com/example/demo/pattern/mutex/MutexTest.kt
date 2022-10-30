@@ -32,9 +32,13 @@ class MutexTest {
             val jobs = List(10) {
                 launch {
                     repeat(1000) {
-                        mutex.lock()
-                        counter++
-                        mutex.unlock()
+                        try {
+                            mutex.lock()
+                            counter++
+                        }
+                        finally {
+                            mutex.unlock()
+                        }
                     }
                 }
             }
