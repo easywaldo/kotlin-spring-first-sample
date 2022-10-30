@@ -3,6 +3,7 @@ package com.example.demo.pattern.mutex
 import com.example.demo.concurrent.launch
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -32,12 +33,8 @@ class MutexTest {
             val jobs = List(10) {
                 launch {
                     repeat(1000) {
-                        try {
-                            mutex.lock()
+                        mutex.withLock {
                             counter++
-                        }
-                        finally {
-                            mutex.unlock()
                         }
                     }
                 }
