@@ -77,4 +77,11 @@ class ScopeFunctionTest {
         println(lowerCaseName)
 
     }
+
+    @Test
+    fun with_test() {
+        with("scope") {
+            println(length)
+        }
+    }
 }
