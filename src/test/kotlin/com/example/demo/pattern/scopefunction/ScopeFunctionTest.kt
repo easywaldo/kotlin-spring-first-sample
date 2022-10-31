@@ -58,6 +58,14 @@ class ScopeFunctionTest {
 
         omitMultiply(2, 10)
     }
-    fun multiply(a: Int, b: Int): Int = a * b
     fun omitMultiply(a: Int, b: Int): Int = (a * b).also { println(it) }
+
+    @Test
+    fun run_test() {
+        val justAsString = "string"
+        val n = justAsString.run {
+            length
+        }
+        println(n)
+    }
 }
