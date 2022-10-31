@@ -36,6 +36,12 @@ class ScopeFunctionTest {
             this.movie = "Dr. No"
         }
         println(`007`)
+
+        val sevenAgent = JamesBond().apply {
+            name = "easywaldo"
+            movie = "my movie"
+        }
+        println(sevenAgent.name)
     }
 
     class JamesBond {
