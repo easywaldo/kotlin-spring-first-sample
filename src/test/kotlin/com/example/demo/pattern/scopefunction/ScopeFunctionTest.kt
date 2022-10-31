@@ -55,6 +55,9 @@ class ScopeFunctionTest {
         val x = (1..100).toList()
         x.filter { it % 2 == 0 }
             .also { println(it) }
+
+        omitMultiply(2, 10)
     }
     fun multiply(a: Int, b: Int): Int = a * b
+    fun omitMultiply(a: Int, b: Int): Int = (a * b).also { println(it) }
 }
