@@ -24,4 +24,23 @@ class ScopeFunctionTest {
             println(it) // null printing
         }
     }
+
+    @Test
+    fun apply_test() {
+        val agent = JamesBond()
+        agent.name = "Sean Connery"
+        agent.movie = "Dr. No"
+
+        val `007`= JamesBond().apply {
+            this.name = "Sean Connery"
+            this.movie = "Dr. No"
+        }
+        println(`007`)
+    }
+
+    class JamesBond {
+        lateinit var name: String
+        lateinit var movie: String
+        lateinit var alsoStarring: String
+    }
 }
