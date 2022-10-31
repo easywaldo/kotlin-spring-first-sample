@@ -49,4 +49,12 @@ class ScopeFunctionTest {
         lateinit var movie: String
         lateinit var alsoStarring: String
     }
+
+    @Test
+    fun also_test() {
+        val x = (1..100).toList()
+        x.filter { it % 2 == 0 }
+            .also { println(it) }
+    }
+    fun multiply(a: Int, b: Int): Int = a * b
 }
