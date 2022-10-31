@@ -15,5 +15,13 @@ class ScopeFunctionTest {
         if (quote != null) {
             println(quote)
         }
+
+        clintEastwoodQuotes["Unforgiven"]?.let {
+            println(it)
+        }
+
+        clintEastwoodQuotes["Unforgiven"].let {
+            println(it) // null printing
+        }
     }
 }
