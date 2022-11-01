@@ -13,4 +13,12 @@ public class Network {
         this.cidr = cidr;
         this.name = name;
     }
+
+    public IP getAddress() {
+        return this.address;
+    }
+
+    public int getCidr() {
+        return this.cidr;
+    }
 }
