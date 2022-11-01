@@ -1,4 +1,4 @@
-package ddd_sample;
+package ddd_sample.vo;
 
 import java.util.UUID;
 

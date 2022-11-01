@@ -1,6 +1,6 @@
 package ddd_sample.port;
 
-import ddd_sample.Router;
+import ddd_sample.entity.Router;
 
 import java.util.List;
 

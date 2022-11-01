@@ -1,6 +1,6 @@
 package ddd_sample.use_case;
 
-import ddd_sample.Router;
+import ddd_sample.entity.Router;
 
 import java.util.List;
 import java.util.function.Predicate;

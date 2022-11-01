@@ -1,4 +1,4 @@
-package ddd_sample;
+package ddd_sample.vo;
 
 public class SwitchId {
     private String id;

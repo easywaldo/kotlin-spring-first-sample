@@ -1,11 +1,9 @@
 package ddd_sample.adapter;
 
-import ddd_sample.Router;
-import ddd_sample.RouterType;
+import ddd_sample.entity.Router;
+import ddd_sample.vo.RouterType;
 import ddd_sample.port.RouterViewInputPort;
-import ddd_sample.port.RouterViewOutputPort;
 import ddd_sample.use_case.RouterViewUseCase;
-import ddd_sample.adapter.RouterViewFileAdapter;
 
 import java.util.List;
 

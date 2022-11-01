@@ -1,6 +1,7 @@
-package ddd_sample;
+package ddd_sample.entity;
 
-import ddd_sample.entity.Switch;
+import ddd_sample.vo.RouterId;
+import ddd_sample.vo.RouterType;
 import ddd_sample.vo.IP;
 import ddd_sample.vo.Network;
 

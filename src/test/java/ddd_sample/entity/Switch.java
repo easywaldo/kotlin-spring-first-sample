@@ -1,7 +1,7 @@
 package ddd_sample.entity;
 
-import ddd_sample.SwitchId;
-import ddd_sample.SwitchType;
+import ddd_sample.vo.SwitchId;
+import ddd_sample.vo.SwitchType;
 import ddd_sample.vo.IP;
 import ddd_sample.vo.Network;
 

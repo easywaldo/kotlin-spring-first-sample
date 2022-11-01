@@ -1,8 +1,8 @@
 package ddd_sample.adapter;
 
-import ddd_sample.Router;
-import ddd_sample.RouterId;
-import ddd_sample.RouterType;
+import ddd_sample.entity.Router;
+import ddd_sample.vo.RouterId;
+import ddd_sample.vo.RouterType;
 import ddd_sample.port.RouterViewOutputPort;
 
 import java.io.BufferedReader;

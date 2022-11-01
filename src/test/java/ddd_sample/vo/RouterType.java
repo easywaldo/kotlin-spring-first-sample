@@ -1,4 +1,4 @@
-package ddd_sample;
+package ddd_sample.vo;
 
 // Value Object
 public enum RouterType {
