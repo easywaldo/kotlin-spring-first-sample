@@ -1,5 +1,9 @@
 package ddd_sample;
 
+import ddd_sample.entity.Switch;
+import ddd_sample.vo.IP;
+import ddd_sample.vo.Network;
+
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -8,6 +12,7 @@ import java.util.stream.Collectors;
 public class Router {
     private final RouterType routerType;
     private final RouterId routerId;
+    private Switch networkSwitch;
 
     public Router(RouterType routerType, RouterId routerId) {
         this.routerId = routerId;
@@ -35,5 +40,25 @@ public class Router {
 
     public RouterType getRouterType() {
         return routerType;
+    }
+
+    public void addNetworkToSwitch(Network network) {
+
+        this.networkSwitch = networkSwitch.addNetworks(network);
+    }
+    public Network createNetwork(IP address, String name, int cidr) {
+        return new Network(address, name, cidr);
+    }
+    public List<Network> retrieveNetworks() {
+        return networkSwitch.getNetworks();
+    }
+
+    @Override
+    public String toString() {
+        return "Router{" +
+                "routerType=" + routerType +
+                ", routerId=" + routerId +
+                ", networkSwitch=" + networkSwitch +
+                '}';
     }
 }
