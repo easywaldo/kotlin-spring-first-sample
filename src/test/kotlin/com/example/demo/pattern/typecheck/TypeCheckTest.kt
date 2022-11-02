@@ -9,6 +9,11 @@ class TypeCheckTest {
     fun test() {
         val s = Superman()
         doCoolStuff(s)
+
+        doCoolStuffV2(s)
+        val superheroAsString = (s as? String)
+        println(superheroAsString)
+
     }
 }
 
@@ -29,5 +34,13 @@ fun doCoolStuff(s: Superhero) {
     }
     else if (s is Batman) {
         (s as Batman).callRobin()
+    }
+}
+
+fun doCoolStuffV2(s : Superhero) {
+    when(s) {
+        is Superman -> s.fly()
+        is Batman -> s.callRobin()
+        else -> println("Unknown superhero")
     }
 }
