@@ -50,6 +50,12 @@ class ConstantTest {
         val user = ModifiedUser("easywaldo", false)
         printNameLength(user.setNone())
     }
+
+    @Test
+    fun check_method_test() {
+        val httpClient = HttpClient()
+        httpClient.postRequest()
+    }
 }
 
 class Spock {
@@ -90,4 +96,15 @@ fun setCapacity(cap: Int) {
 
 fun printNameLength(p: ModifiedUser) {
     require(p.name != null)
+}
+
+class HttpClient {
+    var body: String? = null
+    var url: String = ""
+    fun postRequest() {
+        check(body != null) {
+            "Body must be set in POST requests"
+        }
+        println("request post something")
+    }
 }
