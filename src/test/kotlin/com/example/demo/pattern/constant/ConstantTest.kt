@@ -22,6 +22,17 @@ class ConstantTest {
         println(modifiedUser.resetPassword)
         println(modifiedUserSecond.resetPassword)
     }
+
+    @Test
+    fun null_check() {
+        val response: Response? = Response(UserProfile(null, null))
+        println(response?.profile?.firstName?.length)
+        println(response?.let {
+            it.profile?.let {
+                it.firstName?.length
+            }
+        })
+    }
 }
 
 class Spock {
@@ -43,3 +54,11 @@ class ModifiedUser {
         this.resetPassword = resetPassword
     }
 }
+
+data class Response(
+    val profile: UserProfile?
+)
+data class UserProfile(
+    val firstName: String?,
+    val lastName: String?
+)
