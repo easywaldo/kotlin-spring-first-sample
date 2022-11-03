@@ -16,6 +16,11 @@ class ConstantTest {
         val secondUser = User("bravo", false)
         println(firstUser.resetPassword)
         println(secondUser.resetPassword)
+
+        val modifiedUser = ModifiedUser("easywaldo")
+        val modifiedUserSecond = ModifiedUser("delta", false)
+        println(modifiedUser.resetPassword)
+        println(modifiedUserSecond.resetPassword)
     }
 }
 
@@ -27,4 +32,14 @@ class Spock {
 
 class User(val name: String, val resetPassword: Boolean = true) {
     constructor(name: String) : this(name, true)
+}
+
+class ModifiedUser {
+    val resetPassword: Boolean
+    val name: String
+    constructor(
+        name: String, resetPassword: Boolean = true) {
+        this.name = name
+        this.resetPassword = resetPassword
+    }
 }
