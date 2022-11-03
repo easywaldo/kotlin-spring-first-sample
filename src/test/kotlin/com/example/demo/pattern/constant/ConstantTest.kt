@@ -2,6 +2,7 @@ package com.example.demo.pattern.constant
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.annotation.Profile
 
 @SpringBootTest
 class ConstantTest {
@@ -38,6 +39,17 @@ class ConstantTest {
             }
         })
     }
+
+    @Test
+    fun require_test() {
+        setCapacity(-100)
+    }
+
+    @Test
+    fun object_null_check() {
+        val user = ModifiedUser("easywaldo", false)
+        printNameLength(user.setNone())
+    }
 }
 
 class Spock {
@@ -52,11 +64,15 @@ class User(val name: String, val resetPassword: Boolean = true) {
 
 class ModifiedUser {
     val resetPassword: Boolean
-    val name: String
+    var name: String?
     constructor(
         name: String, resetPassword: Boolean = true) {
         this.name = name
         this.resetPassword = resetPassword
+    }
+    fun setNone(): ModifiedUser {
+        this.name = null
+        return this
     }
 }
 
@@ -67,3 +83,11 @@ data class UserProfile(
     val firstName: String?,
     val lastName: String?
 )
+
+fun setCapacity(cap: Int) {
+    require(cap > 0)
+}
+
+fun printNameLength(p: ModifiedUser) {
+    require(p.name != null)
+}
