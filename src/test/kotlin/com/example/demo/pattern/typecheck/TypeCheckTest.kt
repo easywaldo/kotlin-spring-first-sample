@@ -15,6 +15,13 @@ class TypeCheckTest {
         println(superheroAsString)
 
     }
+
+    @Test
+    fun reified_test() {
+        printIfSameReified<Int>(1)
+        printIfSameReified<Int>(2L)
+        printIfSameReified<Long>(3L)
+    }
 }
 
 interface Superhero
@@ -42,5 +49,21 @@ fun doCoolStuffV2(s : Superhero) {
         is Superman -> s.fly()
         is Batman -> s.callRobin()
         else -> println("Unknown superhero")
+    }
+}
+
+fun <T> printIfSameType(a: Number) {
+    /*
+    if (a is T) {  //<== Error
+        println(a)
+    }
+    */
+}
+
+inline fun <reified T: Number> printIfSameReified(a: Number) {
+    if (a is T) {
+        println("Yes")
+    } else {
+        println("No")
     }
 }
