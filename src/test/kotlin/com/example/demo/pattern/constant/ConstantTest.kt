@@ -32,6 +32,11 @@ class ConstantTest {
                 it.firstName?.length
             }
         })
+        println(response?.run {
+            profile?.run {
+                firstName?.length
+            }
+        })
     }
 }
 
