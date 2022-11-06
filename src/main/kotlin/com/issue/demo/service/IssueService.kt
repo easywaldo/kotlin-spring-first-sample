@@ -2,10 +2,11 @@ package com.issue.demo.service
 
 import com.issue.demo.domain.Issue
 import com.issue.demo.domain.IssueRepository
+import com.issue.demo.domain.IssueStatus
 import com.issue.demo.dto.IssueRequest
 import com.issue.demo.dto.IssueResponse
 import org.springframework.stereotype.Service
-import javax.transaction.Transactional
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class IssueService (
@@ -26,4 +27,10 @@ class IssueService (
 
 
     }
+
+    @Transactional(readOnly = true)
+    fun getAll(status: IssueStatus) =
+        issueRepository.findAllByStatusOrderByCreatedAtDesc(status)?.map {
+            IssueResponse(it)
+        }
 }
