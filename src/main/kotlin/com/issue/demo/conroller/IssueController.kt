@@ -7,6 +7,7 @@ import com.issue.demo.service.IssueService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -25,4 +26,7 @@ class IssueController(private val issueService: IssueService,) {
 
     @GetMapping("/{id}")
     fun get(authUser: AuthUser, @PathVariable id: Long,) = issueService.get(id)
+
+    @PutMapping("/{id}")
+    fun update(authUser: AuthUser, @PathVariable id: Long, @RequestBody request: IssueRequest) = issueService.update(authUser.userId, id, request)
 }
