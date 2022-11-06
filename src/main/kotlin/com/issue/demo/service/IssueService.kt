@@ -5,6 +5,8 @@ import com.issue.demo.domain.IssueRepository
 import com.issue.demo.domain.IssueStatus
 import com.issue.demo.dto.IssueRequest
 import com.issue.demo.dto.IssueResponse
+import com.issue.demo.exception.NotFoundException
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -33,4 +35,10 @@ class IssueService (
         issueRepository.findAllByStatusOrderByCreatedAtDesc(status)?.map {
             IssueResponse(it)
         }
+
+    @Transactional(readOnly = true)
+    fun get(id: Long): IssueResponse {
+        val issue = issueRepository.findByIdOrNull(id) ?: throw NotFoundException("등록된 이슈가 아닙니다")
+        return IssueResponse((issue))
+    }
 }
