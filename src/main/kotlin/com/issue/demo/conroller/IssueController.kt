@@ -4,6 +4,8 @@ import com.issue.demo.config.AuthUser
 import com.issue.demo.domain.IssueStatus
 import com.issue.demo.dto.IssueRequest
 import com.issue.demo.service.IssueService
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -29,4 +32,8 @@ class IssueController(private val issueService: IssueService,) {
 
     @PutMapping("/{id}")
     fun update(authUser: AuthUser, @PathVariable id: Long, @RequestBody request: IssueRequest) = issueService.update(authUser.userId, id, request)
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun delete(authUser: AuthUser, @PathVariable id: Long) = issueService.delete(authUser.userId, id)
 }
