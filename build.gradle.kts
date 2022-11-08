@@ -43,6 +43,9 @@ dependencies {
 
 	implementation ("io.github.microutils:kotlin-logging-jvm:3.0.2")
 	implementation ("com.auth0:java-jwt:3.3.0")
+
+	val ktorVersion = "1.6.0"
+	implementation("io.ktor:ktor-server-netty:$ktorVersion")
 }
 
 dependencyManagement {
