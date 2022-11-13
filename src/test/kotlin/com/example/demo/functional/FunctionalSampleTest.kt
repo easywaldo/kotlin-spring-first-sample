@@ -11,4 +11,11 @@ class FunctionalSampleTest {
         val result = numList.fold(0, Int::plus)
         println(result)
     }
+
+    @Test
+    fun inner_function() {
+        fun return_number(number: Int): Int = number + number
+        val a = 100
+        println(return_number(a))
+    }
 }
