@@ -92,6 +92,11 @@ class FunctionalSampleTest {
         println(c1.toString())
     }
 
+    @Test
+    fun param_after_varargs() {
+        paramAfterVararg(99, "Waldo", "John", "Denial", roomTemperature = 19.5)
+    }
+
 }
 
 fun String.countWords():Int {
@@ -127,3 +132,8 @@ data class CustomerData(val firstName: String,
                         val lastName: String,
                         val weight: Kg,
                         val height: cm)
+
+fun paramAfterVararg(courseId: Int, vararg  students: String, roomTemperature: Double) {
+    // Do something here
+    println("do something...")
+}
