@@ -17,5 +17,15 @@ class FunctionalSampleTest {
         fun return_number(number: Int): Int = number + number
         val a = 100
         println(return_number(a))
+
+        fun outer_func(number: Int): Int {
+            fun inner_func(number: Int): Int {
+                return number * number
+            }
+            return inner_func(number)
+        }
+
+        val b = 20
+        println(outer_func(20))
     }
 }
