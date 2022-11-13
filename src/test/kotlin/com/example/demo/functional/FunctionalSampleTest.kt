@@ -35,6 +35,18 @@ class FunctionalSampleTest {
         val counts = "This is an example String multiple words".countWords()
         println(counts)
     }
+
+    @Test
+    fun varagrs_func()  {
+        fun sample(vararg number: Int): Int {
+            var total: Int = 0
+            for (n in number) {
+                total += n
+            }
+            return total
+        }
+        println(sample(1,2,3,4,5,6,7,8,9,10,11))
+    }
 }
 
 fun String.countWords():Int {
