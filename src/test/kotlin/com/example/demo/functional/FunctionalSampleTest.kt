@@ -72,6 +72,15 @@ class FunctionalSampleTest {
         }
     }
 
+    @Test
+    fun unit_lambda_varargs() {
+        emit(1, ::println, {
+            it -> println(it * 2)
+        }, {
+            it -> println(it * 5)
+        })
+    }
+
 }
 
 fun String.countWords():Int {
@@ -95,3 +104,7 @@ fun unless(condition: Boolean, block: () -> Unit) {
 }
 
 fun <T, R> transform(vararg ts: T, f: (T) -> R): List<R> = ts.map(f)
+
+fun <T> emit(t: T, vararg listeners: (T) -> Unit) = listeners.forEach {
+    it(t)
+}
