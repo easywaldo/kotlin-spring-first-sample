@@ -63,6 +63,14 @@ class FunctionalSampleTest {
         })
     }
 
+    @Test
+    fun lambda_varargs_sample() {
+        transform(1,3,5,7) {
+            it -> it * 2
+        }.forEach {
+            println(it)
+        }
+    }
 
 }
 
@@ -85,3 +93,5 @@ fun unless(condition: Boolean, block: () -> Unit) {
         block()
     }
 }
+
+fun <T, R> transform(vararg ts: T, f: (T) -> R): List<R> = ts.map(f)
