@@ -56,6 +56,13 @@ class FunctionalSampleTest {
         }
     }
 
+    @Test
+    fun lambda_sample() {
+        unless(3 == 10, {
+            println("not same")
+        })
+    }
+
 
 }
 
@@ -70,5 +77,11 @@ fun perf_operation_on_even(number: Int, operation: (Int) -> Int): Int {
         return operation(number)
     } else {
         return number
+    }
+}
+
+fun unless(condition: Boolean, block: () -> Unit) {
+    if (!condition) {
+        block()
     }
 }
