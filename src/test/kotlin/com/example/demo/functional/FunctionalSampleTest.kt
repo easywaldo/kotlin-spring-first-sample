@@ -110,6 +110,8 @@ class FunctionalSampleTest {
     fun default_param() {
         val programmer = Programer(name = "easywaldo", favoriteLanguage = "Python")
         println(programmer)
+        val programerSecond = Programer("easywaldo", "Java", yearsOfExperience = 10)
+        println(programerSecond)
     }
 
 }
