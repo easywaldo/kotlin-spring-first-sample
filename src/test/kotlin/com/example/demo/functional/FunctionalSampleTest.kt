@@ -2,6 +2,7 @@ package com.example.demo.functional
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import java.util.regex.Pattern
 
 @SpringBootTest
 class FunctionalSampleTest {
@@ -28,4 +29,16 @@ class FunctionalSampleTest {
         val b = 20
         println(outer_func(20))
     }
+
+    @Test
+    fun extension_function() {
+        val counts = "This is an example String multiple words".countWords()
+        println(counts)
+    }
+}
+
+fun String.countWords():Int {
+    return trim()
+        .split(Pattern.compile("\\s+"))
+        .size
 }
