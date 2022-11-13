@@ -97,6 +97,15 @@ class FunctionalSampleTest {
         paramAfterVararg(99, "Waldo", "John", "Denial", roomTemperature = 19.5)
     }
 
+    @Test
+    fun named_param_high_order_func() {
+        high {
+            q, w ->
+                println("Age is ${q}")
+                println("Name is ${w}")
+        }
+    }
+
 }
 
 fun String.countWords():Int {
@@ -136,4 +145,8 @@ data class CustomerData(val firstName: String,
 fun paramAfterVararg(courseId: Int, vararg  students: String, roomTemperature: Double) {
     // Do something here
     println("do something...")
+}
+
+fun high(f: (age: Int, name: String) -> Unit) {
+    f(1, "Romeo")
 }
