@@ -106,6 +106,12 @@ class FunctionalSampleTest {
         }
     }
 
+    @Test
+    fun default_param() {
+        val programmer = Programer(name = "easywaldo", favoriteLanguage = "Python")
+        println(programmer)
+    }
+
 }
 
 fun String.countWords():Int {
@@ -150,3 +156,5 @@ fun paramAfterVararg(courseId: Int, vararg  students: String, roomTemperature: D
 fun high(f: (age: Int, name: String) -> Unit) {
     f(1, "Romeo")
 }
+
+data class Programer(val name: String, val favoriteLanguage: String = "Kotlin", val yearsOfExperience: Int = 0)
