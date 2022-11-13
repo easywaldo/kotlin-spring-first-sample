@@ -81,6 +81,17 @@ class FunctionalSampleTest {
         })
     }
 
+    @Test
+    fun named_parameters() {
+        val c1 = CustomerData(
+            firstName = "John",
+            middleName = "Waldo",
+            lastName = "Charly",
+            weight = 91.9,
+            height = 183)
+        println(c1.toString())
+    }
+
 }
 
 fun String.countWords():Int {
@@ -108,3 +119,11 @@ fun <T, R> transform(vararg ts: T, f: (T) -> R): List<R> = ts.map(f)
 fun <T> emit(t: T, vararg listeners: (T) -> Unit) = listeners.forEach {
     it(t)
 }
+
+typealias Kg = Double
+typealias cm = Int
+data class CustomerData(val firstName: String,
+                        val middleName: String,
+                        val lastName: String,
+                        val weight: Kg,
+                        val height: cm)
