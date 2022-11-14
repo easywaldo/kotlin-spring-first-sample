@@ -126,6 +126,15 @@ class FunctionalSampleTest {
         println(human.speak())
     }
 
+    @Test
+    fun conflicting_extension_function() {
+        val worker = Worker()
+        println(worker.work())
+
+        println(worker.work("refactoring"))
+        println(worker.rest())
+    }
+
 }
 
 fun String.countWords():Int {
@@ -177,3 +186,15 @@ fun String.sendToConsole() = println(this)
 
 class Human(val name: String)
 fun Human.speak(): String = "${this.name} makes a noise"
+
+
+class Worker {
+    fun work() = "*working hard*"
+    private fun rest() = "*resting"
+}
+
+fun Worker.work() = "*not working so hard*"
+
+fun <T> Worker.work(t: T) = "* working on $t*"
+
+fun Worker.rest() = "*playing video games*"
