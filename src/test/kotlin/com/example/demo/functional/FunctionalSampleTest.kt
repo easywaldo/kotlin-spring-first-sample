@@ -114,6 +114,12 @@ class FunctionalSampleTest {
         println(programerSecond)
     }
 
+    @Test
+    fun extension_function_sample() {
+        val helloWorld: String = "HelloWorld"
+        helloWorld.sendToConsole()
+    }
+
 }
 
 fun String.countWords():Int {
@@ -160,3 +166,5 @@ fun high(f: (age: Int, name: String) -> Unit) {
 }
 
 data class Programer(val name: String, val favoriteLanguage: String = "Kotlin", val yearsOfExperience: Int = 0)
+
+fun String.sendToConsole() = println(this)
