@@ -1,10 +1,7 @@
 package com.issue.demo.dto
 
 import com.fasterxml.jackson.annotation.JsonFormat
-import com.issue.demo.domain.Issue
-import com.issue.demo.domain.IssuePriority
-import com.issue.demo.domain.IssueStatus
-import com.issue.demo.domain.IssueType
+import com.issue.demo.domain.*
 import org.springframework.data.annotation.CreatedDate
 import java.time.LocalDateTime
 
@@ -24,6 +21,7 @@ data class IssueResponse(
     val type: IssueType,
     val priority: IssuePriority,
     val status: IssueStatus,
+    val comments: List<CommentResponse> = emptyList(),
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     val createdAt: LocalDateTime?,
@@ -42,6 +40,7 @@ data class IssueResponse(
                 status=status,
                 createdAt=createdAt,
                 updatedAt=updatedAt,
+                comments = comments.sortedByDescending(Comment::id).map(Comment::toResponse),
             )
         }
     }
