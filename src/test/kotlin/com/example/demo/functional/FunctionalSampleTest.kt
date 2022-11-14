@@ -135,6 +135,12 @@ class FunctionalSampleTest {
         println(worker.rest())
     }
 
+    @Test
+    fun extension_function_for_object() {
+        Desiner.fastPrototype()
+        Desiner.Desk.portfolio().forEach(::println)
+    }
+
 }
 
 fun String.countWords():Int {
@@ -198,3 +204,13 @@ fun Worker.work() = "*not working so hard*"
 fun <T> Worker.work(t: T) = "* working on $t*"
 
 fun Worker.rest() = "*playing video games*"
+
+object Buidler {
+}
+fun Buidler.builderBrigde() = "A shinny new bridge"
+class Desiner {
+    companion object {}
+    object Desk{}
+}
+fun Desiner.Companion.fastPrototype() = listOf<String>("1", "2")
+fun Desiner.Desk.portfolio() = listOf<String>("Project1", "Project2")
