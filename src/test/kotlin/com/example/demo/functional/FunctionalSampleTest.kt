@@ -145,6 +145,8 @@ class FunctionalSampleTest {
     fun infix_test() {
         println(1 superOperation 2)
         println(1.superOperation(2))
+
+        All your (Base are Belong to Us)
     }
 
 }
@@ -222,3 +224,13 @@ fun Desiner.Companion.fastPrototype() = listOf<String>("1", "2")
 fun Desiner.Desk.portfolio() = listOf<String>("Project1", "Project2")
 
 infix fun Int.superOperation(i: Int) = this + i
+
+object All {
+    infix fun your(base: Pair<Base, Us>) {}
+}
+object Base {
+    infix fun are(belong: Belong) = this
+}
+
+object Belong
+object Us
