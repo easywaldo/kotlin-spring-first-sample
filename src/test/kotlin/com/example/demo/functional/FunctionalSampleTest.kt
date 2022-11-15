@@ -141,6 +141,12 @@ class FunctionalSampleTest {
         Desiner.Desk.portfolio().forEach(::println)
     }
 
+    @Test
+    fun infix_test() {
+        println(1 superOperation 2)
+        println(1.superOperation(2))
+    }
+
 }
 
 fun String.countWords():Int {
@@ -214,3 +220,5 @@ class Desiner {
 }
 fun Desiner.Companion.fastPrototype() = listOf<String>("1", "2")
 fun Desiner.Desk.portfolio() = listOf<String>("Project1", "Project2")
+
+infix fun Int.superOperation(i: Int) = this + i
