@@ -167,6 +167,9 @@ class FunctionalSampleTest {
     fun invoke_test() {
         val wolfman = WolfMan("easywaldo")
         println(wolfman(WolfActions.WALK))
+
+        wolfman.invoke(WolfActions.SLEEP, WolfActions.WALK, WolfActions.BITE)
+
     }
 }
 
@@ -268,10 +271,13 @@ enum class WolfActions {
     SLEEP, WALK, BITE,
 }
 class WolfMan(val name: String) {
-    operator fun invoke(action: WolfActions) = when(action) {
-        WolfActions.SLEEP -> "$name is sleeping"
-        WolfActions.WALK -> "$name is walking"
-        WolfActions.BITE -> "$name is biting"
+    operator fun invoke(vararg actions: WolfActions) = actions.forEach {
+        action ->
+        when(action) {
+            WolfActions.SLEEP -> println("$name is sleeping")
+            WolfActions.WALK -> println("$name is walking")
+            WolfActions.BITE -> println("$name is biting")
+        }
     }
 }
 
