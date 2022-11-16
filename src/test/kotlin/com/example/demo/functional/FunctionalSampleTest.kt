@@ -8,7 +8,7 @@ import java.util.regex.Pattern
 class FunctionalSampleTest {
     @Test
     fun fold_test() {
-        val numList = listOf(1,2,3,4,5,6,7,10)
+        val numList = listOf(1, 2, 3, 4, 5, 6, 7, 10)
         val result = numList.fold(0, Int::plus)
         println(result)
     }
@@ -37,7 +37,7 @@ class FunctionalSampleTest {
     }
 
     @Test
-    fun varagrs_func()  {
+    fun varagrs_func() {
         fun sample(vararg number: Int): Int {
             var total: Int = 0
             for (n in number) {
@@ -45,14 +45,14 @@ class FunctionalSampleTest {
             }
             return total
         }
-        println(sample(1,2,3,4,5,6,7,8,9,10,11))
+        println(sample(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11))
     }
 
     @Test
-    fun high_order_function()  {
-        val numbers = listOf(1,2,3,4,5,6,7,8,9,10)
+    fun high_order_function() {
+        val numbers = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
         numbers.forEach {
-            println("Called with 4 : ${perf_operation_on_even(it, {it * 2})}")
+            println("Called with 4 : ${perf_operation_on_even(it, { it * 2 })}")
         }
     }
 
@@ -65,8 +65,8 @@ class FunctionalSampleTest {
 
     @Test
     fun lambda_varargs_sample() {
-        transform(1,3,5,7) {
-            it -> it * 2
+        transform(1, 3, 5, 7) { it ->
+            it * 2
         }.forEach {
             println(it)
         }
@@ -74,10 +74,10 @@ class FunctionalSampleTest {
 
     @Test
     fun unit_lambda_varargs() {
-        emit(1, ::println, {
-            it -> println(it * 2)
-        }, {
-            it -> println(it * 5)
+        emit(1, ::println, { it ->
+            println(it * 2)
+        }, { it ->
+            println(it * 5)
         })
     }
 
@@ -88,7 +88,8 @@ class FunctionalSampleTest {
             middleName = "Waldo",
             lastName = "Charly",
             weight = 91.9,
-            height = 183)
+            height = 183
+        )
         println(c1.toString())
     }
 
@@ -99,10 +100,9 @@ class FunctionalSampleTest {
 
     @Test
     fun named_param_high_order_func() {
-        high {
-            q, w ->
-                println("Age is ${q}")
-                println("Name is ${w}")
+        high { q, w ->
+            println("Age is ${q}")
+            println("Name is ${w}")
         }
     }
 
@@ -149,6 +149,16 @@ class FunctionalSampleTest {
         All your (Base are Belong to Us)
     }
 
+    @Test
+    fun operator_overloading() {
+        val talbot = Wolf("Talbot")
+        val northPack: Pack = talbot + Wolf("Big Bertha")
+
+        println(northPack.members)
+        val result = Wolf("bravo") + Wolf("Easywaldo")
+        println(result)
+
+    }
 }
 
 fun String.countWords():Int {
@@ -234,3 +244,11 @@ object Base {
 
 object Belong
 object Us
+
+class Wolf(val name: String) {
+    operator fun plus(wolf: Wolf) = Pack(mapOf(name to this, wolf.name to wolf))
+}
+
+class Pack(val members: Map<String, Wolf>)
+
+
