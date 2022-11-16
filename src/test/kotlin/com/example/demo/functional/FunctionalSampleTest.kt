@@ -162,6 +162,12 @@ class FunctionalSampleTest {
         println(biggerPack)
 
     }
+
+    @Test
+    fun invoke_test() {
+        val wolfman = WolfMan("easywaldo")
+        println(wolfman(WolfActions.WALK))
+    }
 }
 
 fun String.countWords():Int {
@@ -254,5 +260,19 @@ class Wolf(val name: String) {
 
 class Pack(val members: Map<String, Wolf>)
 operator fun Pack.plus(wolf: Wolf) = Pack(this.members.toMutableMap() + (wolf.name to wolf))
+
+interface Function1<in P1, out R> : Function<R> {
+    operator fun invoke(p1: P1): R
+}
+enum class WolfActions {
+    SLEEP, WALK, BITE,
+}
+class WolfMan(val name: String) {
+    operator fun invoke(action: WolfActions) = when(action) {
+        WolfActions.SLEEP -> "$name is sleeping"
+        WolfActions.WALK -> "$name is walking"
+        WolfActions.BITE -> "$name is biting"
+    }
+}
 
 
