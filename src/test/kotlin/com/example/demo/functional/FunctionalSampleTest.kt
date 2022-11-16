@@ -158,6 +158,9 @@ class FunctionalSampleTest {
         val result = Wolf("bravo") + Wolf("Easywaldo")
         println(result)
 
+        val biggerPack = northPack + Wolf("Packman")
+        println(biggerPack)
+
     }
 }
 
@@ -250,5 +253,6 @@ class Wolf(val name: String) {
 }
 
 class Pack(val members: Map<String, Wolf>)
+operator fun Pack.plus(wolf: Wolf) = Pack(this.members.toMutableMap() + (wolf.name to wolf))
 
 
