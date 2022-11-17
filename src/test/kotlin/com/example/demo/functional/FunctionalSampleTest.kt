@@ -171,6 +171,16 @@ class FunctionalSampleTest {
         wolfman.invoke(WolfActions.SLEEP, WolfActions.WALK, WolfActions.BITE)
 
     }
+
+    @Test
+    fun indexed_operator() {
+        val talbot = Wolf("Talbot")
+        val northPack: Pack = talbot + Wolf("Big Bertha")
+        val biggerPack = northPack + Wolf("Bad Wolf")
+        val badWolf = biggerPack["Bad Wolf"]
+        var result = biggerPack.get("Bad Wolf")
+        println(result)
+    }
 }
 
 fun String.countWords():Int {
@@ -280,5 +290,9 @@ class WolfMan(val name: String) {
         }
     }
 }
+
+operator fun Pack.get(name: String) = members[name]!!
+
+
 
 
