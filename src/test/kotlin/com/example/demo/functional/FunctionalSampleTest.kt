@@ -180,6 +180,9 @@ class FunctionalSampleTest {
         val badWolf = biggerPack["Bad Wolf"]
         var result = biggerPack.get("Bad Wolf")
         println(result)
+
+        talbot.set(WolfRelationships.ENEMY, badWolf)
+        talbot[WolfRelationships.PARTNER] = Wolf("black wolf")
     }
 }
 
@@ -292,6 +295,12 @@ class WolfMan(val name: String) {
 }
 
 operator fun Pack.get(name: String) = members[name]!!
+enum class WolfRelationships {
+    FRIEND, SIBLING, ENEMY, PARTNER
+}
+operator fun Wolf.set(relationships: WolfRelationships, wolf: Wolf) {
+    println("${wolf.name} is my new $relationships")
+}
 
 
 
