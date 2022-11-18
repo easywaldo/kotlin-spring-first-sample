@@ -207,6 +207,12 @@ class FunctionalSampleTest {
         talbot.set(WolfRelationships.ENEMY, badWolf)
         talbot[WolfRelationships.PARTNER] = Wolf("black wolf")
     }
+
+    @Test
+    fun unary_operator() {
+        val talbot = Wolf("Talbot")
+        println(!talbot)
+    }
 }
 
 fun String.countWords():Int {
@@ -324,6 +330,8 @@ enum class WolfRelationships {
 operator fun Wolf.set(relationships: WolfRelationships, wolf: Wolf) {
     println("${wolf.name} is my new $relationships")
 }
+
+operator fun Wolf.not() = "$name is angry!!!"
 
 
 
