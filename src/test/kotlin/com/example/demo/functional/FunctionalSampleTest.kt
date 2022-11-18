@@ -213,6 +213,14 @@ class FunctionalSampleTest {
         val talbot = Wolf("Talbot")
         println(!talbot)
     }
+
+    @Test
+    fun join_pipe_test() {
+        val joinWithPipe = with(listOf("One", "Two", "Three")) {
+            joinToString(separator = "|")
+        }
+        println(joinWithPipe)
+    }
 }
 
 fun String.countWords():Int {
