@@ -173,6 +173,29 @@ class FunctionalSampleTest {
     }
 
     @Test
+    fun logic_test() {
+
+        var numbers: IntArray = IntArray(3)
+        numbers = intArrayOf(1,23,4)
+
+
+        var sumList = mutableListOf<Int>()
+        for ((index, value) in numbers.withIndex()) {
+            for ((indexOther, valueOther) in numbers.withIndex()) {
+                if (index != indexOther) {
+                    sumList.add(value + valueOther)
+                }
+            }
+        }
+
+        sumList.toSet().sorted().forEach {
+            println(it)
+        }
+        var answer: IntArray = intArrayOf()
+        answer = sumList.toSet().sorted().toIntArray()
+    }
+
+    @Test
     fun indexed_operator() {
         val talbot = Wolf("Talbot")
         val northPack: Pack = talbot + Wolf("Big Bertha")
