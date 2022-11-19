@@ -248,6 +248,16 @@ class FunctionalSampleTest {
         }
         println(commuter)
     }
+
+    @Test
+    fun inline_function_sample() {
+        val (_, time) = time(object : Function0<Unit> {
+            override fun invoke() {
+                Thread.sleep(1000)
+            }
+        })
+        println(time)
+    }
 }
 
 fun String.countWords():Int {
@@ -458,4 +468,11 @@ fun bicycle(init: Bicycle.() -> Unit): Bicycle {
     val cycle = Bicycle()
     cycle.init()
     return cycle
+}
+
+fun <T> time(body: () -> T): Pair<T, Long> {
+    val startTime = System.nanoTime()
+    val v = body()
+    val endTime = System.nanoTime()
+    return v to endTime - startTime
 }
