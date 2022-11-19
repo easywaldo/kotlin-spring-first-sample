@@ -265,6 +265,15 @@ class FunctionalSampleTest {
         }
         println("time=$time2")
     }
+
+    @Test
+    fun inline_restrictions_sample() {
+        val service = UserService(mutableListOf(User(name = "EasyWaldo")))
+        service.transformName(String::toLowerCase).forEach {
+            println(it)
+        }
+
+    }
 }
 
 fun String.countWords():Int {
@@ -482,4 +491,27 @@ fun <T> time(body: () -> T): Pair<T, Long> {
     val v = body()
     val endTime = System.nanoTime()
     return v to endTime - startTime
+}
+
+data class User(val name: String)
+class UserService {
+    val users = mutableListOf<User>()
+    val listeners = mutableListOf<(User) -> Unit>()
+    constructor(users: List<User>) {
+        users.forEach {
+            this.users.add(it)
+        }
+    }
+
+    fun addListener(listener: (User) -> Unit) {
+        listeners += listener
+    }
+    inline fun transformName(crossinline transform: (name: String) -> String): List<User> {
+
+        val buildUser = { name: String ->
+            User(transform(name))
+        }
+
+        return users.map { user -> buildUser(user.name) }
+    }
 }
