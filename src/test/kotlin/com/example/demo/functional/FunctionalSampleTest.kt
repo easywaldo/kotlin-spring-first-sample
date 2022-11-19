@@ -251,12 +251,19 @@ class FunctionalSampleTest {
 
     @Test
     fun inline_function_sample() {
+        // compiled result code
         val (_, time) = time(object : Function0<Unit> {
             override fun invoke() {
                 Thread.sleep(1000)
             }
         })
         println(time)
+
+        // kotlin functional
+        val (_, time2) = time {
+            Thread.sleep(1000)
+        }
+        println("time=$time2")
     }
 }
 
