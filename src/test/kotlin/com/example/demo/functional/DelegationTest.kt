@@ -10,8 +10,15 @@ class DelegationTest {
     fun test() {
         notNullStr = "Initial value"
         println(notNullStr)
-        println(notInit)
+//        println(notInit)
+
+        println(myLazyVal)
     }
 }
 var notNullStr: String by Delegates.notNull<String>()
 lateinit var notInit: String
+
+val myLazyVal: String by lazy {
+    println("Just Initialized")
+    "My Lazy Value"
+}
