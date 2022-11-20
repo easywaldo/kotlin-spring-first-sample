@@ -14,4 +14,4 @@ class DelegationTest {
     }
 }
 var notNullStr: String by Delegates.notNull<String>()
-var notInit: String by Delegates.notNull<String>()
+lateinit var notInit: String
