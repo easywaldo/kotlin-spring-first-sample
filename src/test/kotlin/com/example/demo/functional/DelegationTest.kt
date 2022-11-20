@@ -13,6 +13,9 @@ class DelegationTest {
 //        println(notInit)
 
         println(myLazyVal)
+
+        myStr = "Change Value"
+        myStr = "Change Value again"
     }
 }
 var notNullStr: String by Delegates.notNull<String>()
@@ -21,4 +24,8 @@ lateinit var notInit: String
 val myLazyVal: String by lazy {
     println("Just Initialized")
     "My Lazy Value"
+}
+var myStr: String by Delegates.observable("<Initial Value>") {
+    property, oldValue, newValue ->
+    println("Property ${property.name} changed value from ${oldValue}")
 }
