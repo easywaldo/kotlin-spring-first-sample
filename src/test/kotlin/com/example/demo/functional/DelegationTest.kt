@@ -20,6 +20,15 @@ class DelegationTest {
         myIntEvent = 6
         myIntEvent = 3
         println("myIntEven:$myIntEvent")
+
+        myCounter = 2
+        println("myCounter:$myCounter")
+        myCounter = 5
+        myCounter = 4
+        println("myCounter:$myCounter")
+        myCounter++
+        myCounter--
+        println("myCounter:$myCounter")
     }
 }
 var notNullStr: String by Delegates.notNull<String>()
@@ -37,4 +46,9 @@ var myStr: String by Delegates.observable("<Initial Value>") {
 var myIntEvent: Int by Delegates.vetoable(0) {
     property, oldValue, newValue -> println("${property.name} ${oldValue} -> $newValue")
     newValue % 2 == 0
+}
+
+var myCounter: Int by Delegates.vetoable(0) {
+    property, oldValue, newValue -> println("${property.name} $oldValue -> $newValue")
+    newValue > oldValue
 }
