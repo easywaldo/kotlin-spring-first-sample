@@ -16,6 +16,10 @@ class DelegationTest {
 
         myStr = "Change Value"
         myStr = "Change Value again"
+
+        myIntEvent = 6
+        myIntEvent = 3
+        println("myIntEven:$myIntEvent")
     }
 }
 var notNullStr: String by Delegates.notNull<String>()
@@ -28,4 +32,9 @@ val myLazyVal: String by lazy {
 var myStr: String by Delegates.observable("<Initial Value>") {
     property, oldValue, newValue ->
     println("Property ${property.name} changed value from ${oldValue}")
+}
+
+var myIntEvent: Int by Delegates.vetoable(0) {
+    property, oldValue, newValue -> println("${property.name} ${oldValue} -> $newValue")
+    newValue % 2 == 0
 }
