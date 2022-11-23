@@ -64,6 +64,14 @@ class DelegationTest {
         println("myEven:$myEven")
         myEven = 8
         println("myEven:$myEven")
+
+        val person = PersonImpl("Mario Arias")
+        person.printName()
+        println()
+        val user = Users(person)
+        user.printName()
+
+
     }
 }
 var notNullStr: String by Delegates.notNull<String>()
@@ -121,3 +129,20 @@ inline fun makeEven(initialValue: Int, crossinline onAssignment: (KProperty<*>, 
     override fun afterAssignmentCall(property: KProperty<*>, oldValue: Int, newValue: Int, wasEven: Boolean) =
         onAssignment(property, oldValue, newValue, wasEven)
     }
+
+interface Person {
+    fun printName()
+}
+
+class PersonImpl(val name:String):Person {
+    override fun printName() {
+        println(name)
+    }
+}
+
+class Users(val person:Person):Person by person {
+    override fun printName() {
+        println("Printing Name:")
+        person.printName()
+    }
+}
