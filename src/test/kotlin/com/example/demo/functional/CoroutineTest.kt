@@ -1,5 +1,8 @@
 package com.example.demo.functional
 
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import java.util.concurrent.Executors
@@ -45,5 +48,17 @@ class CoroutineTest {
             }
         }
         executor.shutdown()
+    }
+
+    @Test
+    fun run_blocking() {
+        runBlocking {
+            launch {
+                delay(1000)
+                println("World")
+            }
+            print("Hello")
+            delay(2000)
+        }
     }
 }
