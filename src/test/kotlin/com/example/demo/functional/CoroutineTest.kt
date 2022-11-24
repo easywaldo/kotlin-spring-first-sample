@@ -2,6 +2,7 @@ package com.example.demo.functional
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import java.util.concurrent.Executors
 import kotlin.concurrent.thread
 
 @SpringBootTest
@@ -24,5 +25,25 @@ class CoroutineTest {
         }
         print("Hello")
         computation.join()
+    }
+
+    @Test
+    fun thread_count_test() {
+        val threads = List(100) {
+            thread {
+                Thread.sleep(1000)
+                print(".")
+            }
+        }
+        threads.forEach(Thread::join)
+
+        val executor = Executors.newFixedThreadPool(1024)
+        repeat(10000) {
+            executor.submit {
+                Thread.sleep(1000)
+                print(".")
+            }
+        }
+        executor.shutdown()
     }
 }
