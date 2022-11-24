@@ -15,4 +15,14 @@ class CoroutineTest {
         println("Hello!")
         Thread.sleep(2000)
     }
+
+    @Test
+    fun thread_join() {
+        val computation = thread {
+            Thread.sleep(1000)
+            println("World~~")
+        }
+        print("Hello")
+        computation.join()
+    }
 }
