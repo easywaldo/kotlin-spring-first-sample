@@ -2,6 +2,7 @@ package com.example.demo.functional
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import java.time.Duration
 import java.util.regex.Pattern
 
 @SpringBootTest
@@ -514,4 +515,50 @@ class UserService {
 
         return users.map { user -> buildUser(user.name) }
     }
+}
+
+data class Journey (val duration: Duration, val from: Int, val to: Int)
+data class Location(val x: Int, val y: Int)
+fun SOME_COMPLICATED_RESULT(): Int = 100
+
+class Routes {
+    companion object {
+        fun getDepartsFrom(route: List<Journey>): Location {
+            val location: Location = Location(x=route.last().from, y=route.last().to)
+            return location
+        }
+    }
+}
+
+object Suffering {
+    @JvmStatic
+    fun sufferScoreFor(route: List<Journey>): Int =
+        sufferScore(
+            route.longestJourneys(limit = 3),
+            Routes.getDepartsFrom(route)
+        )
+    @JvmStatic
+    fun List<Journey>.longestJourneys(limit: Int): List<Journey> =
+        sortedByDescending {
+            it.duration
+        }.take(limit)
+
+    fun routesToShowFor(itineraryId: String?): List<List<Journey>> =
+        bearable(routesFor(itineraryId))
+
+    private fun routesFor(itineraryId: String?): List<List<Journey>> {
+        return listOf(listOf(
+            Journey(duration = Duration.ofDays(10), from = 10, to= 20),
+            Journey(duration = Duration.ofDays(12), from = 5, to=18),
+        ))
+    }
+
+    private fun bearable(routes: List<List<Journey>>): List<List<Journey>> =
+        routes.filter {
+            sufferScoreFor(it) <= 10
+        }
+    private fun sufferScore(
+        longestJourneys: List<Journey>,
+        start: Location
+    ): Int = SOME_COMPLICATED_RESULT()
 }
