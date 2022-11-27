@@ -12,9 +12,16 @@ class ObserverTest {
         barista.orderCoffee("아이스 아메리카노")
 
         val customer = Customer("고객1")
+        val customer2 = Customer("고객2")
+        val customer3 = Customer("고객3")
         barista.addObserver(customer)
+        barista.addObserver(customer2)
+        barista.addObserver(customer3)
 
         barista.makeCoffee()
+
+        // 옵저퍼 패턴에서 서브젝트와 옵저버는 관심사에 따라 역할과 책임이 분리 되어 있다.
+        // 서브젝트는 오직 변경 사항만을 통지하는 역할을 수행
 
     }
 }
