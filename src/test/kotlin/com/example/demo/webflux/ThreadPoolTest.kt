@@ -50,7 +50,10 @@ class ThreadPoolTest {
         }
 
         println("계산 시작")
-        completableFuture.thenApplyAsync(::println)
+//        completableFuture.thenApplyAsync(::println)   // 완료 되면 callable
+
+        val result = completableFuture.get()    // blocking 발생
+        println(result)
 
         while (!completableFuture.isDone) {
             Thread.sleep(500)
