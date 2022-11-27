@@ -3,6 +3,7 @@ package com.example.demo.webflux
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import java.util.concurrent.Callable
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -38,6 +39,24 @@ class ThreadPoolTest {
         println("계산 시작")
         val futureResult = future.get(5000L, TimeUnit.MILLISECONDS)
         println(futureResult)
+        println("계산 종료")
+    }
+
+    @Test
+    fun completable_future() {
+        val completableFuture = CompletableFuture.supplyAsync {
+            Thread.sleep(2000)
+            sum(100, 500)
+        }
+
+        println("계산 시작")
+        completableFuture.thenApplyAsync(::println)
+
+        while (!completableFuture.isDone) {
+            Thread.sleep(500)
+            println("계산 결과를 집계 중입니다.")
+        }
+
         println("계산 종료")
     }
 }
