@@ -30,6 +30,8 @@ class ExtensionTest {
         println(methodAsFuncRef(Customer(id="alpha", givenName = "bravo", familyName = "charly")))
         println(extensionAsFuncRef(Customer(id="alpha", givenName = "bravo", familyName = "charly")))
 
+        println(customer.nameForMarketing)
+
     }
 }
 
@@ -42,3 +44,5 @@ data class Customer(
     fun nameForMarketing() = "{${familyName.uppercase()}, $givenName}"
 }
 
+// Extension property
+val Customer.nameForMarketing get() = "${familyName.uppercase()}"
