@@ -15,6 +15,20 @@ class ExtensionTest {
 
         val result = methodRef.invoke(Customer(id="easywaldo", givenName = "bravo", familyName = "leonardo"))
         println(result)
+        println(extensionAsFuncRef.invoke(Customer(id="alpha", givenName = "bravo", familyName = "charly")))
+
+
+        val customer = Customer(id="alpha", givenName = "bravo", familyName = "charly")
+        // instance invoke
+        customer.methodRef()
+        customer.extensionFuncRef()
+
+        // invoke instance as parameter
+        println(methodAsFuncRef.invoke(Customer(id="alpha", givenName = "bravo", familyName = "charly")))
+        println(extensionAsFuncRef.invoke(Customer(id="alpha", givenName = "bravo", familyName = "charly")))
+
+        println(methodAsFuncRef(Customer(id="alpha", givenName = "bravo", familyName = "charly")))
+        println(extensionAsFuncRef(Customer(id="alpha", givenName = "bravo", familyName = "charly")))
 
     }
 }
@@ -25,6 +39,6 @@ data class Customer(
     val familyName: String
 ) {
     val fullName get() = "$givenName $familyName"
-    fun nameForMarketing() = "${familyName.uppercase()}, $givenName}"
+    fun nameForMarketing() = "{${familyName.uppercase()}, $givenName}"
 }
 
