@@ -22,6 +22,18 @@ class FunctorsTest {
         println(optionSome)
         println(optionNone)
     }
+
+    @Test
+    fun map_test() {
+        val add3AndMultiplyBy2: (Int) -> Int = {
+            i: Int -> i + 3
+        }.map {
+            j -> j * 2
+        }
+        println(add3AndMultiplyBy2(0))
+        println(add3AndMultiplyBy2(1))
+        println(add3AndMultiplyBy2(2))
+    }
 }
 
 sealed class Option<out T> {
@@ -38,4 +50,8 @@ sealed class Option<out T> {
 fun <T, R> Option<T>.map(transform: (T) -> R): Option<R> = when(this) {
     Option.None -> Option.None
     is Option.Some -> Option.Some(transform(value))
+}
+
+fun <A, B, C> ((A) -> B).map(transform: (B) -> C): (A) -> C = {
+    t -> transform(this(t))
 }
