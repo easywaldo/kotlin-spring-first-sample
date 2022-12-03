@@ -30,6 +30,20 @@ class MonadsTest {
                 f + t
             }
         })
+
+        val numbers = listOf<Int>(1, 2, 3)
+        val funcs = listOf<(Int) -> Int>(
+            { i -> i * 2 },
+            { i -> i + 3 }
+        )
+        val result = numbers.flatMap { number ->
+            funcs.map {
+                f -> f(number)
+            }
+        }.joinToString{
+            it.toString()
+        }
+        println(result)
     }
 }
 
