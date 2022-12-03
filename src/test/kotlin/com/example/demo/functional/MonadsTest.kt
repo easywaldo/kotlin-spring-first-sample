@@ -19,6 +19,18 @@ class MonadsTest {
         println(calculateDiscount((Option.Some(30.0))))
         println(calculateDiscount((Option.None)))
     }
+
+    @Test
+    fun test2() {
+        val maybeFive = Option.Some(5)
+        val maybeTwo = Option.Some(2)
+
+        println(maybeFive.flatMap { f ->
+            maybeTwo.map { t ->
+                f + t
+            }
+        })
+    }
 }
 
 fun <T, R> Option<T>.flatMap(fm: (T) -> Option<R>): Option<R> = when(this) {
