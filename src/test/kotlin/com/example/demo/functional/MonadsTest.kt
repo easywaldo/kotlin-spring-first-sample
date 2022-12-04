@@ -45,6 +45,16 @@ class MonadsTest {
         }
         println(result)
     }
+
+    @Test
+    fun applicative_test() {
+        val numbers = listOf(1, 2, 3)
+        val functions = listOf<(Int) -> Int>({ i -> i * 2}, { i -> i + 3 })
+        val result = numbers
+            .ap(functions)
+            .joinToString()
+        println(result)
+    }
 }
 
 fun <T, R> Option<T>.flatMap(fm: (T) -> Option<R>): Option<R> = when(this) {
@@ -62,3 +72,5 @@ fun calculateDiscount(price: Option<Double>): Option<Double> {
         }
     }
 }
+
+fun <T, R> List<T>.ap(fab: List<(T) -> R>): List<R> = fab.flatMap { f -> this.map(f) }
