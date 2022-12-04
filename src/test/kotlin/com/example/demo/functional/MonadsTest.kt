@@ -77,6 +77,16 @@ class MonadsTest {
         println(f("Hello,"))
         println(f("World"))
         println(f("!"))
+
+        val add3AndMultiplyBy2: (Int) -> Int = {
+            i: Int -> i + 3
+        }.ap {
+            { j: Int -> j * 2}
+        }
+
+        println(add3AndMultiplyBy2(0))
+        println(add3AndMultiplyBy2(1))
+        println(add3AndMultiplyBy2(2))
     }
 }
 
@@ -111,3 +121,7 @@ infix fun <T, R> Option<(T) -> R>.`(*)`(o: Option<T>): Option<R> = flatMap {
 object Func1 {
     fun <A, B> pure(b: B) = { _: A-> b}
 }
+
+fun <A, B, C> ((A) -> B).flatMap(fm: (B) -> (A) -> C): (A) -> C = { t -> fm(this(t))(t) }
+
+fun <A, B, C> ((A) -> B).ap(fab: (A) -> (B) -> C): (A) -> C = fab.flatMap { f -> map(f) }
