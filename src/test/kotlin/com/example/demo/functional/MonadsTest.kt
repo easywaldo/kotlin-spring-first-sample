@@ -65,6 +65,10 @@ class MonadsTest {
         println(maybeTwo.ap(maybeFive.map { f -> {
             t: Int -> f + t
         } }))
+
+        println(Option.pure {
+            f: Int -> { t: Int -> f + t }
+        }`(*)` maybeFive `(*)` maybeTwo)
     }
 }
 
@@ -91,3 +95,7 @@ fun <T> Option.Companion.pure(t: T): Option<T> = Option.Some(t)
 
 // Option
 fun <T, R> Option<T>.ap(fab: Option<(T) -> R>): Option<R> = fab.flatMap { f -> map(f) }
+
+infix fun <T, R> Option<(T) -> R>.`(*)`(o: Option<T>): Option<R> = flatMap {
+    f: (T) -> R -> o.map(f)
+}
