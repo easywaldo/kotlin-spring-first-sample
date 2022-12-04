@@ -55,6 +55,17 @@ class MonadsTest {
             .joinToString()
         println(result)
     }
+
+    @Test
+    fun monad_flatmap_map_to_ap_test() {
+        // after
+        val maybeFive = Option.pure(5)
+        val maybeTwo = Option.pure(2)
+
+        println(maybeTwo.ap(maybeFive.map { f -> {
+            t: Int -> f + t
+        } }))
+    }
 }
 
 fun <T, R> Option<T>.flatMap(fm: (T) -> Option<R>): Option<R> = when(this) {
@@ -73,4 +84,10 @@ fun calculateDiscount(price: Option<Double>): Option<Double> {
     }
 }
 
+// List
 fun <T, R> List<T>.ap(fab: List<(T) -> R>): List<R> = fab.flatMap { f -> this.map(f) }
+
+fun <T> Option.Companion.pure(t: T): Option<T> = Option.Some(t)
+
+// Option
+fun <T, R> Option<T>.ap(fab: Option<(T) -> R>): Option<R> = fab.flatMap { f -> map(f) }
