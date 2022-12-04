@@ -70,6 +70,14 @@ class MonadsTest {
             f: Int -> { t: Int -> f + t }
         }`(*)` maybeFive `(*)` maybeTwo)
     }
+
+    @Test
+    fun func1_test() {
+        val f: (String) -> Int = Func1.pure(0)
+        println(f("Hello,"))
+        println(f("World"))
+        println(f("!"))
+    }
 }
 
 fun <T, R> Option<T>.flatMap(fm: (T) -> Option<R>): Option<R> = when(this) {
@@ -98,4 +106,8 @@ fun <T, R> Option<T>.ap(fab: Option<(T) -> R>): Option<R> = fab.flatMap { f -> m
 
 infix fun <T, R> Option<(T) -> R>.`(*)`(o: Option<T>): Option<R> = flatMap {
     f: (T) -> R -> o.map(f)
+}
+
+object Func1 {
+    fun <A, B> pure(b: B) = { _: A-> b}
 }
