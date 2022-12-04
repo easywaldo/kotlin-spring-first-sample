@@ -88,6 +88,18 @@ class MonadsTest {
         println(add3AndMultiplyBy2(1))
         println(add3AndMultiplyBy2(2))
     }
+
+    @Test
+    fun func2_test() {
+        val add3AndMultiplyBy2: (Int) -> Pair<Int, Int> = {
+            i: Int -> i + 3
+        }.ap { original ->
+            { j: Int -> original to (j * 2) }
+        }
+        println(add3AndMultiplyBy2(0))
+        println(add3AndMultiplyBy2(1))
+        println(add3AndMultiplyBy2(2))
+    }
 }
 
 fun <T, R> Option<T>.flatMap(fm: (T) -> Option<R>): Option<R> = when(this) {
