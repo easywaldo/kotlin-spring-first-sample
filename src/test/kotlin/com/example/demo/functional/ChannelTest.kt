@@ -1,7 +1,9 @@
 package com.example.demo.functional
 
+import com.example.demo.concurrent.launch
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.produce
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -36,6 +38,25 @@ class ChannelTest {
         runBlocking {
             hello.join()
             world.join()
+        }
+    }
+
+    @Test
+    fun channel_comman_test() {
+        val channel = Channel<Char>()
+        val jobs = List(1000) {
+            GlobalScope.launch {
+                delay(10)
+                channel.send('.')
+            }
+        }
+        runBlocking {
+            repeat(1000) {
+                println(channel.receive())
+            }
+            jobs.forEach {
+                job -> job.join()
+            }
         }
     }
 }
