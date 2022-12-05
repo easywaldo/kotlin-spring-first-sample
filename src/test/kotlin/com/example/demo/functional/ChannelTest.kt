@@ -59,4 +59,24 @@ class ChannelTest {
             }
         }
     }
+
+    @Test
+    fun channel_comma_test2() {
+        val channel = Channel<Char>()
+        val sender = GlobalScope.launch {
+            repeat(1000) {
+                delay(10)
+                channel.send('.')
+                delay(10)
+                channel.send(',')
+            }
+            channel.close()
+        }
+        runBlocking {
+            for (msg in channel) {
+                println(msg)
+            }
+            sender.join()
+        }
+    }
 }
