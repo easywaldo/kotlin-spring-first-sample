@@ -79,4 +79,24 @@ class ChannelTest {
             sender.join()
         }
     }
+
+    @Test
+    fun channel_func_test() {
+        val channel = dotsAndCommas(1000)
+
+        runBlocking {
+            for(msg in channel) {
+                println(msg)
+            }
+        }
+    }
+
+    fun dotsAndCommas(size: Int) = GlobalScope.produce<Char> {
+        repeat(size) {
+            delay(10)
+            send('.')
+            delay(10)
+            send(',')
+        }
+    }
 }
