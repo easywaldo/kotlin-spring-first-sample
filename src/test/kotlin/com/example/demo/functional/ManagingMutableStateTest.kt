@@ -1,6 +1,8 @@
 package com.example.demo.functional
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import java.util.concurrent.atomic.AtomicInteger
@@ -40,6 +42,21 @@ class ManagingMutableStateTest {
             val time = measureTimeMillis {
                 repeatInParallel(10000) {
                     counter.incrementAndGet()
+                }
+            }
+            println("counter = $counter")
+            println("time = $time")
+        }
+
+        runBlocking {
+            val mutex = Mutex()
+            var counter = 0
+
+            val time = measureTimeMillis {
+                repeatInParallel(10000) {
+                    mutex.withLock {
+                        counter ++
+                    }
                 }
             }
             println("counter = $counter")
