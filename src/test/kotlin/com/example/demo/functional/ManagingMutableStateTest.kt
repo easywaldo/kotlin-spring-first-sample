@@ -3,6 +3,7 @@ package com.example.demo.functional
 import kotlinx.coroutines.*
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.system.measureTimeMillis
 
 @SpringBootTest
@@ -28,6 +29,17 @@ class ManagingMutableStateTest {
                     withContext(counterContext) {
                         counter++
                     }
+                }
+            }
+            println("counter = $counter")
+            println("time = $time")
+        }
+
+        runBlocking {
+            val counter = AtomicInteger(0)
+            val time = measureTimeMillis {
+                repeatInParallel(10000) {
+                    counter.incrementAndGet()
                 }
             }
             println("counter = $counter")
