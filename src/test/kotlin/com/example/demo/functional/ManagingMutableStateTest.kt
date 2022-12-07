@@ -1,8 +1,6 @@
 package com.example.demo.functional
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import kotlin.system.measureTimeMillis
@@ -16,6 +14,20 @@ class ManagingMutableStateTest {
             val time = measureTimeMillis {
                 repeatInParallel(10000) {
                     counter++
+                }
+            }
+            println("counter = $counter")
+            println("time = $time")
+        }
+
+        runBlocking {
+            var counter = 0
+            val counterContext = newSingleThreadContext("CounterContext")
+            val time = measureTimeMillis {
+                repeatInParallel(10000) {
+                    withContext(counterContext) {
+                        counter++
+                    }
                 }
             }
             println("counter = $counter")
