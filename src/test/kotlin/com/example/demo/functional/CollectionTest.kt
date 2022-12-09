@@ -18,5 +18,13 @@ class CollectionTest {
         list.add(6)
         list.add(7)
         list.forEach { println(it) }
+
+        val set = mutableSetOf(1,2,3,3,2)
+        println("set $set")
+        set.add(4)
+        set.add(5)
+        set.add(5)
+        set.add(6)
+        println("set $set")
     }
 }
