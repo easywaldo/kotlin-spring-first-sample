@@ -12,5 +12,11 @@ class CollectionTest {
 
         println("emptyList1.size = ${emptyList.size}")
         println("emptyList2.size = ${emptyList2.size}")
+
+        val list = mutableListOf(1,2,4)
+        list.add(5)
+        list.add(6)
+        list.add(7)
+        list.forEach { println(it) }
     }
 }
