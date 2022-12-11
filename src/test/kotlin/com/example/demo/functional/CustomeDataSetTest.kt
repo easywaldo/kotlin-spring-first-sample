@@ -39,4 +39,9 @@ class MyCustomeClass (val someNumericValue: Int, val someStringValue:String) {
     override fun toString(): String {
         return "MyCustomeClass(someNumericValue=$someNumericValue, someStringValue=$someStringValue)"
     }
+
+    override fun hashCode() = someStringValue.hashCode()+someNumericValue.hashCode()
+    override fun equals(other: Any?): Boolean {
+        return other is MyCustomeClass && other.someNumericValue == someNumericValue && other.someStringValue == someStringValue
+    }
 }
