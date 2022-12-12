@@ -63,6 +63,20 @@ class ManagingMutableStateTest {
             println("time = $time")
         }
     }
+
+    @Test
+    fun map_test() {
+        val mutableMap = mutableMapOf<Int, String>()
+        mutableMap.put(1, "Item 1")
+        mutableMap.put(2, "Item 2")
+        mutableMap.put(3, "Item 3")
+        mutableMap.put(4, "Item 4")
+
+        mutableMap.put(1, "Item 5")
+        for(entry in mutableMap) {
+            println("Key ${entry.key}, Value ${entry.value}")
+        }
+    }
 }
 suspend fun repeatInParallel(times: Int, block: suspend () -> Unit) {
     val job = GlobalScope.launch {
