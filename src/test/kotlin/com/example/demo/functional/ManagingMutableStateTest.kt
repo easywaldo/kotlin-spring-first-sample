@@ -77,6 +77,16 @@ class ManagingMutableStateTest {
             println("Key ${entry.key}, Value ${entry.value}")
         }
     }
+
+    @Test
+    fun map_function() {
+        val list = listOf<Int>(1,2,3,4,5)
+        val modifiedList = list.map {
+            it*2
+        }
+        println("modifiedList -> $modifiedList")
+
+    }
 }
 suspend fun repeatInParallel(times: Int, block: suspend () -> Unit) {
     val job = GlobalScope.launch {
