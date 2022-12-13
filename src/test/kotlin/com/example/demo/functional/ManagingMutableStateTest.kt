@@ -96,6 +96,14 @@ class ManagingMutableStateTest {
         }
         println("flatMappedList -> $flatMappedList")
     }
+
+    @Test
+    fun drop_function() {
+        val list = 1.until(50).toList()
+
+        println("list.drop(25) -> ${list.drop(25)}")
+        println("list.dropLast(25) -> ${list.dropLast(25)}")
+    }
 }
 suspend fun repeatInParallel(times: Int, block: suspend () -> Unit) {
     val job = GlobalScope.launch {
