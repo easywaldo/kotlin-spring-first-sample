@@ -1,5 +1,6 @@
 package com.example.demo.functional
 
+import com.example.demo.print
 import io.ktor.util.reflect.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
@@ -140,6 +141,12 @@ class ManagingMutableStateTest {
         val result2 = list1.zipWithNext()
         println(result2)
 
+    }
+
+    @Test
+    fun grouping_collection() {
+        val list = 1.rangeTo(50).toList()
+        println(list.groupBy { it % 5 })
     }
 }
 suspend fun repeatInParallel(times: Int, block: suspend () -> Unit) {
