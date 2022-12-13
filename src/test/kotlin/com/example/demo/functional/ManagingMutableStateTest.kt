@@ -147,6 +147,25 @@ class ManagingMutableStateTest {
     fun grouping_collection() {
         val list = 1.rangeTo(50).toList()
         println(list.groupBy { it % 5 })
+
+        val data = listOf<DataSample>(
+            DataSample("d1", 10),
+            DataSample("d2", 20),
+            DataSample("a1", 20),
+            DataSample("a1", 10),
+            DataSample("a1", 30)
+        )
+        println(data.groupBy { it -> it.grade })
+        val groupData = data.groupBy { it -> it.grade }
+        println(groupData.keys)
+        println(groupData.values)
+        groupData.entries.forEach {
+            val key = it.key
+            val value = it.value
+            value.forEach {
+                println("key ${it.grade}    value ${it.type}")
+            }
+        }
     }
 }
 suspend fun repeatInParallel(times: Int, block: suspend () -> Unit) {
@@ -159,3 +178,5 @@ suspend fun repeatInParallel(times: Int, block: suspend () -> Unit) {
     }
     job.join()
 }
+
+data class DataSample(val type: String, val grade: Int)
