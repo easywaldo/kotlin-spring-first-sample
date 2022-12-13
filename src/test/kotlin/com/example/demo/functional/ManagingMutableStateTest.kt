@@ -104,6 +104,19 @@ class ManagingMutableStateTest {
         println("list.drop(25) -> ${list.drop(25)}")
         println("list.dropLast(25) -> ${list.dropLast(25)}")
     }
+
+    @Test
+    fun take_function() {
+        val list = 1.until(50).toList()
+
+        println("list.take(25) -> ${list.take(25)}")
+        println("list.takeLast(25) -> ${list.takeLast(25)}")
+        println("list.takeWhile { it <= 10 } -> ${list.takeWhile { it <= 10 }}")
+        println("list.takeLastWhile { it >= 40 } -> ${list.takeLastWhile { it >= 40 }}")
+
+        val listSecond = listOf(1, 3, 5, 9, 11, 10, 8, 132, 19)
+        println("list.takeLastWhile { it >= 10 } -> ${listSecond.takeLastWhile { it >= 10 }}")
+    }
 }
 suspend fun repeatInParallel(times: Int, block: suspend () -> Unit) {
     val job = GlobalScope.launch {
