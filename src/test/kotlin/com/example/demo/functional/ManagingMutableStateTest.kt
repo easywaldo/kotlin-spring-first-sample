@@ -128,6 +128,19 @@ class ManagingMutableStateTest {
 
         println(resultantList)
     }
+
+    @Test
+    fun zip_not_same_length() {
+        val list1 = listOf(1,2,3,4,5,6,7,8,9,10)
+        val list2 = listOf("Item1", "Item2", "Item3", "Item4", "Item5")
+
+        val result = list2.zip(list1)
+        println(result)
+
+        val result2 = list1.zipWithNext()
+        println(result2)
+
+    }
 }
 suspend fun repeatInParallel(times: Int, block: suspend () -> Unit) {
     val job = GlobalScope.launch {
