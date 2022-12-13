@@ -1,11 +1,13 @@
 package com.example.demo.functional
 
+import io.ktor.util.reflect.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.reflect.typeOf
 import kotlin.system.measureTimeMillis
 
 @SpringBootTest
@@ -116,6 +118,15 @@ class ManagingMutableStateTest {
 
         val listSecond = listOf(1, 3, 5, 9, 11, 10, 8, 132, 19)
         println("list.takeLastWhile { it >= 10 } -> ${listSecond.takeLastWhile { it >= 10 }}")
+    }
+
+    @Test
+    fun zip_function() {
+        val list1 = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        val list2 = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")
+        val resultantList = list1.zip(list2)
+
+        println(resultantList)
     }
 }
 suspend fun repeatInParallel(times: Int, block: suspend () -> Unit) {
