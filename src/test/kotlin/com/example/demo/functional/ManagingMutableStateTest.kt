@@ -87,6 +87,15 @@ class ManagingMutableStateTest {
         println("modifiedList -> $modifiedList")
 
     }
+
+    @Test
+    fun flat_map_function() {
+        val list = listOf<Int>(10, 20, 30)
+        val flatMappedList = list.flatMap {
+            it.rangeTo(it + 2).toList()
+        }
+        println("flatMappedList -> $flatMappedList")
+    }
 }
 suspend fun repeatInParallel(times: Int, block: suspend () -> Unit) {
     val job = GlobalScope.launch {
