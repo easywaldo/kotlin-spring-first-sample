@@ -25,5 +25,11 @@ class RxSampleTest {
         observable.subscribe{
             println(it.toString())
         }
+
+        observable.subscribeOn(Schedulers.computation())
+            .subscribe{
+                println("Schedulers.computation() - ${Thread.currentThread().name}")
+            }
+
     }
 }
