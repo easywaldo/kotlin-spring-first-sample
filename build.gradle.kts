@@ -46,6 +46,8 @@ dependencies {
 
 	val ktorVersion = "1.6.0"
 	implementation("io.ktor:ktor-server-netty:$ktorVersion")
+
+	implementation("io.reactivex.rxjava2:rxkotlin:2.4.0")
 }
 
 dependencyManagement {
