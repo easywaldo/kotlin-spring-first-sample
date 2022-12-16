@@ -7,7 +7,12 @@ import org.springframework.boot.test.context.SpringBootTest
 class LinkedListTest {
     @Test
     fun test() {
+        val linky_list = LinkyList<String>()
+        linky_list.addFirst("easywaldo")
+        linky_list.addFirst("alpha")
+        linky_list.addFirst("bravo")
 
+        println(linky_list)
     }
 }
 
@@ -16,5 +21,15 @@ class LinkyList<E> {
     private var head: Node<E>? = null
     private var tail: Node<E>? = null
 
-    private inner class Node<E> constructor(internal var element: E, internal var next: Node<E>?)
+    private inner class Node<E> constructor(var element: E, var next: Node<E>?)
+
+    fun addFirst(element: E) {
+        val h = head
+        val newNode = Node<E>(element, h)
+        head = newNode
+        if (h == null) {
+            tail = newNode
+        }
+        size++
+    }
 }
