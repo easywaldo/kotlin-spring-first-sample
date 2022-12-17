@@ -13,6 +13,8 @@ class LinkedListTest {
         linky_list.addFirst("bravo")
 
         println(linky_list)
+
+        linky_list.addLast("charly")
     }
 }
 
@@ -29,6 +31,18 @@ class LinkyList<E> {
         head = newNode
         if (h == null) {
             tail = newNode
+        }
+        size++
+    }
+
+    fun addLast(element: E) {
+        val t = tail
+        val newNode = Node<E>(element, null)
+        tail = newNode
+        if (t == null) {
+            head = newNode
+        } else {
+            t.next = newNode
         }
         size++
     }
