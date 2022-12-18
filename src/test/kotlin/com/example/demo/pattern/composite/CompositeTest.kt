@@ -43,13 +43,10 @@ class CompositeTest {
         )
 
         platoon.printAnything(platoon.iterator())
-    }
-}
+        platoon.move(5, 8)
+        platoon.attackRebel(10, 20)
 
-interface Trooper {
-    fun move(x: Long, y: Long)
-    fun attackRebel(x: Long, y: Long)
-    fun retreat()
+    }
 }
 
 class Squad(private val units: List<Trooper>): Trooper {
@@ -63,11 +60,15 @@ class Squad(private val units: List<Trooper>): Trooper {
     constructor(vararg units: Trooper) : this(units.toList())
 
     override fun move(x: Long, y: Long) {
-        println("move squad")
+        for (u in units) {
+            u.move(x, y)
+        }
     }
 
     override fun attackRebel(x: Long, y: Long) {
-        println("attack rebel - squad")
+        for (u in units) {
+            u.attackRebel(x, y)
+        }
     }
 
     override fun retreat() {

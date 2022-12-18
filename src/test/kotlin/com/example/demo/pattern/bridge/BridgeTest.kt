@@ -41,9 +41,11 @@ data class StormTrooper(
 ) : Trooper {
     override fun move(x: Long, y: Long) {
         legs.move(x, y)
+        println("StormTrooper moved")
     }
     override fun attackRebel(x: Long, y: Long) {
         weapon.attack(x, y)
+        println("StormTrooper attacked")
     }
 
     override fun retreat() {
@@ -55,18 +57,33 @@ const val RIFLE_DAMAGE = 3L
 const val REGULAR_SPEED: Meters = 1
 
 class Rifle : Weapon {
-    override fun attack(x: Long, y: Long) = RIFLE_DAMAGE
+    override fun attack(x: Long, y: Long): PointsOfDamage {
+        println("Rifle attack")
+        return RIFLE_DAMAGE
+    }
 }
 class Flamethrower : Weapon {
-    override fun attack(x: Long, y: Long)= RIFLE_DAMAGE * 2
+    override fun attack(x: Long, y: Long): PointsOfDamage {
+        println("Flamethrower attack")
+        return RIFLE_DAMAGE * 2
+    }
 }
 class Batton : Weapon {
-    override fun attack(x: Long, y: Long)= RIFLE_DAMAGE * 3
+    override fun attack(x: Long, y: Long): PointsOfDamage {
+        println("Batton attack")
+        return  RIFLE_DAMAGE * 3
+    }
 }
 
 class RegularLegs : Legs {
-    override fun move(x: Long, y: Long) = REGULAR_SPEED
+    override fun move(x: Long, y: Long): Meters {
+        println("RegularLegs move")
+        return REGULAR_SPEED
+    }
 }
 class AthleticLegs : Legs {
-    override fun move(x: Long, y: Long) = REGULAR_SPEED * 2
+    override fun move(x: Long, y: Long): Meters {
+        println("AthleticLegs move")
+        return REGULAR_SPEED * 2
+    }
 }
