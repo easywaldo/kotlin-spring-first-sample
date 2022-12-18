@@ -59,6 +59,9 @@ class CollectionTest {
             add(20)
             addLast(100)
         }
+        linkedList.forEach {
+            println(it)
+        }
 
         // array list
         val arrayList = ArrayList<Int>().apply {
