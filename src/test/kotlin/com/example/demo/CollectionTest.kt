@@ -67,6 +67,11 @@ class CollectionTest {
 
         println(linkedList.get(2))
 
+        linkedList.set(1, 999)
+        linkedList.forEach {
+            println(it)
+        }
+
         // array list
         val arrayList = ArrayList<Int>().apply {
             add(10)
