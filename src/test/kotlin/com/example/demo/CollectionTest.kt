@@ -62,6 +62,8 @@ class CollectionTest {
         linkedList.forEach {
             println(it)
         }
+        println(linkedList.first)
+        println(linkedList.last)
 
         // array list
         val arrayList = ArrayList<Int>().apply {
