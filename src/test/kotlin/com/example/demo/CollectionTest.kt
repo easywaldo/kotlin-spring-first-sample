@@ -65,6 +65,8 @@ class CollectionTest {
         println(linkedList.first)
         println(linkedList.last)
 
+        println(linkedList.get(2))
+
         // array list
         val arrayList = ArrayList<Int>().apply {
             add(10)
