@@ -17,6 +17,8 @@ class LinkedListTest {
         linky_list.addLast("charly")
 
         linky_list.removeFirst()
+        linky_list.addLast("last one")
+        linky_list.removeLast()
     }
 }
 
@@ -59,5 +61,30 @@ class LinkyList<E> {
             }
             size--
         }
+    }
+
+    fun removeLast() {
+        tail ?.let {
+            val prev = getPrevious(it)
+            tail = prev
+            if (prev == null) {
+                head = null
+            } else {
+                prev.next = null
+            }
+            size--
+        }
+    }
+
+    private fun getPrevious(node: Node<E>): Node<E> ? {
+        if (head != null && node == head) return null
+        var curr = head
+        while (curr != null) {
+            if (curr.next == node) {
+                return curr
+            }
+            curr = curr.next
+        }
+        return null
     }
 }
