@@ -15,6 +15,8 @@ class LinkedListTest {
         println(linky_list)
 
         linky_list.addLast("charly")
+
+        linky_list.removeFirst()
     }
 }
 
@@ -45,5 +47,17 @@ class LinkyList<E> {
             t.next = newNode
         }
         size++
+    }
+
+    fun removeFirst() {
+        head ?.let {
+            val next = it.next
+            it.next = null
+            head = next
+            if (next == null) {
+                tail = null
+            }
+            size--
+        }
     }
 }
