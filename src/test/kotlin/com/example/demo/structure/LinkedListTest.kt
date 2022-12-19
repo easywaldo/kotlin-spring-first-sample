@@ -19,6 +19,9 @@ class LinkedListTest {
         linky_list.removeFirst()
         linky_list.addLast("last one")
         linky_list.removeLast()
+
+        linky_list.addLast("new one")
+        linky_list.remove("new one")
     }
 }
 
@@ -86,5 +89,38 @@ class LinkyList<E> {
             curr = curr.next
         }
         return null
+    }
+
+    fun remove(element: E): Boolean {
+        var curr = head
+        while (curr != null) {
+            if (curr.element == element) {
+                unlink(curr)
+                return true
+            }
+            curr = curr.next
+        }
+        return false
+    }
+
+    private fun unlink(curr: Node<E>): E {
+        val element = curr.element
+        val next = curr.next
+        val prev = getPrevious(curr)
+        if (prev == null) {
+            head = next
+        } else {
+          prev.next = next
+          curr.next = null
+        }
+        if (next == null) {
+            prev ?.next = null
+            tail = prev
+        } else {
+            prev ?.next = next
+            curr.next = null
+        }
+        size--
+        return element
     }
 }
