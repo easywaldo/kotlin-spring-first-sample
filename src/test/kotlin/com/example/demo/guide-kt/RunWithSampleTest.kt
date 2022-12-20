@@ -13,11 +13,7 @@ class RunWithSampleTest {
             street = "Baker Street"
             house = "221b"
             post("Hello!")
-        }
-        if (!isReceived) {
-            println("Message is not delivered")
-        } else {
-            println("Message is delivered")
+            showCityAddress()
         }
     }
 }
@@ -31,6 +27,6 @@ class Address {
     fun post(message: String): Boolean {
         println("Message for {$zipCode, $city, $street, $house}: $message")
         return true
-
     }
 }
+fun Address.showCityAddress() = println("$street, $house")
