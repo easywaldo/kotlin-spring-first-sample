@@ -22,4 +22,16 @@ class LocalClassSample {
         p1.setGuardRail(19)
         println(guardRail)
     }
+
+    @Test
+    fun test2() {
+        class Foo {
+            val stringList = listOf<String>()
+            inner class Bar {
+                val firstArg = stringList.firstOrNull()
+            }
+        }
+        val foo = Foo()
+        println(foo.Bar().firstArg)
+    }
 }
