@@ -49,4 +49,22 @@ class LaunchSample {
             println("result2 : ${result2.await()}")
         }
     }
+
+    fun printHello() = println("Hello")
+    suspend fun doSomething() = coroutineScope{
+        launch {
+            delay(100)
+            println("World")
+        }
+        launch {
+            printHello()
+        }
+    }
+
+    @Test
+    fun suspend_test() {
+        runBlocking {
+            doSomething()
+        }
+    }
 }
