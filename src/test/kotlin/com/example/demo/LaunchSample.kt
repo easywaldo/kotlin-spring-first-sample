@@ -1,6 +1,9 @@
 package com.example.demo
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import kotlin.system.measureTimeMillis
@@ -65,6 +68,25 @@ class LaunchSample {
     fun suspend_test() {
         runBlocking {
             doSomething()
+        }
+    }
+
+
+    fun simple(): Flow<Int> = flow {
+        println("Flow started")
+        for (i in 1..3) {
+            delay(100)
+            emit(i)
+        }
+    }
+
+    @Test
+    fun flow_return_test() {
+        runBlocking {
+            val flow = simple()
+            flow.collect {
+                value -> println(value)
+            }
         }
     }
 }
