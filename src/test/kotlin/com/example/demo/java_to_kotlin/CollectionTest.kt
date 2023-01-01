@@ -15,4 +15,20 @@ class CollectionTest {
         stringList.removeAt(1)
         assert(stringList == listOf("alpha"))
     }
+
+    @Test
+    fun test2() {
+        val aMutableList = mutableListOf("0", "1")
+        val aList: List<String> = aMutableList
+        val holdState = AValueType(aList)
+        assert(holdState.first == holdState.strings.first())
+
+        aMutableList[0] = "banana"
+        // raised error
+        assert(holdState.first == holdState.strings.first())
+    }
+}
+
+class AValueType(val strings: List<String>) {
+    val first: String? = strings.firstOrNull()
 }
