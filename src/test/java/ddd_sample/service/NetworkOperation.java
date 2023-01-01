@@ -6,6 +6,12 @@ import ddd_sample.vo.Network;
 
 public class NetworkOperation {
     final private int MINIMUM_ALLOWED_CIDR = 8;
+
+    public static Router createNewNetwork(Router router, Network network) {
+        new NetworkOperation().createNewNetwork(router, network.getAddress(), "", network.getCidr());
+        return router;
+    }
+
     public void createNewNetwork(Router router, IP address, String name, int cidr) {
         if(cidr < MINIMUM_ALLOWED_CIDR) {
             throw new IllegalArgumentException("CIDR is below" + MINIMUM_ALLOWED_CIDR);
