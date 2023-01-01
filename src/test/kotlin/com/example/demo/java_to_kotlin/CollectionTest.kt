@@ -10,5 +10,9 @@ class CollectionTest {
         val aMutableList = mutableListOf("0", "1")
         val aList: List<String> = aMutableList
         println(aList)
+
+        val stringList: MutableList<String> = mutableListOf("alpha", "bravo")
+        stringList.removeAt(1)
+        assert(stringList == listOf("alpha"))
     }
 }
