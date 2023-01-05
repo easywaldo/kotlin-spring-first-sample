@@ -26,6 +26,7 @@ class DataConfig {
     fun person(): Person {
         val p = Person(name = "easywaldo")
         p.parrot = parrot()
+        System.out.println(p.parrot!!.name)
         return p
     }
 }
