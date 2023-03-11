@@ -15,7 +15,7 @@ object JWTUtils {
         .withClaim("userId", claim.userId)
         .withClaim("email", claim.email)
         .withClaim("profileUrl", claim.profileUrl)
-        .withClaim("username", claim.userName)
+        .withClaim("userName", claim.userName)
         .sign(Algorithm.HMAC256(properties.secret))
 
     fun decode(token: String, secret: String, issuer: String): DecodedJWT {
