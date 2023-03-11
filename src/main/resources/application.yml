@@ -21,3 +21,10 @@ management:
         web:
             exposure:
                 include: ['refresh', 'beans', 'evn']
+
+
+jwt:
+    issuer: jara
+    subject: auth
+    expires-time: 3600  # 1시간
+    secret: my-secret
