@@ -15,4 +15,23 @@ class DataConfig {
         goods.goodsName = "test product"
         goodsRepository.save(goods)
     }
+
+    @Bean
+    fun parrot(): Parrot {
+        val p = Parrot(name = "Koko")
+        return p
+    }
+
+    @Bean
+    fun person(): Person {
+        val p = Person(name = "easywaldo")
+        p.parrot = parrot()
+        System.out.println(p.parrot!!.name)
+        return p
+    }
+}
+
+class Parrot(val name: String)
+class Person(val name: String) {
+    var parrot: Parrot? = null
 }

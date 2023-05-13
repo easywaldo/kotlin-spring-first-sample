@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.Person
 import com.example.demo.domain.Goods
 import com.example.demo.domain.Member
 import com.example.demo.dto.GoodsResponseDto
 import com.example.demo.dto.RegisterGoods
 import com.example.demo.dto.UpdateGoods
 import com.example.demo.service.GoodsService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.cloud.context.config.annotation.RefreshScope
 import org.springframework.http.ResponseEntity
@@ -16,7 +18,9 @@ import reactor.core.publisher.Mono
 @RefreshScope
 @RestController
 class SampleController(
-    private val goodsServiceParam: GoodsService) {
+    private val goodsServiceParam: GoodsService,
+    private val person: Person,
+) {
 
     var goodsService: GoodsService = goodsServiceParam
 
@@ -79,5 +83,10 @@ class SampleController(
     @GetMapping("/config")
     fun getConfig(): String {
         return appName
+    }
+
+    @GetMapping("/person")
+    fun getPerson(): String {
+        return "${person.name} ${person.parrot?.name}"
     }
 }
