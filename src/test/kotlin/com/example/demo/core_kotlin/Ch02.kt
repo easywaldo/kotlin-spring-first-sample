@@ -35,4 +35,34 @@ class Ch02 {
             println(n)
         }
     }
+
+    @Test
+    fun primitive_type_array() {
+        val byteArray = byteArrayOf(1, 2, 3, 4, 5)
+        val shortArray = shortArrayOf(1, 2, 3, 4, 5)
+        val intArray = intArrayOf(1, 2, 3, 4, 5)
+        val longArray = longArrayOf(1, 2, 3, 4, 5)
+        val charArray = charArrayOf('a', 'b', 'c', 'd', 'e')
+        val boolArray = booleanArrayOf(true, false, true, false, true)
+        val floatArray = floatArrayOf(1f, 2f, 3f, 4f, 5.1f)
+        val doubleArray = doubleArrayOf(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+
+        val uByteArray = ubyteArrayOf(1u, 2u, 3u, 4u, 5u)
+        val uShortArray = ushortArrayOf(1u, 2u, 3u, 4u, 5u)
+        val uIntArray = uintArrayOf(1u, 2u, 3u, 4u, 5u)
+        val uLongArray = ulongArrayOf(1u, 2u, 3u, 4u, 5u)
+
+
+        println(byteArray.size)
+        println(byteArray.lastIndex)
+        println(byteArray.first())
+        val indicies = byteArray.indices
+        println(indicies.last)
+        println(indicies.first)
+
+
+        val x = intArrayOf(1, 2, 3, 4, 5)
+        println(1 in x)
+        println(10 in x)
+    }
 }
