@@ -47,6 +47,30 @@ class Ch03 {
         println(x4(10, "hello"))
         println(x4_1(10, "hello"))
 
+
+        fun a(y: Int) = {x: Int -> x + y}
+        fun b(x: Int, y: Int): (Int)-> Int {
+            return { it}
+        }
+        fun c(x: Int, y: Int) = {y: Int -> x + y}
+        fun d(x: Int, y: Int) = {x: Int -> x + y }
+        fun e(x: Int, y: Int) = {x: Int, y: Int -> x + y}
+        fun f(x: Int, y: Int) = { x + y}
+
+        val aa = a(10)          // 20
+        val bb = b(10, 20)  // ??
+        val cc = c(10, 20)  // 30
+        val dd = d(10, 20)  // 30
+        val ee = e(10, 20)  // 30
+        val ff = f(10, 20)  // 30
+
+        println(aa(10)) // 30       ->> 20
+        println(bb(10)) // 10 ??    ->> 10
+        println(cc(10)) // 40       --> 20
+        println(dd(10)) // 40       --> 30
+        println(ee(10, 10)) // 50   --> 20
+        println(ff())  // 30        --> 30
+
     }
 
     fun let(x: Int, f: (Int) -> Int): Int = f(x)
